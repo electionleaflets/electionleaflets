@@ -16,3 +16,4 @@ media/uploads
 tmp
 .DS_Store
 electionleaflets.db
+.Python

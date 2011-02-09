@@ -1,0 +1,97 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+
+	<title>Real-time election leaflet monitoring | ElectionLeaflets.org</title>	
+	<link rel="stylesheet" media="all" type="text/css" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.0/themes/ui-lightness/jquery-ui.css" />
+	<link rel="stylesheet" media="all" type="text/css" href="http://www.electionleaflets.org/css/main.css?v=7" />
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js" type="text/javascript"></script>
+	<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.0/jquery-ui.min.js" type="text/javascript"></script> 
+    <script src="http://www.electionleaflets.org/script/jcarousel.js" type="text/javascript" charset="utf-8"></script>
+    <script src="http://www.electionleaflets.org/script/functions.js" type="text/javascript"></script>
+	<script src="http://ajax.googleapis.com/ajax/libs/swfobject/2.2/swfobject.js" type="text/javascript"></script>
+    
+	<script src="http://www.electionleaflets.org/script/main.js?v=1" type="text/javascript"></script>
+	
+	{% comment %}
+	<link rel="Shortcut Icon" href="http://www.electionleaflets.org/favicon.ico" type="image/x-icon" />
+	{% endcomment %}	   
+</head>
+
+<body>
+	
+            <div class="hide">
+            <a href="#divContent">Skip navigation</a>
+        </div>
+            
+        <div id="divHeader">
+
+                            <p id="pLogo"><a href="http://www.electionleaflets.org"><span class="hide">ElectionLeaflets.org - Real-time election leaflet monitoring</span></a></p>
+                <p class="hide">General Election 2010: Live election leaflet monitoring</p>
+                    
+            <ul id="ulMenu">
+              <li>
+                  <a href="http://www.electionleaflets.org">
+                      Home
+                  </a>
+              </li>
+              <li>
+                  <a href="http://www.electionleaflets.org/addupload.php">
+                      Add a leaflet
+                  </a>
+              </li>
+              <li>
+                  <a href="http://www.electionleaflets.org/leaflets/">
+                      Latest
+                  </a>
+              </li>
+              <li>
+                  <a href="http://www.electionleaflets.org/map/leaflets/">
+                      Map
+                  </a>
+              </li>
+              <li>
+                  <a href="http://www.electionleaflets.org/analysis/">
+                      Analysis
+                  </a>
+              </li>
+            </ul>
+        </div>
+        </div>
+
+    <div id="divPage" class="home">
+	{% block body %}
+	{% endblock %}
+	</div>
+
+  
+        </div>
+        <div id="divFooter" >
+            <ul class="inline">
+                <li><a href="/">Home</a></li>
+                <li><a href="about.php">About</a></li>                
+                <li><a href="about.php#contact">Contact</a></li>                
+            </ul>
+        </div>
+    </div>
+
+{% comment %}
+Temporarily removed 
+	    			<script type="text/javascript" defer="defer">
+								 $('#divScroller ul').jcarousel({wrap: 'last',initCallback: mycarousel_initCallback,buttonNextHTML: null,buttonPrevHTML: null});; 			</script>
+				
+        <script type="text/javascript">
+        var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+        document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+        </script>
+        <script type="text/javascript">
+        try {
+        var pageTracker = _gat._getTracker("UA-321882-13");
+        pageTracker._trackPageview();
+        } catch(err) {}</script>
+{% endcomment %}        
+
+</body>
+</html>

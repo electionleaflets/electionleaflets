@@ -36,6 +36,7 @@ ROOT_URLCONF = 'electionleaflets.urls'
 
 LEAFLET_APPS = [
     'core',
+    'leaflets'
 ]
 
 INSTALLED_APPS = [

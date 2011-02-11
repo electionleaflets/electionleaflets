@@ -4,6 +4,7 @@
 *.rej
 .installed.cfg
 __minitage__*
+.svn
 bin/*
 lib/*
 include/*

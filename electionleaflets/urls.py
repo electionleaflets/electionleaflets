@@ -14,6 +14,12 @@ urlpatterns = patterns(
     url(r'^$',      direct_to_template, {'template': 'core/home.html'}, name='home'),    
     url(r'^leaflets',   include('leaflets.urls')),        
     url(r'^parties',    include('parties.urls')),            
+    url(r'^constituencies',    include('constituencies.urls')),                
+    url(r'^analysis',    include('analysis.urls')),                    
+    url(r'^map/', include('boundaries.urls')),
+    
+    # Individual urls 
+    url(r'^constituency/notspots/', direct_to_template, {'template': 'constituencies/notspots.html'}, name='constituency_notspots'),              
     # Administration URLS
     (r'^admin/(.*)', admin.site.root),
     (r'^accounts/login/$', 'django.contrib.auth.views.login'),

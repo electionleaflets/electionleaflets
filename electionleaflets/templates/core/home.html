@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 {% load leaflet_tags %}
 {% load party_tags %}
+{% load constituency_tags %}
 
 {% block body %}
         <div id="divContent">
@@ -720,36 +721,13 @@
         </div>
         <div>
             <h2>Top constituencies</h2>
-            <ol>
-                                    <li><a href="http://www.electionleaflets.org/constituencies/cambridge/">Cambridge</a> 263 leaflets</li>
-                                    <li><a href="http://www.electionleaflets.org/constituencies/islington_south_and_finsbury/">Islington South and Finsbury</a> 204 leaflets</li>
-                                    <li><a href="http://www.electionleaflets.org/constituencies/oxford_east/">Oxford East</a> 177 leaflets</li>
-                                    <li><a href="http://www.electionleaflets.org/constituencies/liverpool_wavertree/">Liverpool Wavertree</a> 85 leaflets</li>
-                                    <li><a href="http://www.electionleaflets.org/constituencies/bethnal_green_and_bow/">Bethnal Green and Bow</a> 83 leaflets</li>
-                                    <li><a href="http://www.electionleaflets.org/constituencies/manchester_withington/">Manchester Withington</a> 82 leaflets</li>
-                                    <li><a href="http://www.electionleaflets.org/constituencies/holborn_and_st_pancras/">Holborn and St Pancras</a> 77 leaflets</li>
-                                    <li><a href="http://www.electionleaflets.org/constituencies/ipswich/">Ipswich</a> 71 leaflets</li>
-                                    <li><a href="http://www.electionleaflets.org/constituencies/oxford_west_and_abingdon/">Oxford West and Abingdon</a> 64 leaflets</li>
-                                    <li><a href="http://www.electionleaflets.org/constituencies/south_cambridgeshire/">South Cambridgeshire</a> 62 leaflets</li>
-                            </ol>
+
+  			{% constituency_list_by_count %}
         </div>
+
         <div>
             <h2>Campaign not-spots</h2>
-            <ul>
-                                    <li><a href="http://www.electionleaflets.org/constituencies/aberdeen_north/">Aberdeen North</a></li>
-                                    <li><a href="http://www.electionleaflets.org/constituencies/ashfield/">Ashfield</a></li>
-                                    <li><a href="http://www.electionleaflets.org/constituencies/batley_and_spen/">Batley and Spen</a></li>
-                                    <li><a href="http://www.electionleaflets.org/constituencies/belfast_north/">Belfast North</a></li>
-                                    <li><a href="http://www.electionleaflets.org/constituencies/bosworth/">Bosworth</a></li>
-                                    <li><a href="http://www.electionleaflets.org/constituencies/bradford_south/">Bradford South</a></li>
-                                    <li><a href="http://www.electionleaflets.org/constituencies/bridgwater_and_west_somerset/">Bridgwater and West Somerset</a></li>
-                                    <li><a href="http://www.electionleaflets.org/constituencies/bury_south/">Bury South</a></li>
-                                    <li><a href="http://www.electionleaflets.org/constituencies/castle_point/">Castle Point</a></li>
-                                    <li><a href="http://www.electionleaflets.org/constituencies/chorley/">Chorley</a></li>
-                            </ul>
-            <p>
-                <a href="http://www.electionleaflets.org/notspots/">View all not-spots</a>
-            </p>
+			{% constituency_list_with_none %}
         </div>
     </div>
 

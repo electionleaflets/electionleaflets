@@ -20,6 +20,7 @@ urlpatterns = patterns(
     
     # Individual urls 
     url(r'^constituency/notspots/', direct_to_template, {'template': 'constituencies/notspots.html'}, name='constituency_notspots'),              
+    url(r'^about/$', direct_to_template, {'template': 'core/about.html'}, name='about'),                  
     # Administration URLS
     (r'^admin/(.*)', admin.site.root),
     (r'^accounts/login/$', 'django.contrib.auth.views.login'),

@@ -13,6 +13,7 @@ urlpatterns = patterns(
     '',
     url(r'^$',      direct_to_template, {'template': 'core/home.html'}, name='home'),    
     url(r'^leaflets',   include('leaflets.urls')),        
+    url(r'^parties',    include('parties.urls')),            
     # Administration URLS
     (r'^admin/(.*)', admin.site.root),
     (r'^accounts/login/$', 'django.contrib.auth.views.login'),

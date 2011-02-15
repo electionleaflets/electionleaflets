@@ -12,5 +12,15 @@ DATABASES = {
         'PASSWORD': '',        
         'HOST': '',                
         'PORT': '',                        
-    }
+    },
+    # Used for exporting the existing data from the original UK database.
+    # This will eventually be removed.
+    'export': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'leaflets_old',
+        'USER': 'root',
+        'PASSWORD': '',        
+        'HOST': 'localhost',                
+        'PORT': '',                        
+    },
 }

@@ -8,6 +8,7 @@ __minitage__*
 bin/*
 lib/*
 include/*
+build/*
 develop-eggs
 downloads
 eggs

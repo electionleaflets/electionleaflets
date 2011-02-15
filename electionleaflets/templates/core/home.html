@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% load leaflet_tags %}
+{% load party_tags %}
 
 {% block body %}
         <div id="divContent">
@@ -696,7 +697,7 @@
         <div>
             <h3>2) Send them to us</h3>
             <p>
-            Email them to <a href="mailto:leaflets@electionleaflets.org">leaflets@electionleaflets.org</a> and follow the instructions we send you, or just <a href="http://www.electionleaflets.org/addupload.php">upload them directly</a>.
+            Email them to <a href="mailto:leaflets@electionleaflets.org">leaflets@electionleaflets.org</a> and follow the instructions we send you, or just <a href="{% url add_leaflet %}">upload them directly</a>.
             <br/><strong>(One leaflet at a time please).</strong>
             </p>
         </div>
@@ -707,25 +708,15 @@
 
 		{% leaflet_carousel %}
 
-        <p><a href="http://www.electionleaflets.org/browse.php">Browse leaflets by party or category &raquo;</a></p>                        
+        <p><a href="{% url leaflets %}">Browse leaflets by party or category &raquo;</a></p>                        
     </div>
     <br class="clear"/>
     
     <div class="stats">
         <div>
             <h2>Top parties</h2>
-            <ol>
-                                    <li><a href="http://www.electionleaflets.org/parties/liberal_democrats/">Liberal Democrats</a> 1522 leaflets</li>
-                                    <li><a href="http://www.electionleaflets.org/parties/the_labour_party/">The Labour Party</a> 1359 leaflets</li>
-                                    <li><a href="http://www.electionleaflets.org/parties/conservative_party/">Conservative Party</a> 1243 leaflets</li>
-                                    <li><a href="http://www.electionleaflets.org/parties/united_kingdom_independence_party/">United Kingdom Independence Party</a> 324 leaflets</li>
-                                    <li><a href="http://www.electionleaflets.org/parties/green_party/">Green Party</a> 290 leaflets</li>
-                                    <li><a href="http://www.electionleaflets.org/parties/independent_or_independent_network/">Independent or Independent Network</a> 181 leaflets</li>
-                                    <li><a href="http://www.electionleaflets.org/parties/british_national_party/">British National Party</a> 176 leaflets</li>
-                                    <li><a href="http://www.electionleaflets.org/parties/scottish_national_party/">Scottish National Party</a> 97 leaflets</li>
-                                    <li><a href="http://www.electionleaflets.org/parties/unknown_party/">unknown party</a> 55 leaflets</li>
-                                    <li><a href="http://www.electionleaflets.org/parties/english_democrats_party/">English Democrats Party</a> 42 leaflets</li>
-                            </ol>
+
+			{% party_list_by_count %}
         </div>
         <div>
             <h2>Top constituencies</h2>

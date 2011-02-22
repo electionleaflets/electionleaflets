@@ -1,7 +1,3 @@
-# This file exists solely to map to the existing UK electionleaflets database
-# to enable us to more easily port the data from the existing database 
-# structure to the more django-ified structure.
-
 # This is an auto-generated Django model module.
 # You'll have to do the following manually to clean this up:
 #     * Rearrange models' order
@@ -13,7 +9,19 @@
 
 from django.db import models
 
-class Category(models.Model):
+class OldBoundariesBoundary(models.Model):
+    id = models.IntegerField(primary_key=True)
+    constituency_id = models.IntegerField()
+    boundary = models.TextField()
+    zoom = models.IntegerField()
+    north = models.FloatField()
+    south = models.FloatField()
+    east = models.FloatField()
+    west = models.FloatField()
+    class Meta:
+        db_table = u'boundaries_boundary'
+
+class OldCategory(models.Model):
     category_id = models.IntegerField(primary_key=True)
     name = models.CharField(max_length=765)
     description = models.TextField(blank=True)
@@ -21,7 +29,7 @@ class Category(models.Model):
     class Meta:
         db_table = u'category'
 
-class Constituency(models.Model):
+class OldConstituency(models.Model):
     constituency_id = models.IntegerField(primary_key=True)
     name = models.CharField(max_length=765)
     alternative_name = models.CharField(max_length=765, blank=True)
@@ -36,7 +44,12 @@ class Constituency(models.Model):
     class Meta:
         db_table = u'constituency'
 
-class ConstituencyType(models.Model):
+class OldConstituencySeq(models.Model):
+    sequence = models.IntegerField(primary_key=True)
+    class Meta:
+        db_table = u'constituency_seq'
+
+class OldConstituencyType(models.Model):
     constituency_type_id = models.IntegerField(primary_key=True)
     name = models.CharField(max_length=150)
     country_id = models.IntegerField()
@@ -44,7 +57,7 @@ class ConstituencyType(models.Model):
     class Meta:
         db_table = u'constituency_type'
 
-class Country(models.Model):
+class OldCountry(models.Model):
     country_id = models.IntegerField(primary_key=True)
     iso = models.CharField(max_length=6)
     name = models.CharField(max_length=240)
@@ -52,7 +65,7 @@ class Country(models.Model):
     class Meta:
         db_table = u'country'
 
-class EmailAlert(models.Model):
+class OldEmailAlert(models.Model):
     email_alert_id = models.IntegerField(primary_key=True)
     email = models.CharField(max_length=150)
     frequency_hours = models.IntegerField()
@@ -65,7 +78,12 @@ class EmailAlert(models.Model):
     class Meta:
         db_table = u'email_alert'
 
-class EmailQue(models.Model):
+class OldEmailAlertSeq(models.Model):
+    sequence = models.IntegerField(primary_key=True)
+    class Meta:
+        db_table = u'email_alert_seq'
+
+class OldEmailQue(models.Model):
     email_que_id = models.IntegerField(primary_key=True)
     name = models.CharField(max_length=765, blank=True)
     email = models.CharField(max_length=765)
@@ -74,7 +92,7 @@ class EmailQue(models.Model):
     class Meta:
         db_table = u'email_que'
 
-class ImageQue(models.Model):
+class OldImageQue(models.Model):
     image_que_id = models.IntegerField(primary_key=True)
     upload_key = models.CharField(max_length=765)
     name = models.CharField(max_length=300, blank=True)
@@ -84,7 +102,12 @@ class ImageQue(models.Model):
     class Meta:
         db_table = u'image_que'
 
-class Leaflet(models.Model):
+class OldImageQueSeq(models.Model):
+    sequence = models.IntegerField(primary_key=True)
+    class Meta:
+        db_table = u'image_que_seq'
+
+class OldLeaflet(models.Model):
     leaflet_id = models.IntegerField(primary_key=True)
     title = models.CharField(max_length=765)
     description = models.TextField(blank=True)
@@ -97,34 +120,41 @@ class Leaflet(models.Model):
     date_uploaded = models.DateTimeField()
     date_delivered = models.DateTimeField()
     live = models.IntegerField(null=True, blank=True)
+    
     class Meta:
         db_table = u'leaflet'
-
-class LeafletCategory(models.Model):
+        
+class OldLeafletCategory(models.Model):
     leaflet_category_id = models.IntegerField(primary_key=True)
     leaflet_id = models.IntegerField()
     category_id = models.IntegerField()
     class Meta:
         db_table = u'leaflet_category'
 
-class LeafletCategorySeq(models.Model):
+
+class OldLeafletCategorySeq(models.Model):
     sequence = models.IntegerField(primary_key=True)
     class Meta:
         db_table = u'leaflet_category_seq'
 
-class LeafletConstituency(models.Model):
+class OldLeafletConstituency(models.Model):
     leaflet_constituency_id = models.IntegerField(primary_key=True)
     leaflet_id = models.IntegerField()
     constituency_id = models.IntegerField()
     class Meta:
         db_table = u'leaflet_constituency'
 
-class LeafletElectionSeq(models.Model):
+class OldLeafletConstituencySeq(models.Model):
+    sequence = models.IntegerField(primary_key=True)
+    class Meta:
+        db_table = u'leaflet_constituency_seq'
+
+class OldLeafletElectionSeq(models.Model):
     sequence = models.IntegerField(primary_key=True)
     class Meta:
         db_table = u'leaflet_election__seq'
 
-class LeafletImage(models.Model):
+class OldLeafletImage(models.Model):
     leaflet_image_id = models.IntegerField(primary_key=True)
     leaflet_id = models.IntegerField()
     image_key = models.CharField(max_length=765)
@@ -132,44 +162,45 @@ class LeafletImage(models.Model):
     class Meta:
         db_table = u'leaflet_image'
 
-class LeafletImageSeq(models.Model):
+class OldLeafletImageSeq(models.Model):
     sequence = models.IntegerField(primary_key=True)
     class Meta:
         db_table = u'leaflet_image_seq'
 
-class LeafletPartyAttack(models.Model):
+class OldLeafletPartyAttack(models.Model):
     leaflet_party_attack_id = models.IntegerField(primary_key=True)
     leaflet_id = models.IntegerField()
     party_id = models.IntegerField()
     class Meta:
         db_table = u'leaflet_party_attack'
 
-class LeafletPartyAttackSeq(models.Model):
+class OldLeafletPartyAttackSeq(models.Model):
     sequence = models.IntegerField(primary_key=True)
     class Meta:
         db_table = u'leaflet_party_attack_seq'
 
-class LeafletSeq(models.Model):
+class OldLeafletSeq(models.Model):
     sequence = models.IntegerField(primary_key=True)
     class Meta:
         db_table = u'leaflet_seq'
 
-class LeafletTag(models.Model):
+class OldLeafletTag(models.Model):
     leaflet_tag_id = models.IntegerField(primary_key=True)
     leaflet_id = models.IntegerField()
     tag_id = models.IntegerField()
     class Meta:
         db_table = u'leaflet_tag'
 
-class LeafletTagSeq(models.Model):
+class OldLeafletTagSeq(models.Model):
     sequence = models.IntegerField(primary_key=True)
     class Meta:
         db_table = u'leaflet_tag_seq'
 
-class Party(models.Model):
+class OldParty(models.Model):
     party_id = models.IntegerField(primary_key=True)
     name = models.CharField(max_length=765)
     country_id = models.IntegerField()
+    major = models.IntegerField(null=True, blank=True)
     logo_file = models.CharField(max_length=300, blank=True)
     url_id = models.CharField(max_length=765, blank=True)
     colour = models.CharField(max_length=18, blank=True)
@@ -177,14 +208,14 @@ class Party(models.Model):
     class Meta:
         db_table = u'party'
 
-class Promise(models.Model):
+class OldPromise(models.Model):
     promise_id = models.IntegerField(primary_key=True)
     leaflet_id = models.IntegerField()
     detail = models.TextField()
     class Meta:
         db_table = u'promise'
 
-class RateInteresting(models.Model):
+class OldRateInteresting(models.Model):
     rate_interesting_id = models.IntegerField(primary_key=True)
     leaflet_id = models.IntegerField()
     description = models.TextField()
@@ -193,14 +224,19 @@ class RateInteresting(models.Model):
     class Meta:
         db_table = u'rate_interesting'
 
-class RateType(models.Model):
+class OldRateInterestingSeq(models.Model):
+    sequence = models.IntegerField(primary_key=True)
+    class Meta:
+        db_table = u'rate_interesting_seq'
+
+class OldRateType(models.Model):
     rate_type_id = models.IntegerField(primary_key=True)
     left_label = models.CharField(max_length=150)
     right_label = models.CharField(max_length=150, blank=True)
     class Meta:
         db_table = u'rate_type'
 
-class RateValue(models.Model):
+class OldRateValue(models.Model):
     rate_value_id = models.IntegerField(primary_key=True)
     leaflet_id = models.IntegerField()
     user_name = models.CharField(max_length=300)
@@ -210,13 +246,20 @@ class RateValue(models.Model):
     class Meta:
         db_table = u'rate_value'
 
-class Tag(models.Model):
+class OldRateValueSeq(models.Model):
+    sequence = models.IntegerField(primary_key=True)
+    class Meta:
+        db_table = u'rate_value_seq'
+
+class OldTag(models.Model):
     tag_id = models.IntegerField(primary_key=True)
-    tag = models.CharField(unique=True, max_length=765)
+    tag = models.CharField(max_length=765)
+    tag_clean = models.CharField(max_length=765, blank=True)
+    dead = models.IntegerField(null=True, blank=True)
     class Meta:
         db_table = u'tag'
 
-class TagSeq(models.Model):
+class OldTagSeq(models.Model):
     sequence = models.IntegerField(primary_key=True)
     class Meta:
         db_table = u'tag_seq'

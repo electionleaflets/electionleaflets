@@ -9,6 +9,7 @@ bin/*
 lib/*
 include/*
 build/*
+settings_dev.py
 develop-eggs
 downloads
 eggs

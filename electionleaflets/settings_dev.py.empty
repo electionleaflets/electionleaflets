@@ -24,3 +24,10 @@ DATABASES = {
         'PORT': '',                        
     },
 }
+
+GOOGLE_MAPS_KEY= ''
+MAP_PROVIDER= ''
+THEYWORKFORYOU_API_KEY=''
+AWS_KEY=''
+AWS_SECRET=''
+S3_BUCKET=''

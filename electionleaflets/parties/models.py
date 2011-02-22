@@ -11,3 +11,6 @@ class Party(models.Model):
     colour = models.CharField(max_length=18, blank=True)
     twitter_account = models.CharField(max_length=150, blank=True)
     slug = AutoSlugField(max_length=100, populate_from='name')
+    
+    def __unicode__(self):
+        return self.name

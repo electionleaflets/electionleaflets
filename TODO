@@ -1,0 +1,3 @@
+A list of simple changes to the historical database schema to make it work with the newly modified models.
+
+alter table leaflet change leaflet_id id int(11) auto_increment;

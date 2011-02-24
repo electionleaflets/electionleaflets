@@ -16,6 +16,7 @@ urlpatterns = patterns(
     url(r'^parties',    include('parties.urls')),            
     url(r'^constituencies',    include('constituencies.urls')),                
     url(r'^analysis',    include('analysis.urls')),                    
+    url(r'^tags',    include('tags.urls')),                        
     url(r'^map/', include('boundaries.urls')),
     
     # Individual urls 

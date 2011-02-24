@@ -1,3 +1,19 @@
+Categories and category lists
+Party templatetag needs fixing.
+Pagination on tag page
+Upload
+
+
 A list of simple changes to the historical database schema to make it work with the newly modified models.
 
 alter table leaflet change leaflet_id id int(11) auto_increment;
+alter table leaflet_image change leaflet_image_id id int(11) auto_increment;
+
+
+alter table leaflet_constituency change leaflet_constituency_id id int(11) auto_increment;
+alter table constituency change constituency_id id int(11) auto_increment;
+alter table party change party_id id int(11) auto_increment;
+
+alter table leaflet_tag change leaflet_tag_id id int(11) auto_increment;
+alter table tag change tag_id id int(11) auto_increment;
+alter table tag add column slug varchar(255);

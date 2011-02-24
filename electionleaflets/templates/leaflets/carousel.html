@@ -4,8 +4,8 @@
 <ul class="results">
 	{% for leaflet in leaflets %}
 	<li>
-      <a class="leaflet" href="{% url leaflet leaflet.id%}">
-		<img src="http://thestraightchoice.s3.amazonaws.com/small/{{ leaflet.uuid }}.jpg">
+      <a class="leaflet" href="{% url leaflet leaflet.pk %}">
+		<img src="http://thestraightchoice.s3.amazonaws.com/small/{{ leaflet.get_first_image.image_key }}.jpg">
       </a>
 	</li>
 	{% endfor %}

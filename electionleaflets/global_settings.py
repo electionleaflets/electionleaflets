@@ -29,6 +29,7 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.middleware.doc.XViewMiddleware',
+    'pagination.middleware.PaginationMiddleware',
 )
 
 ROOT_URLCONF = 'electionleaflets.urls'
@@ -39,7 +40,8 @@ LEAFLET_APPS = [
     'leaflets', 
     'parties',
     'constituencies',
-    'analysis'
+    'analysis',
+    'tags'
 ]
 
 INSTALLED_APPS = [
@@ -48,6 +50,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.admin',
     'south',
+    
+    'pagination',
 ] + LEAFLET_APPS
 
 

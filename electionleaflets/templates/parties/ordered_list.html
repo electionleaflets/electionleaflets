@@ -1,5 +1,3 @@
-<ol>
 	{% for party in parties %}
 		<li><a href="{% url party party.slug %}">{{ party.name }}</a> {{ party.count }} leaflets</li>
 	{% endfor %}
-</ol>

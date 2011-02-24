@@ -6,7 +6,7 @@ register = template.Library()
 
 @register.inclusion_tag('leaflets/carousel.html')
 def leaflet_carousel():
-    leaflets = Leaflet.objects.filter(active=True).order_by('-id')[0:10]
+    leaflets = Leaflet.objects.filter(live=True).order_by('-id')[0:10]
     if leaflets.count() == 0:
         # TODO: Retrieve the X latest leaflets and send them to the carousel page
         # Until we have data let's cheat

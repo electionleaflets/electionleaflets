@@ -1,5 +1,70 @@
 {% extends "base.html" %}
 
 {% block body %}
-Leaflet
+
+        <div id="divContent">
+
+            			<div id="divWarning">
+	            			</div>
+			
+						<div id="divMessages">
+	            			</div>
+            
+    <div class="contentleft">
+        <h1>{{ object.publisher_party.name }} Leaflet</h1>
+        <div></div>
+        <p>Published by <a href="{% url party object.publisher_party.url_id%}">{{object.publisher_party.name}}</a></p>
+        <p>
+            Delivered in <a href="{% url constituency object.get_first_constituency.url_id %}">{{ object.get_first_constituency.name }}</a> on {{ object.date_delivered|date:"l, d M, Y" }} (approximate). Uploaded on {{ object.date_uploaded|date:"l, d M, Y" }} at {{ object.date_uploaded|date:"H:i" }}.
+
+        </p>
+        <h4>Categories</h4>
+        <ul>
+                        
+        </ul>
+
+        <h4>Tags</h4>
+        <ul>
+			{% for t in object.tags.all %}
+				{% if t.slug %}
+					<li><a href="{% url tag t.slug %}">{{t.tag}}</a></li>							
+				{% endif %}
+			{% endfor %}
+		</ul>
+
+        <h4>Parties attacked in this leaflet</h4>
+        <ul>
+                        
+        </ul>
+
+        <h4>Location (approximate)</h4>
+        <div id="divSpotMap"></div>
+    </div>
+
+    <div class="contentright">
+        <ul>
+	{% comment %}{% url full_image object.get_first_image.image_key %}{% endcomment %}
+			{% for image in object.images.all %}
+				<li>
+					<a href="{% url full_image image.image_key %}">
+						<img src="http://thestraightchoice.s3.amazonaws.com/medium/{{ image.image_key }}.jpg" />						
+					</a>
+				</li>					
+				<br/>
+                    <small>
+                    	<a href="{% url full_image image.image_key %}">
+                            view larger image
+                        </a>
+                    </small>
+				
+			{% endfor%}
+		</ul>
+    </div>
+    <br class="clear"/>
+    <div id="divReportAbuse" class="contentfull bordertop">
+        <h3>Something wrong with this page?</h3>
+        <p>
+            If someone has uploaded something other than an election leaflet <a href="http://www.electionleaflets.org/report.php?q=6241"> please report it here</a>.
+        </p>
+    </div>
 {% endblock %}

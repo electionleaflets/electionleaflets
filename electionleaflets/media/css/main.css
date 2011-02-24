@@ -55,7 +55,7 @@ div.searchbox input, div.searchbox label {font-size:1.3em; padding-right:1em;}
 #divResults {position:relative;}
 ul.results {padding:0;margin:0;}
 ul.results li {float:left;list-style-type:none;padding:0; margin:0; padding-bottom:1em;
-     font-size:0.8em; padding:0 20px 2em 0; width:160px; overflow:hidden; line-height:1.2em; height:260px;}
+     font-size:0.8em; padding:0 20px 2em 0; width:160px; overflow:hidden; line-height:1.2em; }
 ul.results li img {margin-bottom:0.2em;}    
 ul.results li a {display:block; text-align:left; padding-top:0.2em;padding-left:2em;}
 ul.results li a.leaflet {height:180px;padding-right:0;}
@@ -272,7 +272,7 @@ ul.pagination {margin:1em auto 2em  auto!important; clear:left; text-align:cente
 ul.pagination li {display:inline;}
 ul.pagination li a {border:solid 1px #bdd8ec;padding:2px 7px;text-align:center;margin:0 2px; text-decoration:none!important;}
 ul.pagination li span {padding:2px 7px;text-align:center;margin:0 2px;}
-ul.pagination li.current {font-weight:bold; border:none; text-decoration:none!important;}
+ul.pagination li.current {font-weight:bold; border:none; text-decoration:none!important;padding: 2px 7px;}
 ul.pagination li.previous a, #divPagination ul li.next a {border:none;}
 ul.pagination li.previous {padding-right:20px;}
 ul.pagination li.next {padding-left:20px;}

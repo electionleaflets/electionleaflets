@@ -14,7 +14,7 @@
             
 <div id="divContentFull">
          <div id="divFrontLookup">
-             <form method="get" action="http://www.electionleaflets.org/constituencies/">
+             <form method="get" action="{% url constituencies %}">
                  <label for="txtSearch">Enter your postcode to see leaflets near you</label>
                  <input type="text" id="txtSearch" name="p" />
                  <label for="ddlConstituency">or choose a constituency</label>                    
@@ -717,7 +717,9 @@
         <div>
             <h2>Top parties</h2>
 
+			<ol>
 			{% party_list_by_count %}
+			</ol>
         </div>
         <div>
             <h2>Top constituencies</h2>

@@ -41,6 +41,7 @@ LEAFLET_APPS = [
     'parties',
     'constituencies',
     'analysis',
+    'categories',
     'tags'
 ]
 

@@ -56,61 +56,12 @@ NOT YET COMPLETE
             <div class="infobox">
                 <h3>Categories</h3>
                 <ul>
-                                            <li>
-                            <a href="http://www.electionleaflets.org/categories/5/">Crime and antisocial behaviour</a>
-                        </li>
-                                            <li>
-                            <a href="http://www.electionleaflets.org/categories/12/">Culture</a>
-                        </li>
-                                            <li>
-                            <a href="http://www.electionleaflets.org/categories/3/">Economy</a>
-                        </li>
-                                            <li>
-                            <a href="http://www.electionleaflets.org/categories/4/">Education</a>
-                        </li>
-                                            <li>
-                            <a href="http://www.electionleaflets.org/categories/7/">Environment</a>
-                        </li>
-                                            <li>
-                            <a href="http://www.electionleaflets.org/categories/17/">Europe</a>
-                        </li>
-                                            <li>
-                            <a href="http://www.electionleaflets.org/categories/2/">Foreign affairs</a>
-                        </li>
-                                            <li>
-                            <a href="http://www.electionleaflets.org/categories/14/">Health</a>
-                        </li>
-                                            <li>
-                            <a href="http://www.electionleaflets.org/categories/16/">Housing</a>
-                        </li>
-                                            <li>
-                            <a href="http://www.electionleaflets.org/categories/6/">Immigration</a>
-                        </li>
-                                            <li>
-                            <a href="http://www.electionleaflets.org/categories/13/">Litter / dog waste / graffiti</a>
-                        </li>
-                                            <li>
-                            <a href="http://www.electionleaflets.org/categories/10/">Local issue or campaign</a>
-                        </li>
-                                            <li>
-                            <a href="http://www.electionleaflets.org/categories/15/">Nationalism and devolution</a>
-                        </li>
-                                            <li>
-                            <a href="http://www.electionleaflets.org/categories/18/">Pensions and older people</a>
-                        </li>
-                                            <li>
-                            <a href="http://www.electionleaflets.org/categories/19/">Personal attack</a>
-                        </li>
-                                            <li>
-                            <a href="http://www.electionleaflets.org/categories/9/">Tax</a>
-                        </li>
-                                            <li>
-                            <a href="http://www.electionleaflets.org/categories/8/">Transport</a>
-                        </li>
-                                            <li>
-                            <a href="http://www.electionleaflets.org/categories/11/">Young people</a>
-                        </li>
-                                    </ul>
+					{% for c in categories %}
+						<li>
+                            <a href="{% url category c.slug %}">{{ c.name }}</a>
+                        </li>	
+ 					{% endfor %}
+                </ul>
             </div>
         </div>    
 {% endblock %}

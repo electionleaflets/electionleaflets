@@ -1,7 +1,7 @@
 from django.db import models
 from parties.models import Party
 from constituencies.models import Constituency
-
+from categories.models import Category
 from tags.models import Tag   
 
 class LeafletConstituency(models.Model):
@@ -17,7 +17,9 @@ class Leaflet(models.Model):
     description = models.TextField(blank=True)
     publisher_party = models.ForeignKey(Party)
     constituencies = models.ManyToManyField( Constituency, through='LeafletConstituency' )
+    
     tags = models.ManyToManyField( Tag, through='LeafletTag' )
+    categories = models.ManyToManyField( Category, through='LeafletCategory' )    
     
     postcode = models.CharField(max_length=150, blank=True)
     lng = models.FloatField()
@@ -46,30 +48,12 @@ class LeafletImage(models.Model):
 
         
 class LeafletCategory(models.Model):
-    leaflet_category_id = models.IntegerField(primary_key=True)
-    leaflet_id = models.IntegerField()
-    category_id = models.IntegerField()
+    leaflet = models.ForeignKey(Leaflet)
+    category = models.ForeignKey(Category)
     class Meta:
         db_table = u'leaflet_category'
 
 
-class LeafletCategorySeq(models.Model):
-    sequence = models.IntegerField(primary_key=True)
-    class Meta:
-        db_table = u'leaflet_category_seq'
-
-"""class LeafletConstituency(models.Model):
-    leaflet = models.OneToOneField(Leaflet)
-    constituency = models.OneToOneField( Constituency)
-
-    class Meta:
-        db_table = u''
-
-class LeafletConstituencySeq(models.Model):
-    sequence = models.IntegerField(primary_key=True)
-    class Meta:
-        db_table = u'leaflet_constituency_seq'
-"""
 
 class LeafletElectionSeq(models.Model):
     sequence = models.IntegerField(primary_key=True)
@@ -109,14 +93,6 @@ class LeafletTag(models.Model):
 
 
 
-
-class Category(models.Model):
-    category_id = models.IntegerField(primary_key=True)
-    name = models.CharField(max_length=765)
-    description = models.TextField(blank=True)
-    default_value = models.IntegerField(null=True, blank=True)
-    class Meta:
-        db_table = u'category'
 
 class Promise(models.Model):
     promise_id = models.IntegerField(primary_key=True)

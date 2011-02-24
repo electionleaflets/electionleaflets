@@ -17,3 +17,8 @@ alter table party change party_id id int(11) auto_increment;
 alter table leaflet_tag change leaflet_tag_id id int(11) auto_increment;
 alter table tag change tag_id id int(11) auto_increment;
 alter table tag add column slug varchar(255);
+
+alter table leaflet_category change leaflet_category_id id int(11) auto_increment;
+alter table category change category_id id int(11) auto_increment;
+
+alter table category add column slug varchar(255);

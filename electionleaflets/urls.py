@@ -11,12 +11,13 @@ handler500 # Pyflakes
 
 urlpatterns = patterns(
     '',
-    url(r'^$',      direct_to_template, {'template': 'core/home.html'}, name='home'),    
+    url(r'^$',          direct_to_template, {'template': 'core/home.html'}, name='home'),    
     url(r'^leaflets',   include('leaflets.urls')),        
     url(r'^parties',    include('parties.urls')),            
     url(r'^constituencies',    include('constituencies.urls')),                
-    url(r'^analysis',    include('analysis.urls')),                    
-    url(r'^tags',    include('tags.urls')),                        
+    url(r'^analysis',   include('analysis.urls')),                    
+    url(r'^tags',       include('tags.urls')),                        
+    url(r'^categories', include('categories.urls')),                            
     url(r'^map/', include('boundaries.urls')),
     
     # Individual urls 

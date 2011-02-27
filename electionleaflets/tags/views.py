@@ -6,17 +6,25 @@ def view_tag(request, slug):
     from tags.models import Tag
     from leaflets.models import Leaflet
     from categories.models import Category
-    
+    import math
+        
     tag = get_object_or_404(Tag, slug=slug)
     
     qs = Leaflet.objects.filter(tags__id=tag.id)
+    
+    total = qs.count()
+    
+    currentPage = request.GET.get('page', 1)
+    totalPages = int(math.ceil(float(total)/12))
+    
     
     return render_to_response('tags/tag.html', 
                             {
                                 'tag': tag,
                                 'qs': qs,
-                                'total': qs.count(),
+                                'total': total,
+                                'currentPage': currentPage,
+                                'totalPages': totalPages,
                                 'request': request,
-                                'categories': Category.objects.order_by('name').all(),
                             },
                             context_instance=RequestContext(request) )

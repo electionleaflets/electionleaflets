@@ -1,10 +1,9 @@
 {% extends "base.html" %}
 {% load party_tags %}
 {% load pagination_tags %}
+{% load category_tags %}
 
 {% block body %}
-
-NOT YET COMPLETE
 
 <div id="divContent">
 
@@ -14,7 +13,7 @@ NOT YET COMPLETE
 
 	<p class="page_count">
 		{% autopaginate qs 12 %}	
-		<strong>{{ total }}</strong> leaflets found, page <strong>1</strong> of <strong>1</strong>
+		<strong>{{ total }}</strong> leaflets found, page <strong> {{ currentPage }}</strong> of <strong>{{ totalPages }}</strong>
 	</p>
 </div>
 
@@ -56,11 +55,7 @@ NOT YET COMPLETE
             <div class="infobox">
                 <h3>Categories</h3>
                 <ul>
-					{% for c in categories %}
-						<li>
-                            <a href="{% url category c.slug %}">{{ c.name }}</a>
-                        </li>	
- 					{% endfor %}
+					{% category_list %}
                 </ul>
             </div>
         </div>    

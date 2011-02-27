@@ -1,6 +1,6 @@
 from django.db import models
 from core.models import Country
-
+from core.util import AutoSlugField
 
 class Party(models.Model):
     name = models.CharField(max_length=765)
@@ -10,5 +10,8 @@ class Party(models.Model):
     url_id = models.CharField(max_length=765, blank=True)
     colour = models.CharField(max_length=18, blank=True)
     twitter_account = models.CharField(max_length=150, blank=True)
+    slug = AutoSlugField( populate_from='name', max_length=255)
+    count = models.IntegerField()
+    
     class Meta:
         db_table = u'party'

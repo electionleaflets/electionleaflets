@@ -22,3 +22,10 @@ alter table leaflet_category change leaflet_category_id id int(11) auto_incremen
 alter table category change category_id id int(11) auto_increment;
 
 alter table category add column slug varchar(255);
+alter table constituency add column slug varchar(255);
+alter table party add column slug varchar(255);
+
+alter table party add column count int default 0;
+>>> for p in Party.objects.all():
+p.count = p.leaflet_set.count()
+p.save()

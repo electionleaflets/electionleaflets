@@ -13,3 +13,25 @@ def view_full_image(request, image_key):
                                 'leaflet': li.leaflet,
                             },
                             context_instance=RequestContext(request), )
+
+
+def latest_leaflets( request ):
+    import math
+    from leaflets.models import Leaflet
+    
+    qs = Leaflet.objects.order_by('-id')
+    total = qs.count()
+    
+    currentPage = request.GET.get('page', 1)
+    totalPages = int(math.ceil(float(total)/12))
+    
+    return render_to_response('leaflets/index.html', 
+                            {
+                                'qs': qs,
+                                'total': total,
+                                'request': request,
+                                'currentPage': currentPage,
+                                'totalPages': totalPages,
+                            },
+                            context_instance=RequestContext(request) )
+    

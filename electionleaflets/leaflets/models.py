@@ -31,8 +31,12 @@ class Leaflet(models.Model):
     live = models.IntegerField(null=True, blank=True)
     
     def get_first_image(self):
-        return self.images.all()[0]
-
+        try:
+            return self.images.all()[0]
+        except IndexError:
+            # TODO: Set image_key to valud for ' image
+            return { 'image_key': ''}
+            
     def get_first_constituency(self):
         return self.constituencies.all()[0]
     

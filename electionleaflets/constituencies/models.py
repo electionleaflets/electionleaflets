@@ -1,4 +1,5 @@
 from django.db import models
+from core.util import AutoSlugField
 
 class Constituency(models.Model):
     name = models.CharField(max_length=765)
@@ -11,6 +12,7 @@ class Constituency(models.Model):
     url_id = models.CharField(max_length=300, blank=True)
     guardian_aristotle_id = models.IntegerField(null=True, blank=True)
     guardian_pa_code = models.IntegerField(null=True, blank=True)
+    slug = AutoSlugField( populate_from='name', max_length=255)
     class Meta:
         db_table = u'constituency'
 

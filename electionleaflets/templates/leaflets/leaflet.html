@@ -20,7 +20,9 @@
         </p>
         <h4>Categories</h4>
         <ul>
-                        
+			{% for category in object.categories.all %}
+ 				<li><a href="{% url category category.slug %}">{{ category.name }}</a></li>										
+			{% endfor %}
         </ul>
 
         <h4>Tags</h4>

@@ -6,7 +6,7 @@ from django.views.generic.list_detail import object_detail
 
 from leaflets.models import Leaflet
 
-from leaflets.views import view_full_image
+from leaflets.views import view_full_image, latest_leaflets
 
 info_dict = {
     'queryset': Leaflet.objects.all(),
@@ -14,7 +14,7 @@ info_dict = {
 
 urlpatterns = patterns(
     '',
-    url(r'^/$',      direct_to_template, {'template': 'leaflets/index.html'}, name='leaflets'),    
+    url(r'^/$',      latest_leaflets, name='leaflets'),    
     url(r'^/add/$',  direct_to_template, {'template': 'leaflets/add.html'}, name='add_leaflet'),      
     url(r'^/full/(?P<image_key>\w+)/$',  view_full_image, name='full_image'),          
     url(r'^/(?P<object_id>\d+)/$', 'django.views.generic.list_detail.object_detail', 

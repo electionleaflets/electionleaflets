@@ -18,6 +18,7 @@ class Leaflet(models.Model):
     publisher_party = models.ForeignKey(Party)
     constituencies = models.ManyToManyField( Constituency, through='LeafletConstituency' )
     
+    attacks = models.ManyToManyField( Party, through='LeafletPartyAttack', related_name='attacks')
     tags = models.ManyToManyField( Tag, through='LeafletTag' )
     categories = models.ManyToManyField( Category, through='LeafletCategory' )    
     
@@ -34,11 +35,14 @@ class Leaflet(models.Model):
         try:
             return self.images.all()[0]
         except IndexError:
-            # TODO: Set image_key to valud for ' image
+            # TODO: Set image_key to value for 'empty' image
             return { 'image_key': ''}
             
     def get_first_constituency(self):
         return self.constituencies.all()[0]
+    
+    def get_title(self):
+        return self.title if self.title and len(self.title) else ('%s leaflet' % self.party.name)
     
     class Meta:
         db_table = u'leaflet'
@@ -58,35 +62,11 @@ class LeafletCategory(models.Model):
         db_table = u'leaflet_category'
 
 
-
-class LeafletElectionSeq(models.Model):
-    sequence = models.IntegerField(primary_key=True)
-    class Meta:
-        db_table = u'leaflet_election__seq'
-
-
-class LeafletImageSeq(models.Model):
-    sequence = models.IntegerField(primary_key=True)
-    class Meta:
-        db_table = u'leaflet_image_seq'
-
 class LeafletPartyAttack(models.Model):
-    leaflet_party_attack_id = models.IntegerField(primary_key=True)
-    leaflet_id = models.IntegerField()
-    party_id = models.IntegerField()
+    leaflet = models.ForeignKey(Leaflet)
+    party = models.ForeignKey(Party)
     class Meta:
         db_table = u'leaflet_party_attack'
-
-class LeafletPartyAttackSeq(models.Model):
-    sequence = models.IntegerField(primary_key=True)
-    class Meta:
-        db_table = u'leaflet_party_attack_seq'
-
-class LeafletSeq(models.Model):
-    sequence = models.IntegerField(primary_key=True)
-    class Meta:
-        db_table = u'leaflet_seq'
-
 
 
 class LeafletTag(models.Model):

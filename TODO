@@ -20,6 +20,8 @@ alter table tag add column slug varchar(255);
 
 alter table leaflet_category change leaflet_category_id id int(11) auto_increment;
 alter table category change category_id id int(11) auto_increment;
+alter table leaflet_party_attack change leaflet_party_attack_id id int(11) auto_increment;
+alter table constituency_type change constituency_type_id id int(11) auto_increment;
 
 alter table category add column slug varchar(255);
 alter table constituency add column slug varchar(255);

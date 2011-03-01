@@ -1,10 +1,19 @@
 from django.db import models
 from core.util import AutoSlugField
+from core.models import Country
+
+class ConstituencyType(models.Model):
+    name = models.CharField(max_length=150)
+    country = models.ForeignKey(Country)
+    url_id = models.CharField(max_length=300, blank=True)
+    class Meta:
+        db_table = u'constituency_type'
+
 
 class Constituency(models.Model):
     name = models.CharField(max_length=765)
     alternative_name = models.CharField(max_length=765, blank=True)
-    constituency_type_id = models.IntegerField()
+    constituency_type = models.ForeignKey(ConstituencyType)
     retired = models.IntegerField(null=True, blank=True)
     area_code = models.CharField(max_length=60, blank=True)
     area_uri = models.CharField(max_length=765, blank=True)
@@ -16,16 +25,5 @@ class Constituency(models.Model):
     class Meta:
         db_table = u'constituency'
 
-class ConstituencySeq(models.Model):
-    sequence = models.IntegerField(primary_key=True)
-    class Meta:
-        db_table = u'constituency_seq'
 
-class ConstituencyType(models.Model):
-    constituency_type_id = models.IntegerField(primary_key=True)
-    name = models.CharField(max_length=150)
-    country_id = models.IntegerField()
-    url_id = models.CharField(max_length=300, blank=True)
-    class Meta:
-        db_table = u'constituency_type'
 

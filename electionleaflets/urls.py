@@ -22,7 +22,10 @@ urlpatterns = patterns(
     
     # Individual urls 
     url(r'^constituency/notspots/', direct_to_template, {'template': 'constituencies/notspots.html'}, name='constituency_notspots'),              
-    url(r'^about/$', direct_to_template, {'template': 'core/about.html'}, name='about'),                  
+    url(r'^about/$', direct_to_template, {'template': 'core/about.html'}, name='about'),                
+    url(r'^report/(?P<id>\d+)/sent/$', direct_to_template, {'template': 'core/report_sent.html'}, name='report_abuse_sent'),                            
+    url(r'^report/(?P<id>\d+)/$', 'core.views.report_abuse', name='report_abuse'),                      
+    
     # Administration URLS
     (r'^admin/(.*)', admin.site.root),
     (r'^accounts/login/$', 'django.contrib.auth.views.login'),

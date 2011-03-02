@@ -21,7 +21,18 @@ MAP_PROVIDER= 'openstreetmap'
 # from http://code.google.com/apis/maps/signup.html
 GOOGLE_MAPS_KEY= ''
 
+# All of these are necessary for the report abuse emails.
+EMAIL_SUBJECT = ''
+EMAIL_FROM = ''
+EMAIL_RECIPIENT = ''
+
 THEYWORKFORYOU_API_KEY=''
 AWS_KEY=''
 AWS_SECRET=''
 S3_BUCKET=''
+
+EMAIL_HOST = 'localhost'
+EMAIL_PORT = 1025
+#EMAIL_HOST_USER = ''
+#EMAIL_HOST_PASSWORD = ''
+EMAIL_USE_TLS = False

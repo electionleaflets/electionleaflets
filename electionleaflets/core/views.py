@@ -7,6 +7,19 @@ from django.core.mail import EmailMultiAlternatives
 from django.template.loader import render_to_string
 from django.contrib.sites.models import Site
 
+
+def home(request):
+    from constituencies.forms import ConstituencyLookupForm
+
+    form = ConstituencyLookupForm(request.POST or None)
+            
+    return render_to_response('core/home.html', 
+                            {
+                                'form': form
+                            },
+                            context_instance=RequestContext(request) )
+
+
 def report_abuse(request, id):
     from core.forms import ReportAbuseForm
     from leaflets.models import Leaflet

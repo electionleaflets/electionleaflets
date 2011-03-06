@@ -7,11 +7,14 @@ from django.views.generic.simple import direct_to_template
 
 admin.autodiscover()
 
+
+from core.views import home
+
 handler500 # Pyflakes
 
 urlpatterns = patterns(
     '',
-    url(r'^$',          direct_to_template, {'template': 'core/home.html'}, name='home'),    
+    url(r'^$',          home, name='home'),    
     url(r'^leaflets',   include('leaflets.urls')),        
     url(r'^parties',    include('parties.urls')),            
     url(r'^constituencies',    include('constituencies.urls')),                

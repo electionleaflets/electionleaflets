@@ -25,5 +25,6 @@ class Constituency(models.Model):
     class Meta:
         db_table = u'constituency'
 
-
+    def __unicode__(self):
+        return self.name
 

@@ -12,6 +12,10 @@ class Party(models.Model):
     twitter_account = models.CharField(max_length=150, blank=True)
     slug = AutoSlugField( populate_from='name', max_length=255)
     count = models.IntegerField()
+    popular = models.IntegerField()
     
     class Meta:
         db_table = u'party'
+
+    def __unicode__(self):
+        return self.name

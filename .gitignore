@@ -15,6 +15,7 @@ downloads
 eggs
 log
 parts
+electionleaflets/media/uploads/
 media/uploads
 tmp
 .DS_Store

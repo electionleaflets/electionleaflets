@@ -1,0 +1,110 @@
+{% extends "base.html" %}
+
+{% block body %}
+    
+        <div id="divContent">
+
+            			<div id="divWarning">
+	            			</div>
+			
+						<div id="divMessages">
+	            			</div>
+            
+<div class="contentleft">
+    <form id="frmUpload" method="post" action=".">
+        <fieldset>
+</fieldset>        <h1>Step 2 - add a few details</h1>
+        <p>
+            Add some more information about this leaflet
+        </p>
+        <fieldset>
+            <ul>
+                <li>
+                    <label for="title">Give the leaflet a title *</label>
+					{{ form.title }}
+
+                    <small>e.g. the main headline</small>
+                </li>
+                <li>
+                    <label for="transcript">Enter a transcript of the main points / first paragraph</label>
+					{{ form.transcript }}
+                    <br/>
+                    <strong>Note: please only add what is actually on the leaflet, not your opinion of it.</strong>
+                </li>
+                <li>
+                    <label for="txtPostcode">Which postcode was the leaflet was delivered to? *</label>
+					{{ form.postcode }}
+                    <small>this will let us work out which constituency the leaflet covers</small>
+                </li>
+                <li>
+                    <label for="ddlDelivered">When was the leaflet delivered? *</label>
+
+                    <select id="ddlDelivered" name="ddlDelivered" >
+                        <option value="0" selected="selected">Today</option>
+                        <option value="1" >Yesterday</option>
+                        <option value="7" >Last Week</option>
+                        <option value="14" >Couple of weeks ago</option>
+                        <option value="30" >Last month</option>                     
+                        <option value="60" >Two months ago</option>
+                        <option value="90" >Three months ago</option>                                                                        
+                    </select>
+                    <small class="highlight">Please only add leaflets that have been delivered to you recently</small>
+                </li>
+                <li>
+                    <label for="party">Which party is responsible for the leaflet? *</label>
+					{{ form.party }}
+			    </li>
+                <li>
+                    <label>Which parties (if any) does the leaflet attack or criticise?</label>
+                    <ul class="scroll">
+						{{ form.parties}}
+					</ul>
+                </li>
+                <li>
+                    <label>What categories best describes the content of this leaflet?</label>
+                    <ul class="scroll">
+						{{ form.categories }}
+					</ul>
+                </li>
+                <li>
+                    <label for="txtTags">Tags this leaflet (candidate name, town, policy name, etc)</label>
+					{{form.tags }}
+                    <br/>
+                    <small>e.g. Brian Smith<span class="huge">,</span> Woking<span class="huge">,</span> zero tolerance<span class="huge">,</span> parks<span class="huge">,</span> transport</small>
+                </li>
+                <li>
+                    <label for="name">Enter your name and email address *</label>
+					{{ form.name }}
+					{{ form.email }}
+                    <small>Your email address will not be made public</small>                                   
+                </li>
+            </ul>
+        </fieldset>
+        <div class="buttons">
+            <input type="submit"  value="Save leaflet"/>
+        </div>
+    </form>    
+</div>         
+
+<div class="contentright">
+    <div>
+			{% if session.image1 %}
+				<img src="{{ MEDIA_URL }}{{ session.image1 }}">
+			{% endif %}
+			{% if session.image2 %}
+				<img src="{{ MEDIA_URL }}{{ session.image2 }}">
+			{% endif %}
+			{% if session.image3 %}
+				<img src="{{ MEDIA_URL }}{{ session.image3 }}">
+			{% endif %}
+			{% if session.image4 %}
+				<img src="{{ MEDIA_URL }}{{ session.image4 }}">
+			{% endif %}
+        	
+<!-- <img src="http://thestraightchoice.s3.amazonaws.com/medium/{{ image_key }}.jpg">
+            <img src="http://www.electionleaflets.org/image.php?s=m&i=56378e793e6899fe010a9ab560280c08"/> -->
+            <br/>
+            </div>
+</div>
+
+{% endblock %}      

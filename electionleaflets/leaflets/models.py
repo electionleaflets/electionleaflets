@@ -4,6 +4,19 @@ from constituencies.models import Constituency
 from categories.models import Category
 from tags.models import Tag   
 
+
+class UploadSession(models.Model):
+    key = models.CharField( max_length=64, null=True, blank=True )
+    image1 = models.ImageField( upload_to='uploads/', null=True, blank=True )
+    image2 = models.ImageField( upload_to='uploads/',null=True, blank=True )
+    image3 = models.ImageField( upload_to='uploads/',null=True, blank=True )
+    image4 = models.ImageField( upload_to='uploads/',null=True, blank=True )
+    image5 = models.ImageField( upload_to='uploads/',null=True, blank=True )
+    image6 = models.ImageField( upload_to='uploads/',null=True, blank=True )
+    image7 = models.ImageField( upload_to='uploads/',null=True, blank=True )
+    image8 = models.ImageField( upload_to='uploads/',null=True, blank=True )
+    s3keys = models.TextField(null=True, blank=True)
+    
 class LeafletConstituency(models.Model):
     leaflet = models.ForeignKey('Leaflet')
     constituency = models.ForeignKey(Constituency)
@@ -46,6 +59,7 @@ class Leaflet(models.Model):
     
     class Meta:
         db_table = u'leaflet'
+
 
 class LeafletImage(models.Model):
     leaflet = models.ForeignKey(Leaflet, related_name='images')

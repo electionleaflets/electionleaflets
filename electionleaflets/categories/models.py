@@ -8,3 +8,6 @@ class Category(models.Model):
     slug = AutoSlugField( populate_from='name', max_length=255)
     class Meta:
         db_table = u'category'
+
+    def __unicode__(self):
+        return self.name

@@ -36,9 +36,9 @@ function showMap(sMapProvider, nLng, nLat){
 function uploadImages(){
    document.getElementById('frmUpload').style.position = "absolute";    
    document.getElementById('frmUpload').style.left = "-2000px";       
-    document.getElementById('divUploading').style.display = "block";
+   document.getElementById('divUploading').style.display = "block";
     
-    return true;
+   return true;
 }
 
 function mycarousel_initCallback(carousel)

@@ -44,7 +44,8 @@ LEAFLET_APPS = [
     'constituencies',
     'analysis',
     'categories',
-    'tags'
+    'tags',
+    'boundaries'
 ]
 
 INSTALLED_APPS = [

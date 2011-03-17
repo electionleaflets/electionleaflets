@@ -1,5 +1,5 @@
 from django.db import models
-from legacy.models import Constituency
+from constituencies.models import Constituency
 
 class Boundary(models.Model):
     constituency = models.ForeignKey( Constituency )

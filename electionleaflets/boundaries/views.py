@@ -3,7 +3,8 @@ from django.http import HttpResponse, Http404
 from django.shortcuts import render_to_response
 from django.db.models import Q
 from boundaries.models import Boundary
-from legacy.models import Leaflet, Party
+from parties.models import Party
+from leaflets.models import Leaflet
 import math
 import random
 google_dist = 20037508.34

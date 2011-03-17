@@ -18,7 +18,7 @@ class Category(models.Model):
         db_table = u'category'
 
 class Constituency(models.Model):
-    constituency_id = models.IntegerField(primary_key=True)
+    id = models.IntegerField(primary_key=True)
     name = models.CharField(max_length=765)
     alternative_name = models.CharField(max_length=765, blank=True)
     constituency_type = models.ForeignKey("ConstituencyType")
@@ -72,7 +72,7 @@ class ImageQue(models.Model):
         db_table = u'image_que'
 
 class Leaflet(models.Model):
-    leaflet_id = models.IntegerField(primary_key=True)
+    id = models.IntegerField(primary_key=True)
     title = models.CharField(max_length=765)
     description = models.TextField(blank=True)
     publisher_party = models.ForeignKey("Party")
@@ -95,7 +95,7 @@ class LeafletCategory(models.Model):
         db_table = u'leaflet_category'
 
 class LeafletConstituency(models.Model):
-    leaflet_constituency_id = models.IntegerField(primary_key=True)
+    id = models.IntegerField(primary_key=True)
     leaflet = models.ForeignKey("Leaflet")
     constituency = models.ForeignKey("Constituency")
     class Meta:

@@ -2,8 +2,7 @@ from django.db import models
 from legacy.models import Constituency
 
 class Boundary(models.Model):
-    id = models.IntegerField(primary_key=True)
-    constituency_id = models.IntegerField()
+    constituency = models.ForeignKey( Constituency )
     boundary = models.TextField()
     zoom = models.IntegerField()
     north = models.FloatField()

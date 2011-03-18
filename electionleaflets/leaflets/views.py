@@ -33,16 +33,43 @@ def add_leaflet_upload(request):
     
     
 def add_leaflet_info(request, upload_session_key):
-    from leaflets.models import UploadSession
+    from leaflets.models import UploadSession, LeafletConstituency
     from leaflets.forms  import LeafletInfoForm
     from parties.models import Party
-      
+    from constituencies.views import constituency_by_postcode    
+    from constituencies.models import Constituency
+    from datetime import datetime
+    
     session = get_object_or_404(UploadSession, key=upload_session_key)      
     s3keys = session.s3keys.split(',')  
     
     form = LeafletInfoForm(request.POST or None)
-        
     parties = Party.objects.order_by('name').all()
+    
+    if request.method == 'POST':
+        if form.is_valid():
+            #exclude = ('lat','lng','date_uploaded', 'date_delivered', 'constituencies')
+            leaflet = form.save(commit=False)
+            leaflet.lat = leaflet.lng = 0
+            leaflet.date_uploaded = datetime.now()
+
+            # Update the leaflet and then associate the images
+            # TODO: Fix me here
+            leaflet.date_delivered = datetime.now()
+            leaflet.save()
+            
+            try:
+                cons = constituency_by_postcode( form.cleaned_data['postcode'] )
+                if cons is not None:
+                    c = Constituency.objects.get(name=cons)
+                    if not cons in leaflet.constituencies.all():
+                        LeafletConstituency(leaflet=leaflet, constituency=c).save()
+            except Exception as e:
+                print e
+                
+            # TODO: Handle uploadsession and process/save files before marking the 
+            # session as published
+    
         
     return render_to_response('leaflets/add_step2.html', 
                             {

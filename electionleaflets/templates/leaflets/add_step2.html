@@ -5,6 +5,13 @@
         <div id="divContent">
 
             			<div id="divWarning">
+							{% if form.errors %}
+								<ul class='nobullets'><li>
+								Please correct the errors below
+								</li></ul>
+								{{ form.errors }}
+							{% endif %}
+	
 	            			</div>
 			
 						<div id="divMessages">
@@ -24,6 +31,7 @@
 					{{ form.title }}
 
                     <small>e.g. the main headline</small>
+					{{ form.title.errors }}
                 </li>
                 <li>
                     <label for="transcript">Enter a transcript of the main points / first paragraph</label>
@@ -34,6 +42,7 @@
                 <li>
                     <label for="txtPostcode">Which postcode was the leaflet was delivered to? *</label>
 					{{ form.postcode }}
+					{{ form.postcode.errors }}
                     <small>this will let us work out which constituency the leaflet covers</small>
                 </li>
                 <li>
@@ -52,12 +61,13 @@
                 </li>
                 <li>
                     <label for="party">Which party is responsible for the leaflet? *</label>
-					{{ form.party }}
+					{{ form.publisher_party }}
+					{{ form.publisher_party.errors }}
 			    </li>
                 <li>
                     <label>Which parties (if any) does the leaflet attack or criticise?</label>
                     <ul class="scroll">
-						{{ form.parties}}
+						{{ form.attacks}}
 					</ul>
                 </li>
                 <li>
@@ -76,7 +86,9 @@
                     <label for="name">Enter your name and email address *</label>
 					{{ form.name }}
 					{{ form.email }}
-                    <small>Your email address will not be made public</small>                                   
+                    <small>Your email address will not be made public</small>   
+					{{ form.name.errors }}
+					{{ form.email.errors }}
                 </li>
             </ul>
         </fieldset>

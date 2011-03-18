@@ -44,6 +44,9 @@ class Leaflet(models.Model):
     date_delivered = models.DateTimeField()
     live = models.IntegerField(null=True, blank=True)
     
+    def __unicode__(self):
+        return self.title
+    
     def get_first_image(self):
         try:
             return self.images.all()[0]

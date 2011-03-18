@@ -30,7 +30,7 @@ urlpatterns = patterns(
     url(r'^report/(?P<id>\d+)/$', 'core.views.report_abuse', name='report_abuse'),                      
     
     # Administration URLS
-    (r'^admin/(.*)', admin.site.root),
+    (r'^admin/', include(admin.site.urls)),
     (r'^accounts/login/$', 'django.contrib.auth.views.login'),
 )
 

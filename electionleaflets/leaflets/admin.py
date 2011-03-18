@@ -1,17 +1,25 @@
-"""
-Admin for the leaflet, this really does need a lot of inlines for the associated
-objects
-
-TODO: Fix up all the required inlines
-"""
-
 from django.contrib     import admin
-from leaflets.models import Leaflet
+from leaflets.models import Leaflet, LeafletPartyAttack, LeafletTag, LeafletCategory, LeafletConstituency
+from tags.models import Tag
+
+class LeafletTagInline(admin.TabularInline):
+    model = LeafletTag
+
+class LeafletCategoryInline(admin.TabularInline):
+    model = LeafletCategory
+
+class LeafletPartyAttackInline(admin.TabularInline):
+    model = LeafletPartyAttack
+
+class LeafletConstituencyInline(admin.TabularInline):
+    model = LeafletConstituency
 
 class LeafletOptions(admin.ModelAdmin):
-    list_display         = [ 'title', 'publisher_party', 'postcode', 'name', 'email','get_description']    
+    list_display         = [ 'title', 'publisher_party', 'postcode', 'name', 'email','get_description', 'live']    
     search_fields        = ['title', 'postcode']  
     ordering             = ['title']
+    inlines = [ LeafletConstituencyInline, LeafletCategoryInline, LeafletPartyAttackInline] # LeafletTagInline,
+
 
     def get_description(self,obj):
         if obj.description:

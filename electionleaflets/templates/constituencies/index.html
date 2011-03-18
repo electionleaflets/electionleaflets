@@ -12,9 +12,9 @@
 <h1>Constituencies</h1>
 <p>Select a constituency from the list below, or enter your postcode</p>
 
-	<form method="get" action="{% url constituencies %}">
-    	<label for="txtSearch">Postcode</label>
-        <input type="text" id="txtSearch" name="p" />
+	<form method="post" action="{% url constituencies %}">
+    	<label for="search">Postcode</label>
+        <input type="text" id="id_search" name="search" />
         <input  type="submit" value="GO" />
         <small>e.g. <a href="?p=sw98jx">SW9 8JX</a></small>
     </form>

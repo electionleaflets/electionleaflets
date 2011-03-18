@@ -2,7 +2,33 @@ from django.template  import RequestContext
 from django.http import HttpResponseRedirect
 from django.shortcuts import render_to_response, get_object_or_404
 from django.core.urlresolvers import reverse
+from django.conf import settings
 
+def constituency_by_postcode(postcode):
+    import urllib2
+    from xml.etree import ElementTree
+    
+    key = settings.THEYWORKFORYOU_API_KEY
+    if not key:
+        return None
+        
+    url = "http://www.theyworkforyou.com/api/getConstituency?output=xml&key=%s&postcode=%s" % (key,postcode.replace(' ',''),)
+    try:
+        conn = urllib2.urlopen( url )        
+        data = conn.read()
+        
+        element = ElementTree.fromstring(data)
+        err = element.find('error')
+        if err is None:
+            elem = element.find('name')
+            if elem is not None:
+                return elem.text
+    except:
+        pass
+        
+    return None
+    
+    
 
 def view_constituencies(request):
     """
@@ -16,14 +42,18 @@ def view_constituencies(request):
     constituencies = Constituency.objects.order_by('name').all()
     
     form = ConstituencyLookupForm(request.POST or None)
+    cons = None
+    
     if request.method == 'POST':
         if form.is_valid():
             postcode = form.cleaned_data['search']
             if postcode:
-                #TODO: Not yet implemented
-                pass
-            
-            cons = form.cleaned_data['constituency']
+                c = constituency_by_postcode(postcode)
+                if c:
+                    cons = Constituency.objects.get(name=c)
+            else:
+                cons = form.cleaned_data['constituency']
+                
             if cons:
                 return HttpResponseRedirect(reverse('constituency', kwargs={'slug': cons.slug}) )
 

@@ -6,8 +6,14 @@ class Country(models.Model):
     iso = models.CharField(max_length=6)
     name = models.CharField(max_length=240)
     iso3 = models.CharField(max_length=9, blank=True)
+    
+    def __unicode__(self):
+        return self.name
+    
     class Meta:
         db_table = u'country'
+        verbose_name_plural = u'Countries'
+        
 
 class EmailAlert(models.Model):
     email_alert_id = models.IntegerField(primary_key=True)
@@ -21,11 +27,8 @@ class EmailAlert(models.Model):
     title = models.CharField(max_length=765)
     class Meta:
         db_table = u'email_alert'
+        verbose_name_plural = u'Email alerts'
 
-class EmailAlertSeq(models.Model):
-    sequence = models.IntegerField(primary_key=True)
-    class Meta:
-        db_table = u'email_alert_seq'
 
 class EmailQue(models.Model):
     email_que_id = models.IntegerField(primary_key=True)

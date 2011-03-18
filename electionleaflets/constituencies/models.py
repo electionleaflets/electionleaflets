@@ -6,6 +6,10 @@ class ConstituencyType(models.Model):
     name = models.CharField(max_length=150)
     country = models.ForeignKey(Country)
     url_id = models.CharField(max_length=300, blank=True)
+    
+    def __unicode__(self):
+        return self.name
+    
     class Meta:
         db_table = u'constituency_type'
 
@@ -24,7 +28,8 @@ class Constituency(models.Model):
     slug = AutoSlugField( populate_from='name', max_length=255)
     class Meta:
         db_table = u'constituency'
-
+        verbose_name_plural = 'Constituencies'
+        
     def __unicode__(self):
         return self.name
 

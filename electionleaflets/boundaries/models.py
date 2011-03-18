@@ -11,3 +11,4 @@ class Boundary(models.Model):
     west = models.FloatField()
     class Meta:
         db_table = u'boundaries_boundary'
+        verbose_name_plural = 'Boundaries'

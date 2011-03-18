@@ -16,6 +16,7 @@ class Party(models.Model):
     
     class Meta:
         db_table = u'party'
+        verbose_name_plural = 'Parties'
 
     def __unicode__(self):
         return self.name

@@ -6,8 +6,10 @@ class Category(models.Model):
     description = models.TextField(blank=True)
     default_value = models.IntegerField(null=True, blank=True)
     slug = AutoSlugField( populate_from='name', max_length=255)
+
     class Meta:
         db_table = u'category'
-
+        verbose_name_plural = 'Categories'
+        
     def __unicode__(self):
         return self.name

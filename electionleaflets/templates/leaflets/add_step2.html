@@ -25,6 +25,8 @@
             Add some more information about this leaflet
         </p>
         <fieldset>
+			<input type='hidden' id='id_lat' name='lat' value='0'>
+			<input type='hidden' id='id_lng' name='lng' value='0'>			
             <ul>
                 <li>
                     <label for="title">Give the leaflet a title *</label>
@@ -34,29 +36,20 @@
 					{{ form.title.errors }}
                 </li>
                 <li>
-                    <label for="transcript">Enter a transcript of the main points / first paragraph</label>
-					{{ form.transcript }}
+                    <label for="description">Enter a transcript of the main points / first paragraph</label>
+					{{ form.description }}
                     <br/>
                     <strong>Note: please only add what is actually on the leaflet, not your opinion of it.</strong>
                 </li>
                 <li>
-                    <label for="txtPostcode">Which postcode was the leaflet was delivered to? *</label>
+                    <label for="id_postcode">Which postcode was the leaflet was delivered to? *</label>
 					{{ form.postcode }}
 					{{ form.postcode.errors }}
                     <small>this will let us work out which constituency the leaflet covers</small>
                 </li>
                 <li>
-                    <label for="ddlDelivered">When was the leaflet delivered? *</label>
-
-                    <select id="ddlDelivered" name="ddlDelivered" >
-                        <option value="0" selected="selected">Today</option>
-                        <option value="1" >Yesterday</option>
-                        <option value="7" >Last Week</option>
-                        <option value="14" >Couple of weeks ago</option>
-                        <option value="30" >Last month</option>                     
-                        <option value="60" >Two months ago</option>
-                        <option value="90" >Three months ago</option>                                                                        
-                    </select>
+                    <label for="date_delivered_text">When was the leaflet delivered? *</label>
+					{{ form.date_delivered_text}}<br/>
                     <small class="highlight">Please only add leaflets that have been delivered to you recently</small>
                 </li>
                 <li>

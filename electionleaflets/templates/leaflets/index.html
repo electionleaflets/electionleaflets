@@ -16,7 +16,7 @@
 	{% for leaflet in qs %}
 		<li>
 			<a class="leaflet" href="{% url leaflet leaflet.id %}">
-				<img src="http://thestraightchoice.s3.amazonaws.com/thumbnail/{{ leaflet.get_first_image.image_key }}.jpg">
+				<img src="{{ leaflet.get_first_image.get_thumb }}">
             </a>
             <a href="{% url leaflet leaflet.id %}">{{ leaflet.title }}</a>
 		</li>

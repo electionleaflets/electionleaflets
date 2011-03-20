@@ -66,11 +66,11 @@
 
     <div class="contentright">
         <ul>
-	{% comment %}{% url full_image object.get_first_image.image_key %}{% endcomment %}
+
 			{% for image in object.images.all %}
 				<li>
 					<a href="{% url full_image image.image_key %}">
-						<img src="http://thestraightchoice.s3.amazonaws.com/medium/{{ image.image_key }}.jpg" />						
+						<img src="{{ image.get_medium }}" />						
 					</a>
 				</li>					
 				<br/>

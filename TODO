@@ -7,6 +7,8 @@ Upload
 A list of simple changes to the historical database schema to make it work with the newly modified models.
 
 alter table leaflet change leaflet_id id int(11) auto_increment;
+alter table leaflet_image change leaflet_id leaflet_id int(11);
+update leaflet_image set id=1 where id=0;
 alter table leaflet_image change leaflet_image_id id int(11) auto_increment;
 
 

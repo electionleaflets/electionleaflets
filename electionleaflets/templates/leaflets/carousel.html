@@ -1,11 +1,11 @@
-<div id="divScroller">
+<div id="divScroller" style='height:200px;'>
 <a id="btnPrevious" href="#"><img src="{{ MEDIA_URL }}images/arrow_left.png" alt="Previous"/></a>
 <a id="btnNext" href="#"><img src="{{ MEDIA_URL }}images/arrow_right.png" alt="Next"/></a>            
-<ul class="results">
+<ul class="results"  style='height:178px;'>
 	{% for leaflet in leaflets %}
 	<li>
       <a class="leaflet" href="{% url leaflet leaflet.pk %}">
-		<img src="http://thestraightchoice.s3.amazonaws.com/small/{{ leaflet.get_first_image.image_key }}.jpg">
+		<img src="{{ leaflet.get_first_image.get_small }}">
       </a>
 	</li>
 	{% endfor %}

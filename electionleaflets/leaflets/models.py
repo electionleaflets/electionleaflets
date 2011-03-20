@@ -4,18 +4,83 @@ from constituencies.models import Constituency
 from categories.models import Category
 from tags.models import Tag   
 
+def update_filename(instance, filename):
+    import uuid, os
+    
+    path = "uploads/"
+    _,ext = os.path.splitext( filename )
+    
+    return os.path.join(path, str(uuid.uuid4()) + ext )    
+
 
 class UploadSession(models.Model):
     key = models.CharField( max_length=64, null=True, blank=True )
-    image1 = models.ImageField( upload_to='uploads/', null=True, blank=True )
-    image2 = models.ImageField( upload_to='uploads/',null=True, blank=True )
-    image3 = models.ImageField( upload_to='uploads/',null=True, blank=True )
-    image4 = models.ImageField( upload_to='uploads/',null=True, blank=True )
-    image5 = models.ImageField( upload_to='uploads/',null=True, blank=True )
-    image6 = models.ImageField( upload_to='uploads/',null=True, blank=True )
-    image7 = models.ImageField( upload_to='uploads/',null=True, blank=True )
-    image8 = models.ImageField( upload_to='uploads/',null=True, blank=True )
+    image1 = models.ImageField( upload_to=update_filename, max_length=255,null=True, blank=True )
+    image2 = models.ImageField( upload_to=update_filename, max_length=255,null=True, blank=True )
+    image3 = models.ImageField( upload_to=update_filename, max_length=255,null=True, blank=True )
+    image4 = models.ImageField( upload_to=update_filename, max_length=255,null=True, blank=True )
+    image5 = models.ImageField( upload_to=update_filename, max_length=255,null=True, blank=True )
+    image6 = models.ImageField( upload_to=update_filename, max_length=255,null=True, blank=True )
+    image7 = models.ImageField( upload_to=update_filename, max_length=255,null=True, blank=True )
+    image8 = models.ImageField( upload_to=update_filename, max_length=255,null=True, blank=True )
     s3keys = models.TextField(null=True, blank=True)
+    
+    def names(self):
+        vals = []
+        for x in range(1,9):
+            img = getattr(self, 'image%s' % x)
+            if img:
+                name = str(img).split('/')[-1]
+                vals.append( name.split('.')[0] )
+        return vals
+    
+    def resize_file( self, fl, name, w, h):
+        from PIL import Image        
+        from django.conf import settings
+        import os
+
+        x = w
+        y = h
+        
+        srcpath = os.path.join( settings.MEDIA_ROOT, str(fl))
+        path,ext = os.path.splitext( srcpath )
+        parts = path.split('/')
+        outpath = '/'.join(parts[:-1])
+        outpath = os.path.join(outpath, name)
+        outpath = os.path.join(outpath, parts[-1])        
+        outpath = outpath + ext
+        
+        try:
+            f = open( srcpath, 'rb' )
+            image = Image.open( f )
+            if image.mode not in ("L", "RGB"):
+                image = image.convert("RGB")                    
+            
+            img_ratio = float(image.size[0]) / image.size[1]
+            if x==0.0:
+                x = y * img_ratio
+            elif y==0.0:
+                y = x / img_ratio            
+            resize_ratio = float(x) / y
+            x = int(x)
+            y = int(y)
+        
+            img = image.resize( (x,y,) )
+            img.save(outpath, "JPEG")
+
+        except:
+            pass
+        
+    
+    def handle_file_uploads( self ):
+        for x in range(1,9):
+            img = getattr(self, 'image%s' % x)
+            if img:
+                self.resize_file( img, 'thumbs', 140, 0 )                
+                self.resize_file( img, 'small', 120, 0 )
+                self.resize_file( img, 'medium', 300, 0 )
+                self.resize_file( img, 'large', 1024, 0 )                                
+    
     
 class LeafletConstituency(models.Model):
     leaflet = models.ForeignKey('Leaflet')
@@ -65,11 +130,38 @@ class Leaflet(models.Model):
 
 
 class LeafletImage(models.Model):
+    id = models.AutoField(primary_key=True)
     leaflet = models.ForeignKey(Leaflet, related_name='images')
     image_key = models.CharField(max_length=765)
-    sequence = models.IntegerField()
+    sequence = models.PositiveIntegerField()
+    
+    #thestraightchoice.s3
+    def get_medium(self):
+        return self.get_image('medium')
+
+    def get_large(self):
+        return self.get_image('large')
+
+    def get_small(self):
+        return self.get_image('small')
+
+    def get_thumb(self):
+        return self.get_image('thumbs')
+
+    def get_original(self):
+        return self.get_image('')
+        
+    def get_image(self, size):
+        import os
+        from django.conf import settings
+        
+        p = os.path.join(settings.MEDIA_URL, 'uploads')
+        p = os.path.join(p, size)
+        return os.path.join(p, self.image_key) + '.jpg'
+
     class Meta:
         db_table = u'leaflet_image'
+
 
         
 class LeafletCategory(models.Model):

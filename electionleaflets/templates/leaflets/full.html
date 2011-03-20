@@ -5,7 +5,7 @@
     <div id="divFullImage" class="contentfull">
         <a href="{% url leaflet leaflet.id%}">&larr; back to details of <em>{{ leaflet.publisher_party.name }} Leaflet</em></a>
         <ul>
-<li id="{{ image_key }}"><img src="http://thestraightchoice.s3.amazonaws.com/large/{{ image_key }}.jpg" /></li>   
+<li id="{{ image_key }}"><img src="{{ image.get_original }}" /></li>   
                     </ul>
         <a href="{% url leaflet leaflet.id%}">&larr; back to details of <em>{{ leaflet.publisher_party.name }} Leaflet</em></a>
     </div>

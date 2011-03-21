@@ -1,10 +1,9 @@
-Categories and category lists
-Party templatetag needs fixing.
-Pagination on tag page
-Upload
-      
+- Upload to S3 (+configurable image_host setting)
+- Lat/Lon lookup from postcode | constituency
+- Check that existing tables are setup for migrations
 
-A list of simple changes to the historical database schema to make it work with the newly modified models.
+-----
+A list of simple changes to the historical database schema to make it work with the newly modified models. This shouldn't be needed if syncing the database from scratch.
 
 alter table leaflet change leaflet_id id int(11) auto_increment;
 alter table leaflet_image change leaflet_id leaflet_id int(11);

@@ -41,6 +41,7 @@ def add_leaflet_info(request, upload_session_key):
     from constituencies.views import constituency_by_postcode    
     from constituencies.models import Constituency
     from datetime import datetime, timedelta
+    from third_party.mapit import postcode_to_latlong    
     
     session = get_object_or_404(UploadSession, key=upload_session_key)      
     s3keys = session.s3keys.split(',')  
@@ -52,7 +53,11 @@ def add_leaflet_info(request, upload_session_key):
         if form.is_valid():
             #exclude = ('lat','lng','date_uploaded', 'date_delivered', 'constituencies')
             leaflet = form.save(commit=False)
-            leaflet.lat = leaflet.lng = 0
+            
+            lat, lon = postcode_to_latlong(leaflet.postcode)
+            leaflet.lat = lat or 0
+            leaflet.lng =  lon or 0
+            
             leaflet.date_uploaded = datetime.now()
             leaflet.date_delivered = datetime.now() + timedelta( int(form.cleaned_data['date_delivered_text']) )
             leaflet.save()

@@ -1,4 +1,9 @@
 Installation Instructions
 =========================
 
+Short version - until I can write something more useful
+
+> virtualenv . --no-site-packages
+> python bootstrap.py
+> bin/buildout
 

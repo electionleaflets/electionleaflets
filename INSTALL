@@ -4,6 +4,7 @@ Installation Instructions
 Short version - until I can write something more useful
 
 > virtualenv . --no-site-packages
+> . bin/activate
 > python bootstrap.py
 > bin/buildout
 

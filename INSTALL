@@ -7,4 +7,4 @@ Short version - until I can write something more useful
 > . bin/activate
 > python bootstrap.py
 > bin/buildout
-
+> bin/django runserver

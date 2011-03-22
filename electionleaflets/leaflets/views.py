@@ -51,9 +51,11 @@ def add_leaflet_info(request, upload_session_key):
     
     if request.method == 'POST':
         if form.is_valid():
-            #exclude = ('lat','lng','date_uploaded', 'date_delivered', 'constituencies')
             leaflet = form.save(commit=False)
             
+            # This is obviously very UK specific, and I am a little loathe to go the whole zope style
+            # provider/interface path, but ...
+            # TODO: Provide hook for non-uk lookup for postcode/zipcode
             lat, lon = postcode_to_latlong(leaflet.postcode)
             leaflet.lat = lat or 0
             leaflet.lng =  lon or 0

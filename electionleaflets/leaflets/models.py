@@ -69,17 +69,62 @@ class UploadSession(models.Model):
             img.save(outpath, "JPEG")
 
         except:
-            pass
+            return None
         
+        return outpath
     
     def handle_file_uploads( self ):
         for x in range(1,9):
             img = getattr(self, 'image%s' % x)
             if img:
-                self.resize_file( img, 'thumbs', 140, 0 )                
-                self.resize_file( img, 'small', 120, 0 )
-                self.resize_file( img, 'medium', 300, 0 )
-                self.resize_file( img, 'large', 1024, 0 )                                
+                f = self.resize_file( img, 'thumbnail', 140, 0 )                
+                self.send_to_s3( f, "thumbnail")
+                
+                f = self.resize_file( img, 'small', 120, 0 )
+                self.send_to_s3( f, "small")
+                
+                f = self.resize_file( img, 'medium', 300, 0 )
+                self.send_to_s3( f, "medium")
+                
+                f = self.resize_file( img, 'large', 1024, 0 )                                
+                self.send_to_s3( f, "large")                
+    
+    def send_to_s3(self,filename, folder):
+        """
+        Send the source file, filename, to S3 (if enabled) and store it in 
+        the named folder.
+        """
+        from django.conf import settings
+        from third_party import S3
+                
+        import mimetypes
+        import os.path
+        import sys
+        
+        if not settings.S3_ENABLED:
+            return
+        
+        if filename is None:
+            # TODO: We need to log the error (and alert an admin)
+            return
+        
+        try:
+            conn = S3.AWSAuthConnection(settings.AWS_KEY, settings.AWS_SECRET)
+            filedata = open(filename, 'rb').read()
+            content_type = 'image/jpeg'
+        
+            newname = '%s/%s' % (folder,os.path.basename(filename),)
+            print "Uploading %s as %s" % (filename,newname,)
+        
+            conn.put(settings.S3_BUCKET, newname, S3.S3Object(filedata),
+                {'x-amz-acl': 'public-read', 'Content-Type': content_type})
+            print "File upload success"
+            del conn
+        except:
+            # TODO: Do something about this
+            print "File upload fail"
+            pass
+    
     
     
 class LeafletConstituency(models.Model):
@@ -146,7 +191,7 @@ class LeafletImage(models.Model):
         return self.get_image('small')
 
     def get_thumb(self):
-        return self.get_image('thumbs')
+        return self.get_image('thumbnail')
 
     def get_original(self):
         return self.get_image('')
@@ -155,10 +200,14 @@ class LeafletImage(models.Model):
         import os
         from django.conf import settings
         
-        p = os.path.join(settings.MEDIA_URL, 'uploads')
-        p = os.path.join(p, size)
-        return os.path.join(p, self.image_key) + '.jpg'
-
+        if settings.S3_ENABLED:
+            url = "http://%s.s3.amazonaws.com/%s/%s.jpg" % (settings.S3_BUCKET, size, self.image_key,)
+        else:
+            p = os.path.join(settings.MEDIA_URL, 'uploads')
+            p = os.path.join(p, size)
+            url = os.path.join(p, self.image_key) + '.jpg'
+        return url
+            
     class Meta:
         db_table = u'leaflet_image'
 

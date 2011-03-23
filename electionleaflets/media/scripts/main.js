@@ -26,8 +26,8 @@ function showMap(sMapProvider, nLng, nLat){
 
     // create a marker positioned at a lat/lon 
     oMarker = new Marker(oPoint);
-    oMarker.setIcon("/images/marker.png", [15,15], null);
-    oMarker.setShadowIcon("/images/shadow.png",1);
+    oMarker.setIcon("/media/images/marker.png", [15,15], null);
+    oMarker.setShadowIcon("/media/images/shadow.png",1);
  
     // display marker
     oMapstraction.addMarker(oMarker);

@@ -26,6 +26,7 @@ class Constituency(models.Model):
     guardian_aristotle_id = models.IntegerField(null=True, blank=True)
     guardian_pa_code = models.IntegerField(null=True, blank=True)
     slug = AutoSlugField( populate_from='name', max_length=255,separator=u'_')
+    count = models.IntegerField()
     class Meta:
         db_table = u'constituency'
         verbose_name_plural = 'Constituencies'

@@ -43,6 +43,7 @@ def add_leaflet_info(request, upload_session_key):
     from constituencies.models import Constituency
     from datetime import datetime, timedelta
     from third_party.mapit import postcode_to_latlong    
+    from django.db.models import F    
     
     session = get_object_or_404(UploadSession, key=upload_session_key)      
     s3keys = session.s3keys.split(',')  
@@ -64,6 +65,9 @@ def add_leaflet_info(request, upload_session_key):
             leaflet.date_uploaded = datetime.now()
             leaflet.date_delivered = datetime.now() + timedelta( int(form.cleaned_data['date_delivered_text']) )
             leaflet.save()
+            
+            # Increment the count of leaflets
+            Party.objects.filter(id=leaflet.publisher_party.id).update(count=F('count') + 1)
             
             for t in form.cleaned_data['tags'].split(','):
                 obj, created = Tag.objects.get_or_create(tag=t,tag_clean=t)

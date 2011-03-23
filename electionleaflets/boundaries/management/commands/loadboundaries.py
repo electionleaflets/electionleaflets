@@ -20,16 +20,13 @@ class Command(django.core.management.base.BaseCommand):
             constituencies[reduceName(c.name)] = c
         for b in Boundary.objects.all():
             b.delete()
-        print constituencies.keys()
         for f in ['boundaries/data/england.kml', 
                   'boundaries/data/wales.kml', 
                   'boundaries/data/scotland.kml', 
                   'boundaries/data/northern_ireland.kml']:
-            print f
             places = parse(f).getElementsByTagName("Placemark")
             for place in places:
                 name = place.getElementsByTagName("name")[0].childNodes[0].toxml()
-                print name
                 v = []
                 for coords in place.getElementsByTagName("coordinates"):
                     points = []
@@ -75,7 +72,8 @@ class Command(django.core.management.base.BaseCommand):
                             try:
                                 b.save()
                             except: 
-                                print boundary
+ #                               print boundary
+                                pass
 
-                if len(v) >= 1:
-                    print "'%s'" % name
+#                if len(v) >= 1:
+#                    print "'%s'" % name

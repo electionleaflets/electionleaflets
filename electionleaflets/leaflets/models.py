@@ -119,7 +119,6 @@ class UploadSession(models.Model):
         
             conn.put(settings.S3_BUCKET, newname, S3.S3Object(filedata),
                 {'x-amz-acl': 'public-read', 'Content-Type': content_type})
-            print "File upload success"
             del conn
         except:
             logging.error( "Unexpected error:", sys.exc_info()[0])

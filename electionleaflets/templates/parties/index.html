@@ -6,7 +6,7 @@
         <ul class="parties">
 		{% for p in parties %}
                             <li>
-                    <a href="{% url party p.slug %}/">{{ p.name }}</a>
+                    <a href="{% url party p.slug %}">{{ p.name }}</a>
 
 					<small><a href="{% url attacking_party p.slug %}" title="Leaflets attacking {{ p.name }}">leaflets attacking this party</a></small>
                 </li>

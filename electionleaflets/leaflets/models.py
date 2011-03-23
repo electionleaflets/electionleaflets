@@ -121,8 +121,7 @@ class UploadSession(models.Model):
             print "File upload success"
             del conn
         except:
-            # TODO: Do something about this
-            print "File upload fail"
+            print "Unexpected error:", sys.exc_info()[0]
             pass
     
     

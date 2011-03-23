@@ -29,6 +29,15 @@ def constituency_by_postcode(postcode):
     return None
     
     
+def view_not_spots(request):
+    from constituencies.models import Constituency
+    constituencies = Constituency.objects.filter(count=0).order_by('name').all()
+    return render_to_response('constituencies/notspots.html',
+                            {
+                                'constituencies': constituencies,
+                            },
+                            context_instance=RequestContext(request) )
+    
 
 def view_constituencies(request):
     """

@@ -10,9 +10,9 @@
         <p>Help us track down leaflets for these constituencies!</p>
         <hr/>
         <ul>
-<!-- 
-		<li><a href="http://www.electionleaflets.org/constituencies/yeovil/">Yeovil</a></li>
--->
+		{% for c in constituencies %}
+		<li><a href="{% url constituency c.slug %}">{{ c.name }}</a></li>
+		{% endfor %}
         </ul>
 
 </div>

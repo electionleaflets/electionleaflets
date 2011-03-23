@@ -1,10 +1,10 @@
 from django.db import models
-from core.util import AutoSlugField
+from django_extensions.db.fields import AutoSlugField
 
 class Tag(models.Model):
     tag = models.CharField(max_length=765)
     tag_clean = models.CharField(max_length=765, blank=True)
-    slug = AutoSlugField(populate_from='tag', max_length=255)
+    slug = AutoSlugField(populate_from='tag', max_length=255, separator=u'_')
     dead = models.IntegerField(null=True, blank=True)
     
     def __unicode__(self):

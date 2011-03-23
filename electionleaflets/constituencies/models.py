@@ -1,5 +1,5 @@
 from django.db import models
-from core.util import AutoSlugField
+from django_extensions.db.fields import  AutoSlugField
 from core.models import Country
 
 class ConstituencyType(models.Model):
@@ -25,7 +25,7 @@ class Constituency(models.Model):
     url_id = models.CharField(max_length=300, blank=True)
     guardian_aristotle_id = models.IntegerField(null=True, blank=True)
     guardian_pa_code = models.IntegerField(null=True, blank=True)
-    slug = AutoSlugField( populate_from='name', max_length=255,field_separator='_')
+    slug = AutoSlugField( populate_from='name', max_length=255,separator=u'_')
     class Meta:
         db_table = u'constituency'
         verbose_name_plural = 'Constituencies'

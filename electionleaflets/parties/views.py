@@ -2,6 +2,15 @@ from django.template  import RequestContext
 from django.shortcuts import render_to_response, get_object_or_404
 
 
+def view_parties(request):
+    from parties.models import Party
+    return render_to_response('parties/index.html', 
+                            {
+                                'parties': Party.objects.all().order_by('name'),
+                            },
+                            context_instance=RequestContext(request) )
+    
+    
 def view_party(request, slug):
     from parties.models import Party
     from leaflets.models import Leaflet

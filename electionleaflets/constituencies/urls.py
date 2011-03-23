@@ -8,7 +8,7 @@ from constituencies.views import view_constituency, view_constituencies, view_no
 urlpatterns = patterns(
     '',
     url(r'^/$',      view_constituencies, name='constituencies'),    
-    url(r'^notspots/', view_not_spots, name='constituency_notspots'),                  
+    url(r'^/notspots/', view_not_spots, name='constituency_notspots'),                  
     url(r'^/(?P<slug>[\w_\-\.]+)/$',  view_constituency, name='constituency'),              
 )
 

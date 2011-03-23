@@ -80,8 +80,8 @@ def add_leaflet_info(request, upload_session_key):
                     c = Constituency.objects.get(name=cons)
                     if not cons in leaflet.constituencies.all():
                         LeafletConstituency(leaflet=leaflet, constituency=c).save()
-            except Exception as e:
-                print e
+            except:
+                print "Unexpected error:", sys.exc_info()[0]
                 
                 
             s = 1

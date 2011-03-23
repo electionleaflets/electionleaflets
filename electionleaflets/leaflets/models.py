@@ -3,6 +3,7 @@ from parties.models import Party
 from constituencies.models import Constituency
 from categories.models import Category
 from tags.models import Tag   
+import logging
 
 def update_filename(instance, filename):
     import uuid, os
@@ -114,15 +115,14 @@ class UploadSession(models.Model):
             content_type = 'image/jpeg'
         
             newname = '%s/%s' % (folder,os.path.basename(filename),)
-            print "Uploading %s as %s" % (filename,newname,)
+            #logging( "Uploading %s as %s" % (filename,newname,)
         
             conn.put(settings.S3_BUCKET, newname, S3.S3Object(filedata),
                 {'x-amz-acl': 'public-read', 'Content-Type': content_type})
             print "File upload success"
             del conn
         except:
-            print "Unexpected error:", sys.exc_info()[0]
-            pass
+            logging.error( "Unexpected error:", sys.exc_info()[0])
     
     
     

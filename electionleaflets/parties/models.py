@@ -13,6 +13,7 @@ class Party(models.Model):
     slug = AutoSlugField( populate_from='name', max_length=255,separator=u'_')
     count = models.IntegerField()
     popular = models.IntegerField()
+    force_top = models.IntegerField(  )
     
     class Meta:
         db_table = u'party'

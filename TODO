@@ -14,6 +14,7 @@ alter table leaflet_image change leaflet_image_id id int(11) auto_increment;
 alter table leaflet_constituency change leaflet_constituency_id id int(11) auto_increment;
 alter table constituency change constituency_id id int(11) auto_increment;
 alter table party change party_id id int(11) auto_increment;
+alter table party add column force_top int default 0; 
 
 alter table leaflet_tag change leaflet_tag_id id int(11) auto_increment;
 alter table tag change tag_id id int(11) auto_increment;
@@ -29,6 +30,8 @@ alter table constituency add column slug varchar(255);
 alter table party add column slug varchar(255);
 alter table party add column popular int default 0;
 alter table party add column count int default 0;
+alter table constituency add column count int default 0;
+
 >>> for p in Party.objects.all():
 p.count = p.leaflet_set.count()
 p.save()

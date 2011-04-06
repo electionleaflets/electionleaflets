@@ -199,7 +199,10 @@ class LeafletImage(models.Model):
         from django.conf import settings
         
         if settings.S3_ENABLED:
-            url = "http://%s.s3.amazonaws.com/%s/%s.jpg" % (settings.S3_BUCKET, size, self.image_key,)
+            if size:
+                url = "http://%s.s3.amazonaws.com/%s/%s.jpg" % (settings.S3_BUCKET, size, self.image_key,)
+            else:
+                url = "http://%s.s3.amazonaws.com/%s.jpg" % (settings.S3_BUCKET, self.image_key,)
         else:
             p = os.path.join(settings.MEDIA_URL, 'uploads')
             p = os.path.join(p, size)

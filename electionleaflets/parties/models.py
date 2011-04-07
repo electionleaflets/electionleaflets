@@ -14,6 +14,7 @@ class Party(models.Model):
     count = models.IntegerField()
     popular = models.IntegerField()
     force_top = models.IntegerField(  )
+    show_on_add_page = models.BooleanField(default=False)
     
     class Meta:
         db_table = u'party'

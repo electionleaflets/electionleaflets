@@ -2,6 +2,7 @@
 {% load leaflet_tags %}
 {% load party_tags %}
 {% load constituency_tags %}
+{% load content_tags %}
 
 {% block body %}
         <div id="divContent">
@@ -23,19 +24,17 @@
              </form>
          </div>
     <div id="divWelcome">
-        <p>
-            During the 2010 general election you helped us collect 5,000 leaflets!
-        </p>
-        <p>
-            In 2011 there are elections in Scotland, Wales, some local councils and two referendums.
-        </p>
-        <p>
-            We need your help to photograph and upload what lands on your doormat.
-        </p>
+		{% content_block "homepage" %}
+		
+		{% if request.user.is_staff %}
+		<a href='/admin/content/contentblock/1/'>Edit ContentBlock</a>
+		{% endif%}
+		
         <p id="pCount">
-            6186 leaflets added so far!
+            Over 6000 leaflets added so far!
         </p>
-    </div>
+	</div>
+	
      <div id="divAction">
         <div>
             <h3>1) Photograph any leaflets you receive</h3>

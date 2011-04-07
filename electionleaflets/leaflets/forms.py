@@ -24,8 +24,8 @@ class LeafletInfoForm(forms.ModelForm):
     title = forms.CharField( max_length=128,error_messages = {'required': u'Please add a title for this leaflet'} )
     description = forms.CharField( max_length=512, widget=forms.Textarea, required=False)
     postcode = forms.CharField( max_length=20,error_messages = {'required': u'Please add a post code for this leaflet'} )
-    publisher_party = forms.ModelChoiceField(queryset=Party.objects.order_by('-force_top','-popular').all(), error_messages = {'required': u'Please specify the party responsible for this leaflet'})
-    attacks = forms.ModelMultipleChoiceField( queryset=Party.objects.order_by('-force_top','-popular').all(), widget=forms.CheckboxSelectMultiple, required=False )
+    publisher_party = forms.ModelChoiceField(queryset=Party.objects.filter(show_on_add_page=True).order_by('-force_top').all(), error_messages = {'required': u'Please specify the party responsible for this leaflet'})
+    attacks = forms.ModelMultipleChoiceField( queryset=Party.objects.filter(show_on_add_page=True).order_by('-force_top').all(), widget=forms.CheckboxSelectMultiple, required=False )
     categories = forms.ModelMultipleChoiceField( queryset=Category.objects.order_by('name').all(), widget=forms.CheckboxSelectMultiple, required=False )
     
     date_delivered_text = forms.ChoiceField( choices=DELIVERY_CHOICES, widget=forms.Select() )

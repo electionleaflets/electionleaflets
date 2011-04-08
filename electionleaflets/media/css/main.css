@@ -263,6 +263,12 @@ div.stats div {float:left;padding-right:30px;}
 	height: 3px;
 }
 
+/* Staff links  */
+.staff_link { 
+	padding: 10px;
+	background-image: url(../images/staff.png );
+}
+
 /* Snipshot upload */
 #uploadProgress
 {

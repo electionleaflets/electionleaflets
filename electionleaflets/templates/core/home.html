@@ -27,7 +27,7 @@
 		{% content_block "homepage" %}
 		
 		{% if request.user.is_staff %}
-		<a href='/admin/content/contentblock/1/'>Edit ContentBlock</a>
+		<a class='staff_link' href='/admin/content/contentblock/1/'>Edit ContentBlock</a>
 		{% endif%}
 		
         <p id="pCount">

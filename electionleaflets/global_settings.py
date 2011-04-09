@@ -1,12 +1,6 @@
 
 import os
 
-ADMINS = (
-    ('Your Name', 'your_email@domain.com'),
-)
-
-MANAGERS = ADMINS
-
 # DATABASES define in environment specific settings file
 
 TIME_ZONE = 'Europe/London'

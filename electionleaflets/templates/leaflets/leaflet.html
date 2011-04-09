@@ -22,6 +22,11 @@
 	            			</div>
             
     <div class="contentleft">
+	
+		{% if request.user.is_staff %}
+			<a class='staff_link' href='/admin/leaflets/leaflet/{{ object.id }}/'>Edit leaflet</a>
+		{% endif%}
+
         <h1>{{ object.get_title }}</h1>
         <div>
         	{% if object.description %}

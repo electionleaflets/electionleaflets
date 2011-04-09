@@ -110,8 +110,14 @@ def add_leaflet_info(request, upload_session_key):
 
 def view_full_image(request, image_key):
     from leaflets.models import LeafletImage
-    
-    li = get_object_or_404(LeafletImage, image_key=image_key)
+
+    li = LeafletImage.objects.filter(image_key=image_key)
+    if li.count() == 1:
+        li = get_object_or_404(LeafletImage, image_key=image_key)
+    else:
+        # Should not do this, we'll need to fix it - probably and upload artifact
+        li = li.all()[0]
+
     
     return render_to_response('leaflets/full.html', 
                             {

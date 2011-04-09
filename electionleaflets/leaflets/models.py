@@ -163,7 +163,10 @@ class Leaflet(models.Model):
             return { 'image_key': ''}
             
     def get_first_constituency(self):
-        return self.constituencies.all()[0]
+        if self.constituencies.count():
+            return self.constituencies.all()[0]
+        else:
+            return None
     
     def get_title(self):
         return self.title if self.title and len(self.title) else ('%s leaflet' % self.party.name)

@@ -35,7 +35,7 @@
         </div>
         <p>Published by <a href="{% url party object.publisher_party.slug%}">{{object.publisher_party.name}}</a></p>
         <p>
-            Delivered in <a href="{% url constituency object.get_first_constituency.slug %}">{{ object.get_first_constituency.name }}</a> on {{ object.date_delivered|date:"l, d M, Y" }} (approximate). Uploaded on {{ object.date_uploaded|date:"l, d M, Y" }} at {{ object.date_uploaded|date:"H:i" }}.
+            Delivered in {% if object.get_first_constituency %}<a href="{% url constituency object.get_first_constituency.slug %}">{{ object.get_first_constituency.name }}</a>{% else %}unknown location{% endif %} on {{ object.date_delivered|date:"l, d M, Y" }} (approximate). Uploaded on {{ object.date_uploaded|date:"l, d M, Y" }} at {{ object.date_uploaded|date:"H:i" }}.
 
         </p>
         <h4>Categories</h4>

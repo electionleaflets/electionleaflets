@@ -49,7 +49,7 @@ class UploadSession(models.Model):
         outpath = '/'.join(parts[:-1])
         outpath = os.path.join(outpath, name)
         outpath = os.path.join(outpath, parts[-1])        
-        outpath = outpath + ext
+        outpath = outpath + '.jpg'
         
         try:
             f = open( srcpath, 'rb' )

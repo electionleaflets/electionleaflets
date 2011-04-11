@@ -233,6 +233,9 @@ class LeafletPartyAttack(models.Model):
     party = models.ForeignKey(Party)
     class Meta:
         db_table = u'leaflet_party_attack'
+        
+    def __unicode__(self):
+        return 'attacking %s' % (party.name,)
 
 
 class LeafletTag(models.Model):
@@ -241,7 +244,8 @@ class LeafletTag(models.Model):
     class Meta:
         db_table = u'leaflet_tag'
 
-
+    def __unicode__(self):
+        return 'tagged %s' % (tag.tag,)
 
 
 class Promise(models.Model):

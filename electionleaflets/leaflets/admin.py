@@ -15,7 +15,7 @@ class LeafletConstituencyInline(admin.TabularInline):
     model = LeafletConstituency
 
 class LeafletOptions(admin.ModelAdmin):
-    list_display         = [ 'title', 'publisher_party', 'postcode', 'name', 'email','get_description', 'live']    
+    list_display         = ['id', 'title', 'publisher_party', 'postcode', 'name', 'email','get_description', 'live']    
     search_fields        = ['title', 'postcode']  
     ordering             = ['title']
     inlines = [ LeafletConstituencyInline, LeafletCategoryInline, LeafletPartyAttackInline] # LeafletTagInline,

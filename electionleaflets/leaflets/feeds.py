@@ -23,11 +23,12 @@ class LatestLeafletsFeed(Feed):
 
 class PartyFeed(Feed):
     title = "electionleaflets.org latest party leaflets"
-    link = "/parties/"
     description = "The most recently uploaded party leaflets"
 
     def get_object(self, request, party_slug):
-        return get_object_or_404(Party, slug=party_slug)
+        obj = get_object_or_404(Party, slug=party_slug)
+        self.link = "/parties/%s/" % obj.slug
+        return obj
         
     def items(self,obj):
         return Leaflet.objects.filter(publisher_party=obj).order_by('-id')[:10]

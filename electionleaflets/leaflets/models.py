@@ -155,6 +155,10 @@ class Leaflet(models.Model):
     def __unicode__(self):
         return self.title
     
+    def get_absolute_url(self):
+        from django.contrib.sites.models import Site
+        return 'http://%s/leaflets/%s/' % (Site.objects.get_current().domain,self.id)
+    
     def get_first_image(self):
         try:
             return self.images.all()[0]

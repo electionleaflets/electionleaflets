@@ -235,7 +235,7 @@ class LeafletPartyAttack(models.Model):
         db_table = u'leaflet_party_attack'
         
     def __unicode__(self):
-        return u'attacking %s' % (party.name,)
+        return u'attacking %s' % (self.party.name,)
 
 
 class LeafletTag(models.Model):
@@ -245,7 +245,7 @@ class LeafletTag(models.Model):
         db_table = u'leaflet_tag'
 
     def __unicode__(self):
-        return u'tagged %s' % (tag.tag,)
+        return u'tagged %s' % (self.tag.tag,)
 
 
 class Promise(models.Model):

@@ -69,6 +69,15 @@
 						{{ form.categories }}
 					</ul>
                 </li>
+				<li>
+					<label>What is the imprint on the leaflet?</label>
+					{{ form.imprint }}
+					<div><a href='#' onclick='$("#imprint_explanation").slideDown();return false;'>What is an imprint?</a></div>
+					<div id='imprint_explanation' style='display:none;background-color:#eee;padding:4px;'>
+						An imprint is the information on who has printed the leaflet. Often the text is so small that it is hard to see on the image.  They tend to look like this:
+						<img src="{{ MEDIA_URL }}images/imprint.jpg" alt='Imprint example'>
+					</div>
+                </li>					
                 <li>
                     <label for="txtTags">Tags this leaflet (candidate name, town, policy name, etc)</label>
 					{{form.tags }}

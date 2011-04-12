@@ -142,7 +142,7 @@ class Leaflet(models.Model):
     attacks = models.ManyToManyField( Party, through='LeafletPartyAttack', related_name='attacks')
     tags = models.ManyToManyField( Tag, through='LeafletTag' )
     categories = models.ManyToManyField( Category, through='LeafletCategory' )    
-    
+    imprint = models.TextField( blank=True, null=True)    
     postcode = models.CharField(max_length=150, blank=True)
     lng = models.FloatField()
     lat = models.FloatField()

@@ -17,6 +17,8 @@ DATABASES = {
 
 MAP_PROVIDER= 'openstreetmap'
 
+GOOGLE_ANALYTICS_KEY=''
+
 # A google maps key is currently required and you can get one of these for your website
 # from http://code.google.com/apis/maps/signup.html
 GOOGLE_MAPS_KEY= ''

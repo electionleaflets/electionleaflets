@@ -1,11 +1,46 @@
+
 from django.template  import RequestContext
 from django.shortcuts import render_to_response, get_object_or_404
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, Http404
 from django.core.urlresolvers import reverse
+from django.conf import settings
+from django.contrib.admin.views.decorators import staff_member_required
 
 import logging
 import uuid
-import sys
+import sys, os
+
+
+@staff_member_required
+def rotate_image(request, direction, image_key):
+    from PIL import Image
+    from leaflets.models import UploadSession
+    
+    referer = request.META.get('HTTP_REFERER')
+    if not referer:
+        raise Http404()
+ 
+    angle = {'left': 90, 'right': -90}
+    p = os.path.join(settings.MEDIA_ROOT, 'uploads')
+    p = os.path.join(p, image_key) + '.jpg'
+
+    try:
+        img = Image.open(p)
+        img = img.rotate(angle[direction], expand=True)
+        img.save(p, "JPEG")
+    
+        # HACKY
+        u = UploadSession()
+        u.resize_file( p, 'thumbnail', 140, 0 )                
+        u.resize_file( p, 'small', 120, 0 )
+        u.resize_file( p, 'medium', 300, 0 )
+        u.resize_file( p, 'large', 1024, 0 )                                
+    except:
+        pass
+        
+    return HttpResponseRedirect(referer)
+    
+    
 
 def add_leaflet_upload(request):
     from leaflets.forms import LeafletFileUploadForm

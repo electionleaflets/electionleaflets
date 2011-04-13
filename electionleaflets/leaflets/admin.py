@@ -39,10 +39,18 @@ class LeafletImageOptions(admin.ModelAdmin):
             return obj.leaflet.title
         return ''
     get_leaflet_title.short_description = 'Leaflet title'
+
     def thumbnail(self,obj):
-        # TODO: This could be where to put the rotate icons and links
-        
-        return '<img src="%s"/>' % obj.get_small()
+        from django.core.urlresolvers import reverse
+        from django.conf import settings
+        left_link = reverse('rotate_image', kwargs={'direction':'left', 'image_key': obj.image_key})
+        right_link = reverse('rotate_image', kwargs={'direction':'right', 'image_key': obj.image_key})        
+        html = """
+            <img src='%s'/> 
+            <a href='%s'><img src='%s/images/rotate_left.png' border='0' width='32px' alt='rotate left'/></a>            
+            <a href='%s'><img src='%s/images/rotate_right.png' border='0' width='32px'  alt='rotate right'/></a>
+        """ % (obj.get_small(), left_link, settings.MEDIA_URL, right_link, settings.MEDIA_URL,)
+        return html
     thumbnail.short_description = 'Thumbnail'
     thumbnail.allow_tags = True
     

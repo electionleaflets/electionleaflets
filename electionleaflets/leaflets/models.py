@@ -66,7 +66,9 @@ class UploadSession(models.Model):
             x = int(x)
             y = int(y)
         
-            img = image.resize( (x,y,) )
+            print '*' * 100
+            print 'Resizing image'
+            img = image.resize( (x,y,), Image.ANTIALIAS )
             img.save(outpath, "JPEG")
 
         except:

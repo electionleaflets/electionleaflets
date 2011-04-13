@@ -70,11 +70,10 @@
 					</ul>
                 </li>
 				<li>
-					<label>What is the imprint on the leaflet?</label>
+					<label>Published and promoted by<sup>*</sup></label>
 					{{ form.imprint }}
-					<div><a href='#' onclick='$("#imprint_explanation").slideDown();return false;'>What is an imprint?</a></div>
-					<div id='imprint_explanation' style='display:none;background-color:#eee;padding:4px;'>
-						An imprint is the information on who has printed the leaflet. Often the text is so small that it is hard to see on the image.  They tend to look like this:
+					<div id='imprint_explanation' style='background-color:#eee;padding:4px;'>
+						<sup>*</sup> All leaflets are required by law to include the name and address of the promoter and the publisher, although this is often in <em>very</em> fine print.
 						<img src="{{ MEDIA_URL }}images/imprint.jpg" alt='Imprint example'>
 					</div>
                 </li>					
@@ -102,6 +101,7 @@
 
 <div class="contentright">
     <div>
+			<!-- Get the medium versions -->
 			{% if session.image1 %}
 				<img src="{{ MEDIA_URL }}{{ session.image1 }}">
 			{% endif %}

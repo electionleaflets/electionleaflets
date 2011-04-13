@@ -32,7 +32,7 @@ class LeafletInfoForm(forms.ModelForm):
 
 
     
-    tags = forms.CharField( max_length=512, widget=forms.Textarea, required=False)
+    tags = forms.CharField( max_length=512, required=False)
     name = forms.CharField( max_length=100, error_messages = {'required': u'Please add your name'})
     email = forms.EmailField(error_messages = {'required': u'Please add a valid email address'})
 

@@ -64,6 +64,7 @@ def add_leaflet_info(request, upload_session_key):
             
             leaflet.date_uploaded = datetime.now()
             leaflet.date_delivered = datetime.now() + timedelta( int(form.cleaned_data['date_delivered_text']) )
+            leaflet.live = 1
             leaflet.save()
             
             # Increment the count of leaflets

@@ -36,6 +36,18 @@
             Delivered in {% if object.get_first_constituency %}<a href="{% url constituency object.get_first_constituency.slug %}">{{ object.get_first_constituency.name }}</a>{% else %}unknown location{% endif %} on {{ object.date_delivered|date:"l, d M, Y" }} (approximate). Uploaded on {{ object.date_uploaded|date:"l, d M, Y" }} at {{ object.date_uploaded|date:"H:i" }}.
 
         </p>
+
+		{% if object.imprint %}
+		<h4>Promoter and Publisher details</h4>
+		<ul>
+			<li>
+			<small>
+				{{ object.imprint }}
+			</small>
+			</li>			
+		</ul>
+		{% endif %}
+
         <h4>Categories</h4>
         <ul>
 			{% for category in object.categories.all %}

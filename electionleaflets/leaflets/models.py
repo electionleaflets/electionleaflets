@@ -73,6 +73,7 @@ class UploadSession(models.Model):
         
         return outpath
     
+
     def handle_file_uploads( self ):
         for x in range(1,9):
             img = getattr(self, 'image%s' % x)

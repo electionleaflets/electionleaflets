@@ -1,4 +1,3 @@
-
 from django.template  import RequestContext
 from django.shortcuts import render_to_response, get_object_or_404
 from django.http import HttpResponseRedirect, Http404
@@ -98,7 +97,7 @@ def add_leaflet_info(request, upload_session_key):
             leaflet.lng =  lon or 0
             
             leaflet.date_uploaded = datetime.now()
-            leaflet.date_delivered = datetime.now() + timedelta( int(form.cleaned_data['date_delivered_text']) )
+            leaflet.date_delivered = datetime.now() - timedelta( int(form.cleaned_data['date_delivered_text']) )
             leaflet.live = 1
             leaflet.save()
             

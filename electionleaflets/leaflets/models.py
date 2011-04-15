@@ -218,6 +218,7 @@ class LeafletImage(models.Model):
             
     class Meta:
         db_table = u'leaflet_image'
+        ordering = ['sequence']
 
 
         

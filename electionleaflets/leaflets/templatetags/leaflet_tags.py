@@ -14,5 +14,4 @@ def leaflet_carousel():
 def get_medium_image_from_upload(file_path):
     path = os.path.join(settings.MEDIA_URL, file_path.name)
     path = path.replace('uploads/', 'uploads/medium/')
-    print path
     return path

@@ -34,6 +34,8 @@ function showMap(sMapProvider, nLng, nLat){
 }
 
 function uploadImages(){
+	$(document).scrollTop(0);
+	
    document.getElementById('frmUpload').style.position = "absolute";    
    document.getElementById('frmUpload').style.left = "-2000px";       
    document.getElementById('divUploading').style.display = "block";

@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load leaflet_tags %}
 
 {% block body %}
     
@@ -103,16 +104,28 @@
     <div>
 			<!-- Get the medium versions -->
 			{% if session.image1 %}
-				<img src="{{ MEDIA_URL }}{{ session.image1 }}">
+				<img src="{% get_medium_image_from_upload session.image1 %}">
 			{% endif %}
 			{% if session.image2 %}
-				<img src="{{ MEDIA_URL }}{{ session.image2 }}">
+				<img src="{% get_medium_image_from_upload session.image2 %}">
 			{% endif %}
 			{% if session.image3 %}
-				<img src="{{ MEDIA_URL }}{{ session.image3 }}">
+				<img src="{% get_medium_image_from_upload session.image3 %}">
 			{% endif %}
 			{% if session.image4 %}
-				<img src="{{ MEDIA_URL }}{{ session.image4 }}">
+				<img src="{% get_medium_image_from_upload session.image4 %}">
+			{% endif %}
+			{% if session.image5 %}
+				<img src="{% get_medium_image_from_upload session.image5 %}">
+			{% endif %}
+			{% if session.image6 %}
+				<img src="{% get_medium_image_from_upload  session.image6 %}">
+			{% endif %}
+			{% if session.image7 %}
+				<img src="{% get_medium_image_from_upload  session.image7 %}">
+			{% endif %}
+			{% if session.image8 %}
+				<img src="{% get_medium_image_from_upload  session.image8 %}">
 			{% endif %}
         	
 <!-- <img src="http://thestraightchoice.s3.amazonaws.com/medium/{{ image_key }}.jpg">

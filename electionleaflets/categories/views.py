@@ -9,7 +9,7 @@ def view_category(request, slug):
     
     category = get_object_or_404(Category, slug=slug)
     
-    qs = Leaflet.objects.filter(categories__id=category.id)
+    qs = Leaflet.objects.filter(categories__id=category.id).order_by('-id')
     total = qs.count()
     currentPage = request.GET.get('page', 1)
     totalPages = int(math.ceil(float(total)/12))

@@ -48,13 +48,15 @@
 		</ul>
 		{% endif %}
 
+		{% if object.categories.count %}
         <h4>Categories</h4>
         <ul>
 			{% for category in object.categories.all %}
  				<li><a href="{% url category category.slug %}">{{ category.name }}</a></li>										
 			{% endfor %}
         </ul>
-
+		{% endif %}
+		
         <h4>Tags</h4>
         <ul>
 			{% for t in object.tags.all %}
@@ -64,12 +66,14 @@
 			{% endfor %}
 		</ul>
 
+		{% if object.attacks.count %}
         <h4>Parties attacked in this leaflet</h4>
         <ul>
 			{% for attack in object.attacks.all %}
  				<li><a href="{% url attacking_party attack.slug %}">{{ attack.name }}</a></li>										
 			{% endfor %}
         </ul>
+		{% endif %}
 
 
         <h4>Location (approximate)</h4>

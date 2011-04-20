@@ -30,7 +30,7 @@
 			<input type='hidden' id='id_lng' name='lng' value='0'>			
             <ul>
                 <li>
-                    <label for="title">Give the leaflet a title *</label>
+                    <label for="title">Give the leaflet a title</label>
 					{{ form.title }}
 
                     <small>e.g. the main headline</small>
@@ -43,39 +43,27 @@
                     <strong>Note: please only add what is actually on the leaflet, not your opinion of it.</strong>
                 </li>
                 <li>
-                    <label for="id_postcode">Which postcode was the leaflet was delivered to? *</label>
+                    <label for="id_postcode">Which postcode was the leaflet was delivered to?</label>
 					{{ form.postcode }}
 					{{ form.postcode.errors }}
                     <small>this will let us work out which constituency the leaflet covers</small>
                 </li>
                 <li>
-                    <label for="date_delivered_text">When was the leaflet delivered? *</label>
+                    <label for="date_delivered_text">When was the leaflet delivered?</label>
 					{{ form.date_delivered_text}}<br/>
                     <small class="highlight">Please only add leaflets that have been delivered to you recently</small>
                 </li>
                 <li>
-                    <label for="party">Which party is responsible for the leaflet? *</label>
+                    <label for="party">Which party is responsible for the leaflet?</label>
 					{{ form.publisher_party }}
 					{{ form.publisher_party.errors }}
 			    </li>
-                <li>
-                    <label>Which parties (if any) does the leaflet attack or criticise?</label>
-                    <ul class="scroll">
-						{{ form.attacks}}
-					</ul>
-                </li>
-                <li>
-                    <label>What categories best describes the content of this leaflet?</label>
-                    <ul class="scroll">
-						{{ form.categories }}
-					</ul>
-                </li>
 				<li>
 					<label>Published and promoted by<sup>*</sup></label>
 					{{ form.imprint }}
 					<div id='imprint_explanation' style='background-color:#eee;padding:4px;'>
-						<sup>*</sup> All leaflets are required by law to include the name and address of the promoter and the publisher, although this is often in <em>very</em> fine print.
-						<img src="{{ MEDIA_URL }}images/imprint.jpg" alt='Imprint example'>
+						<sup>*</sup> All leaflets are required by law to include the name and address of the promoter and the publisher, although this is often in <em>very</em> fine print. Like this:<br/>
+						<img style='margin-left: 20px;border: solid 1px #333;' src="{{ MEDIA_URL }}images/imprint.jpg" alt='Imprint example'>
 					</div>
                 </li>					
                 <li>
@@ -85,7 +73,7 @@
                     <small>e.g. Brian Smith<span class="huge">,</span> Woking<span class="huge">,</span> zero tolerance<span class="huge">,</span> parks<span class="huge">,</span> transport</small>
                 </li>
                 <li>
-                    <label for="name">Enter your name and email address *</label>
+                    <label for="name">Enter your name and email address</label>
 					{{ form.name }}
 					{{ form.email }}
                     <small>Your email address will not be made public</small>   

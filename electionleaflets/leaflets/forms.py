@@ -43,7 +43,7 @@ class LeafletInfoForm(forms.ModelForm):
     
     class Meta:
         model = Leaflet
-        exclude = ('date_uploaded', 'date_delivered','constituencies')
+        exclude = ('date_uploaded', 'date_delivered','constituencies',)
 
 
 

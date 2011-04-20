@@ -53,7 +53,7 @@ div.bordertop {border-top:dashed 1px #5c6f7b;}
 div.section {padding-top:2em; margin-top:2em;border-top:solid 1px #808080;}
 
 /* Scroll */
-ul.scroll {overflow-y:scroll; height:200px; border:inset 2px; width:70%;}
+ul.scroll {overflow-y:scroll; height:225px; border:inset 2px; width:70%;}
 ul.scroll li {padding:0;}
 ul.scroll li.divider {border-bottom:dashed 1px #808080;}
 
@@ -70,6 +70,7 @@ ul.results li {float:left;list-style-type:none;padding:0; margin:0; padding-bott
 ul.results li img {margin-bottom:0.2em;;}    
 ul.results li a {display:block; text-align:left; padding-top:0.2em;padding-left:2em;}
 ul.results li a.leaflet {xheight:180px;padding-right:0;}
+a.leaflet img { -webkit-box-shadow: 4px 4px 10px #888; -moz-box-shadow: 4px 4px 10px #888;}
 
 #imgRSS {position:absolute; top:2.4em; right:1.5em;}
 
@@ -194,7 +195,7 @@ div.attention a {font-weight:bold;}
 .jcarousel-container {position: relative; border:solid 1px #ccc; background:#f8f8f8;}
 .jcarousel-clip {z-index: 2;padding: 0;margin: 0;overflow: hidden;position: relative;}
 .jcarousel-list {z-index: 1;overflow: hidden;position: relative;top: 0;left: 0;margin: 0;padding: 0;}
-.jcarousel-list li, .jcarousel-item {float: left;list-style: none;width: 75px;height: 75px;}
+.jcarousel-list li, .jcarousel-item {float: left;list-style: none;width: 75px;height: 175px;}
 .jcarousel-next {z-index: 300;display: block;}
 .jcarousel-prev {z-index: 300;display: block;}
 

@@ -89,7 +89,7 @@
 			{% for image in object.images.all %}
 				<li>
 					<a href="{% url full_image image.image_key %}">
-						<img src="{{ image.get_medium }}" />						
+						<img src="{{ image.get_medium }}" class='shadowed' />						
 					</a>
 				</li>					
 				<br/>

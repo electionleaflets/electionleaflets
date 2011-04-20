@@ -71,6 +71,7 @@ ul.results li img {margin-bottom:0.2em;;}
 ul.results li a {display:block; text-align:left; padding-top:0.2em;padding-left:2em;}
 ul.results li a.leaflet {xheight:180px;padding-right:0;}
 a.leaflet img { -webkit-box-shadow: 4px 4px 10px #888; -moz-box-shadow: 4px 4px 10px #888;}
+img.shadowed { -webkit-box-shadow: 4px 4px 10px #888; -moz-box-shadow: 4px 4px 10px #888;}
 
 #imgRSS {position:absolute; top:2.4em; right:1.5em;}
 

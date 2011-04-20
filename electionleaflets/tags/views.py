@@ -10,8 +10,7 @@ def view_tag(request, slug):
         
     tag = get_object_or_404(Tag, slug=slug)
     
-    qs = Leaflet.objects.filter(tags__id=tag.id)
-    
+    qs = Leaflet.objects.filter(tags__id=tag.id).order_by('-id')
     total = qs.count()
     
     currentPage = request.GET.get('page', 1)

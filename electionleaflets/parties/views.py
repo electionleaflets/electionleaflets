@@ -18,7 +18,7 @@ def view_party(request, slug):
         
     party = get_object_or_404(Party, slug=slug)
     
-    qs = Leaflet.objects.filter(publisher_party=party)
+    qs = Leaflet.objects.filter(publisher_party=party).order_by('-id')
     
     total = qs.count()
     

@@ -81,7 +81,7 @@ def view_constituency(request, slug):
     
     const = get_object_or_404(Constituency, slug=slug)
     
-    qs = Leaflet.objects.filter(constituencies__id=const.id)
+    qs = Leaflet.objects.filter(constituencies__id=const.id).order_by('-id')
     
     total = qs.count()
     currentPage = request.GET.get('page', 1)

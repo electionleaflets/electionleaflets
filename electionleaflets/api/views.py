@@ -23,6 +23,7 @@ def latest(request, format):
         d['delivery_date'] = str(leaflet.date_delivered)
         d['title'] = escape(leaflet.title)
         d['description'] = escape(leaflet.description)
+        d['party'] = escape( leaflet.publisher_party.name )
         i = leaflet.get_first_image()
         if not isinstance(i, dict):
             d['small_image'] = 'http://%s%s' % (domain, i.get_small(),)

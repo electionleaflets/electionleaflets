@@ -20,7 +20,7 @@
 			<a class="leaflet" href="{% url leaflet leaflet.id %}">
 				<img src="{{ leaflet.get_first_image.get_thumb }}">
             </a>
-            <a href="{% url leaflet leaflet.id %}">{{ leaflet.title }}</a>
+            <a href="{% url leaflet leaflet.id %}">{{ leaflet.title|truncatewords:"3" }}</a>
 		</li>
 	{% endfor %}
 

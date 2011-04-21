@@ -2,6 +2,7 @@
 {% load party_tags %}
 {% load pagination_tags %}
 {% load category_tags %}
+{% load leaflet_tags %}
 
 {% block body %}
 
@@ -25,7 +26,7 @@
                <a class="leaflet" href="{% url leaflet leaflet.id %}">				
 				  <img src="{{ leaflet.get_first_image.get_thumb }}">
 				</a>	
-                <a href="{% url leaflet leaflet.id %}">{{ leaflet.publisher_party.name }} Leaflet</a>				
+                <a href="{% url leaflet leaflet.id %}">{{ leaflet.title|truncatesmart:"20" }}</a>				
 			</li>				
 			{% endfor %}
             <li>

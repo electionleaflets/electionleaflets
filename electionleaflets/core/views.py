@@ -10,12 +10,13 @@ from django.contrib.sites.models import Site
 
 def home(request):
     from constituencies.forms import ConstituencyLookupForm
-
+    from content.models import ContentBlock
+    
     form = ConstituencyLookupForm(request.POST or None)
             
     return render_to_response('core/home.html', 
                             {
-                                'form': form
+                                'form': form,
                             },
                             context_instance=RequestContext(request) )
 

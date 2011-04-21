@@ -6,7 +6,7 @@ from django.views.generic.list_detail import object_detail
 
 from leaflets.models import Leaflet
 
-from leaflets.views import view_full_image, latest_leaflets,add_leaflet_upload,add_leaflet_info, rotate_image
+from leaflets.views import view_full_image, latest_leaflets,add_leaflet_upload,add_leaflet_info, rotate_image, view_all_full_images
 
 info_dict = {
     'queryset': Leaflet.objects.all(),
@@ -21,7 +21,9 @@ urlpatterns = patterns(
     
     url(r'^/rotate/(?P<direction>(left|right))/(?P<image_key>.+)/$',  rotate_image, name='rotate_image'),          
         
+    url(r'^/full/(?P<leafletid>\d+)/$',  view_all_full_images, name='full_images'),                  
     url(r'^/full/(?P<image_key>.+)/$',  view_full_image, name='full_image'),          
+    
     url(r'^/(?P<object_id>\d+)/$', 'django.views.generic.list_detail.object_detail', 
                                  dict(info_dict, template_name='leaflets/leaflet.html'), name='leaflet'),    
 )

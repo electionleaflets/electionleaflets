@@ -143,6 +143,7 @@ def add_leaflet_info(request, upload_session_key):
 
 
 
+
 def view_full_image(request, image_key):
     from leaflets.models import LeafletImage
 
@@ -158,6 +159,19 @@ def view_full_image(request, image_key):
                             {
                                 'image': li,
                                 'leaflet': li.leaflet,
+                            },
+                            context_instance=RequestContext(request), )
+
+def view_all_full_images(request, leafletid):
+    from leaflets.models import Leaflet, LeafletImage
+
+    leaflet = get_object_or_404(Leaflet, pk=leafletid)
+    images = LeafletImage.objects.filter(leaflet=leaflet)
+    
+    return render_to_response('leaflets/full_all.html', 
+                            {
+                                'images': images,
+                                'leaflet': leaflet,
                             },
                             context_instance=RequestContext(request), )
 

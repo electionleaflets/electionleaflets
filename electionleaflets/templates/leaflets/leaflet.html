@@ -84,18 +84,25 @@
     </div>
 
     <div class="contentright">
+		<small>
+			<a href="{% url full_images object.id %}">
+        		view all images
+        	</a>
+		</small>
+		
         <ul>
-
 			{% for image in object.images.all %}
 				<li>
 					<a href="{% url full_image image.image_key %}">
 						<img src="{{ image.get_medium }}" class='shadowed' />						
 					</a>
-				</li>					
-				<br/>
+
+					<br/>
                     <small>
+					
                     	<a href="{% url full_image image.image_key %}">
                             view larger image 		
+                        </a>
 							{% if request.user.is_staff %}
 								<a class='staff_link' style='padding:0; background-image:0;' href='{% url rotate_image "left",image.image_key%}'>
 									<img src='{{MEDIA_URL}}images/rotate_left.png' border='0' width='20px' alt='rotate left'/></a>            
@@ -106,9 +113,10 @@
 								</a>								
 							{% endif%}
 
-                        </a>
+<br/><br/>
                     </small>
-				
+				</li>					
+
 			{% endfor%}
 		</ul>
     </div>

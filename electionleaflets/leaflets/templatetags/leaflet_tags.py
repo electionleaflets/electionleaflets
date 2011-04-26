@@ -7,7 +7,7 @@ register = template.Library()
 
 @register.inclusion_tag('leaflets/carousel.html')
 def leaflet_carousel():
-    leaflets = Leaflet.objects.filter().order_by('-id')[0:20]
+    leaflets = Leaflet.objects.filter().order_by('-id')[0:50]
     return { 'MEDIA_URL': settings.MEDIA_URL, 'leaflets': leaflets }
     
 @register.simple_tag

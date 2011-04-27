@@ -429,8 +429,8 @@ Mapstraction.prototype.addAPI = function(element,api) {
 
 					// Add OSM tiles
 
-					var copyright = new GCopyright(1, new GLatLngBounds(new GLatLng(-90,-180), new GLatLng(90,180)), 0, "copyleft");
-					var copyrightCollection = new GCopyrightCollection('OSM');
+					var copyright = new GCopyright(1, new GLatLngBounds(new GLatLng(-90,-180), new GLatLng(90,180)), 0, "(c) OpenStreetMap contributors, CC-BY-SA");
+					var copyrightCollection = new GCopyrightCollection('');
 					copyrightCollection.addCopyright(copyright);
 
 					var tilelayers = [];

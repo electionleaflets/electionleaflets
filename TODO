@@ -1,3 +1,9 @@
+alter table country change column country_id id integer auto_increment;
+alter table elections_election drop foreign key `country_id_refs_id_44cc25c0`;
+
+
+
+
 - Upload to S3 (+configurable image_host setting)
 - Lat/Lon lookup from postcode | constituency
 - Check that existing tables are setup for migrations

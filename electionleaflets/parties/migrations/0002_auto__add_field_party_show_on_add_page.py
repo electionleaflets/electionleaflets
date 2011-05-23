@@ -21,7 +21,7 @@ class Migration(SchemaMigration):
     models = {
         'core.country': {
             'Meta': {'object_name': 'Country', 'db_table': "u'country'"},
-            'country_id': ('django.db.models.fields.IntegerField', [], {'primary_key': 'True'}),
+            'id': ('django.db.models.fields.IntegerField', [], {'primary_key': 'True'}),
             'iso': ('django.db.models.fields.CharField', [], {'max_length': '6'}),
             'iso3': ('django.db.models.fields.CharField', [], {'max_length': '9', 'blank': 'True'}),
             'name': ('django.db.models.fields.CharField', [], {'max_length': '240'})

@@ -2,7 +2,7 @@ from django.db import models
 
 
 class Country(models.Model):
-    country_id = models.IntegerField(primary_key=True)
+#    id = models.IntegerField(primary_key=True)
     iso = models.CharField(max_length=6)
     name = models.CharField(max_length=240)
     iso3 = models.CharField(max_length=9, blank=True)

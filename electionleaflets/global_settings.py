@@ -40,7 +40,8 @@ LEAFLET_APPS = [
     'categories',
     'tags',
     'boundaries',
-    'content'
+    'content',
+    'elections',
 ]
 
 INSTALLED_APPS = [

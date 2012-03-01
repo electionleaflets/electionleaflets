@@ -1,5 +1,3 @@
-PIL
-mysql-python
 python-memcached
 django-filter
 django-pagination

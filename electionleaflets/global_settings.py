@@ -1,4 +1,3 @@
-
 import os
 
 # DATABASES define in environment specific settings file
@@ -41,7 +40,8 @@ LEAFLET_APPS = [
     'tags',
     'boundaries',
     'content',
-    'elections',
+    # Temporarily removing elections code
+    #'elections',
 ]
 
 INSTALLED_APPS = [

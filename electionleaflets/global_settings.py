@@ -32,7 +32,7 @@ ROOT_URLCONF = 'electionleaflets.urls'
 
 LEAFLET_APPS = [
     'core',
-    'leaflets', 
+    'leaflets',
     'parties',
     'constituencies',
     'analysis',
@@ -48,10 +48,11 @@ INSTALLED_APPS = [
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
-    'django.contrib.sites',    
+    'django.contrib.sites',
     'django.contrib.admin',
     'south',
     'pagination',
+    'crispy_forms',
 ] + LEAFLET_APPS
 
 TEMPLATE_CONTEXT_PROCESSORS = (

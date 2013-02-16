@@ -1,7 +1,14 @@
-<div id="divFooter" >
-    <ul class="inline">
-        <li><a href="{% url home %}">Home</a></li>
-        <li><a href="{% url about %}">About</a></li>                
-        <li><a href="{% url about %}#contact">Contact</a></li>                
-    </ul>
-</div>
+<footer class="footer">
+    <div class="container">
+        <p>ElectionLeaflets.org is a real-time election leaflet monitoring project. By uploading election leaflets that come through the door, you help to hold politicians to account.</p>
+        <ul class="footer-links">
+            <li><a href="http://blog.electionleaflets.org">Blog</a></li>
+            <li class="muted">·</li>
+            <li><a href="{% url about %}">Contact</a></li>
+            <li class="muted">·</li>
+            <li><a href="http://twitter.com/thesc">Twitter</a></li>
+            <li class="muted">·</li>
+            <li><a href="https://github.com/rossjones/electionleaflets">Fork code on Github</a></li>
+        </ul>
+    </div>
+</footer>

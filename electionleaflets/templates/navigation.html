@@ -1,27 +1,21 @@
-<ul id="ulMenu">
-  <li>
-      <a href="{% url home %}">
-          Home
-      </a>
-  </li>
-  <li>
-      <a href="{% url add_leaflet %}">
-          Add a leaflet
-      </a>
-  </li>
-  <li>
-      <a href="{% url leaflets %}">
-          Latest
-      </a>
-  </li>
-  <li>
-      <a href="{% url view_map 'leaflets'%}">
-          Map
-      </a>
-  </li>
-  <li>
-      <a href="http://blog.electionleaflets.org/">
-          Blog
-      </a>
-  </li>
-</ul>
+<div class="navbar navbar-inverse navbar-fixed-top">
+ <div class="navbar-inner">
+   <div class="container">
+     <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+       <span class="icon-bar"></span>
+       <span class="icon-bar"></span>
+       <span class="icon-bar"></span>
+     </a>
+     <a class="brand" href="{% url home %}">ElectionLeaflets.org</a>
+     <div class="nav-collapse collapse">
+       <ul class="nav pull-right">
+         <li><a href="{% url add_leaflet %}">Add a leaflet</a></li>
+         <li><a href="{% url leaflets %}">Latest</a></li>
+		 <li><a href="{% url view_map 'leaflets'%}">Map</a></li>
+         <li><a href="{% url leaflets %}">Latest</a></li>
+         <li><a href="http://blog.electionleaflets.org/">Blog</a></li>
+       </ul>
+     </div><!--/.nav-collapse -->
+   </div>
+ </div>
+</div>

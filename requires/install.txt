@@ -6,3 +6,4 @@ django-registration
 django_compressor
 django-extensions
 South
+django-crispy-forms

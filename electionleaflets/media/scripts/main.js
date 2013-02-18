@@ -10,29 +10,6 @@ function upload(){
 
 }
 
-function showMap(sMapProvider, nLng, nLat){
-
-    var oMapstraction = new Mapstraction('divSpotMap', sMapProvider);
-
-    oMapstraction.addControls({
-        overview: true
-    });
-
-    // create a lat/lon object
-    var oPoint = new LatLonPoint(nLat,nLng);
-
-    // display the map centered on a latitude and longitude (Google zoom levels)
-    oMapstraction.setCenterAndZoom(oPoint, 11);
-
-    // create a marker positioned at a lat/lon
-    oMarker = new Marker(oPoint);
-    oMarker.setIcon("/media/images/marker.png", [15,15], null);
-    oMarker.setShadowIcon("/media/images/shadow.png",1);
-
-    // display marker
-    oMapstraction.addMarker(oMarker);
-}
-
 function uploadImages(){
 	// $(document).scrollTop(0);
 
@@ -42,35 +19,6 @@ function uploadImages(){
 
    return true;
 }
-
-function mycarousel_initCallback(carousel)
-{
-    // Disable autoscrolling if the user clicks the prev or next button.
-    carousel.buttonNext.bind('click', function() {
-        carousel.startAuto(0);
-    });
-
-    carousel.buttonPrev.bind('click', function() {
-        carousel.startAuto(0);
-    });
-
-    $('#btnNext').bind('click', function() {
-        carousel.next();
-        return false;
-    });
-
-    $('#btnPrevious').bind('click', function() {
-        carousel.prev();
-        return false;
-    });
-
-    // Pause autoscrolling if the user moves with the cursor over the clip.
-    carousel.clip.hover(function() {
-        carousel.stopAuto();
-    }, function() {
-        carousel.startAuto();
-    });
-};
 
 function setupRate(){
 

@@ -1,3 +1,6 @@
+- make year and constituency more prominent on leaflet page
+
+
 alter table country change column country_id id integer auto_increment;
 alter table elections_election drop foreign key `country_id_refs_id_44cc25c0`;
 
@@ -20,7 +23,7 @@ alter table leaflet_image change leaflet_image_id id int(11) auto_increment;
 alter table leaflet_constituency change leaflet_constituency_id id int(11) auto_increment;
 alter table constituency change constituency_id id int(11) auto_increment;
 alter table party change party_id id int(11) auto_increment;
-alter table party add column force_top int default 0; 
+alter table party add column force_top int default 0;
 
 alter table leaflet_tag change leaflet_tag_id id int(11) auto_increment;
 alter table tag change tag_id id int(11) auto_increment;

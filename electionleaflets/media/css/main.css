@@ -12,6 +12,8 @@
 #progress_header .active {background: #0088cc}
 #progress_header .active a {color:#fff;text-shadow:none;}
 
+#leaflet_carousel .carousel-indicators li {background-color:#ccc; border:solix 1px #fff;}
+#leaflet_carousel .carousel-indicators li.active {background-color:#000;}
 
 
 .huge {font-size:350%;}
@@ -40,3 +42,5 @@
 @media (min-width: 979px) {
   body {padding-top:40px;}
 }
+
+#map { height: 180px; }

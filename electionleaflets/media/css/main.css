@@ -15,6 +15,7 @@
 #leaflet_carousel .carousel-indicators li {background-color:#ccc; border:solix 1px #fff;}
 #leaflet_carousel .carousel-indicators li.active {background-color:#000;}
 
+.leaflet_list .row-fluid {clear:left;}
 
 .huge {font-size:350%;}
 

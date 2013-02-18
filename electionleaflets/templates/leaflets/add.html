@@ -3,7 +3,7 @@
 {% block title %}Add a new leaflet{% endblock %}
 
 {% block body %}
-
+<div class="row-fluid">
     <form id="frmUpload" method="post" action="{% url add_leaflet %}" enctype="multipart/form-data" onsubmit="uploadImages();">
     {% include "leaflets/progress.html" %}
 

@@ -32,7 +32,7 @@ ROOT_URLCONF = 'electionleaflets.urls'
 
 LEAFLET_APPS = [
     'core',
-    'leaflets', 
+    'leaflets',
     'parties',
     'constituencies',
     'analysis',
@@ -48,14 +48,14 @@ INSTALLED_APPS = [
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
-    'django.contrib.sites',    
+    'django.contrib.sites',
     'django.contrib.admin',
-    'south',
+    #'south',
     'pagination',
 ] + LEAFLET_APPS
 
 TEMPLATE_CONTEXT_PROCESSORS = (
-    'django.core.context_processors.auth',
+    'django.contrib.auth.context_processors.auth',
     'django.core.context_processors.media',
     'django.core.context_processors.request',
     'django.core.context_processors.i18n',
@@ -63,13 +63,21 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     'core.context_processors.settings',
 )
 
-TEMPLATE_LOADERS = (
-    'django.template.loaders.filesystem.load_template_source',
-    'django.template.loaders.app_directories.load_template_source',
-)
+TEMPLATE_LOADERS = [
+    ('django.template.loaders.cached.Loader',(
+        'django.template.loaders.filesystem.Loader',
+        'django.template.loaders.app_directories.Loader',
+        'forum.modules.template_loader.module_templates_loader',
+        'forum.skins.load_template_source',
+        )),
+]
 
 TEMPLATE_DIRS = (
     os.path.join(os.path.dirname(__file__), "templates"),
 )
 
 
+try:
+    from local_settings import *
+except:
+    pass

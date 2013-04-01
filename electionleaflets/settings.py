@@ -52,6 +52,7 @@ INSTALLED_APPS = [
     'django.contrib.admin',
     #'south',
     'pagination',
+    'crispy_forms',
 ] + LEAFLET_APPS
 
 TEMPLATE_CONTEXT_PROCESSORS = (

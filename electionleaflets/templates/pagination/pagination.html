@@ -1,23 +1,24 @@
 {% if is_paginated %}
 
-<ul class="pagination">
+<div class="pagination pagination-large">
+  <ul>
+    <li><a href="#">Prev</a></li>
     {% for page in pages %}
         {% if page %}
             {% ifequal page page_obj.number %}
-				<li class="current">
-
-                    	{{ page }}
-				</li>
+                <li class="current">
+                    <a href="#">{{ page }}</a>
+                </li>
             {% else %}
-				<li>
+                <li>
                      <a href="?page={{ page }}{{ getvars }}{{ hashtag }}">
-                    	{{ page }}
+                        {{ page }}
                     </a>
-				</li>
+                </li>
             {% endifequal %}
-        {% else %}
-            ...
         {% endif %}
     {% endfor %}
-</ul>
+    <li><a href="#">Next</a></li>
+  </ul>
+</div>
 {% endif %}

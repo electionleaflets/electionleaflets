@@ -5,55 +5,62 @@
 {% block body %}
 
 <div class="row-fluid">
-    <form id="leaflet_details" method="post" action=".">
-        <fieldset>
-            {% include "leaflets/progress.html" %}
-
-            {% if form.errors %}
-                <div class="alert alert-error">
-                        Please correct the errors below
-                </div>
-            {% endif %}
+    <div class="span12">
+        <form id="leaflet_details" method="post" action=".">
             <fieldset>
-    			<input type='hidden' id='id_lat' name='lat' value='0'>
-    			<input type='hidden' id='id_lng' name='lng' value='0'>
+                {% include "leaflets/progress.html" %}
 
-    			{{ form.title|as_crispy_field }}
-                <span class="help-block">e.g. the main headline</span>
+                {% if form.errors %}
+                    <div class="alert alert-error">
+                            Please correct the errors below
+                    </div>
+                {% endif %}
+                <fieldset>
+        			<input type='hidden' id='id_lat' name='lat' value='0'>
+        			<input type='hidden' id='id_lng' name='lng' value='0'>
 
-    			{{ form.description|as_crispy_field }}
-                <span class="text-warning">Note: please only add what is actually on the leaflet, not your opinion of it.</span>
+        			{{ form.title|as_crispy_field }}
+                    <span class="help-block">e.g. the main headline</span>
 
-                <hr/>
+        			{{ form.description|as_crispy_field }}
+                    <span class="text-warning">Note: please only add what is actually on the leaflet, not your opinion of it.</span>
 
-                {{ form.postcode|as_crispy_field }}
-                <span class="help-block">this will let us work out which constituency the leaflet covers</span>
+                    <hr/>
 
-    			{{ form.date_delivered_text|as_crispy_field}}
-                 <span class="help-block">Please only add leaflets that have been delivered to you recently</span>
+                    {{ form.postcode|as_crispy_field }}
+                    <span class="help-block">this will let us work out which constituency the leaflet covers</span>
 
-                <hr/>
+        			{{ form.date_delivered_text|as_crispy_field}}
+                     <span class="help-block">Please only add leaflets that have been delivered to you recently</span>
 
-    			{{ form.publisher_party|as_crispy_field }}
+                    <hr/>
 
-    			{{ form.imprint|as_crispy_field }}
-				<div id='imprint_explanation' style='background-color:#eee;padding:4px;'>
-					<sup>*</sup> All leaflets are required by law to include the name and address of the promoter and the publisher, although this is often in <em>very</em> fine print. Like this:<br/>
-					<img style='margin-left: 20px;border: solid 1px #333;' src="{{ MEDIA_URL }}images/imprint.jpg" alt='Imprint example'>
-				</div>
+        			{{ form.publisher_party|as_crispy_field }}
+
+        			{{ form.imprint|as_crispy_field }}
+    				<div id="imprint_explanation">
+                        <p>
+        					<span class="label label-info">What is an imprint?</span>
+                        </p>
+                        <p>
+                            All leaflets are required by law to include the name and address of the promoter and the publisher, although this is often in <em>very</em> fine print. Like this:<br/>
+        					<img src="{{ MEDIA_URL }}images/imprint.jpg" alt='Imprint example'>
+                        </p>
+    				</div>
 
 
-				{{form.tags|as_crispy_field }}
-                <span class="help-block">e.g. Brian Smith<span class="huge">,</span> Woking<span class="huge">,</span> zero tolerance<span class="huge">,</span> parks<span class="huge">,</span> transport</span>
+    				{{form.tags|as_crispy_field }}
+                    <span class="help-block">e.g. Brian Smith<span class="huge">,</span> Woking<span class="huge">,</span> zero tolerance<span class="huge">,</span> parks<span class="huge">,</span> transport</span>
 
-                <hr/>
+                    <hr/>
 
-				{{ form.name|as_crispy_field }}
-				{{ form.email|as_crispy_field }}
-                 <span class="help-block">Your email address will not be made public</span>
+    				{{ form.name|as_crispy_field }}
+    				{{ form.email|as_crispy_field }}
+                     <span class="help-block">Your email address will not be made public</span>
+                </fieldset>
+                <input type="submit" class="btn btn-large btn-primary"  value="Submit leaflet"/>
             </fieldset>
-            <input type="submit" class="btn btn-large btn-primary"  value="Submit leaflet"/>
-        </fieldset>
-    </form>
+        </form>
+    </div>
 </div>
 {% endblock %}

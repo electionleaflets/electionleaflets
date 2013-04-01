@@ -17,9 +17,9 @@
             {% if forloop.counter0|divisibleby:3 %}
                 <div class="row-fluid">
             {% endif %}
-                    <div class="span3">
+                    <div class="span4">
                         <a class="leaflet" href="{% url leaflet leaflet.id %}">
-                            <img src="{{ leaflet.get_first_image.get_medium }}" data-src="holder.js/300x200" alt="">
+                            <img src="{{ leaflet.get_first_image.get_large }}" data-src="holder.js/300x200" alt="">
                         </a>
                     </div>
             {% if forloop.counter|divisibleby:3 or forloop.last %}

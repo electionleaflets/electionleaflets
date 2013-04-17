@@ -45,8 +45,6 @@ def add_leaflet_upload(request):
     from leaflets.forms import LeafletFileUploadForm
     from leaflets.models import UploadSession
 
-
-
     form = LeafletFileUploadForm(request.POST, request.FILES)
     if request.method == 'POST':
         if form.is_valid():
@@ -109,6 +107,11 @@ def add_leaflet_info(request, upload_session_key):
 
             for t in form.cleaned_data['tags'].split(','):
                 obj, created = Tag.objects.get_or_create(tag=t,tag_clean=t)
+                lt, created = LeafletTag.objects.get_or_create(leaflet=leaflet, tag=obj)
+
+            source = request.session.get('source', None)
+            if source:
+                obj, created = Tag.objects.get_or_create(tag=source,tag_clean=source)
                 lt, created = LeafletTag.objects.get_or_create(leaflet=leaflet, tag=obj)
 
             for c in form.cleaned_data['categories']:

@@ -1,3 +1,34 @@
+
+body { font-family: 'Open Sans', 'sans-serif'; }
+
+h2 { color: #1F6E62; font-weight: normal;}
+h3 { color: #8E7345; font-weight: normal;}
+.topbar { background-image: url(/media/images/clouds.png); height: 100px;}
+
+.navbar-inner {
+  background: none !important;
+  border-top: 0 !important;
+  box-shadow: none !important;
+  -webkit-box-shadow: none !important;
+}
+
+.navbar-inverse .nav .active > a {
+  background: 0 !important;
+  color: #333 !important;
+  box-shadow: none !important;
+  -webkit-box-shadow: none !important;
+}
+
+.navbar-inverse .nav > li > a {
+  color: #333 !important;
+  text-shadow: none !important;
+}
+
+.navbar-inverse .nav > li > a:hover {
+  color: #333 !important;
+}
+
+
 .container-fluid .btn, .container-fluid .btn-large, .container-fluid input[type="submit"], .container-fluid input, .container-fluid textarea, .container-fluid select {display:block;}
 input, textarea, select {width:98%;}
 .navbar-fixed-top .container {width: auto; padding-left:10px;}
@@ -51,7 +82,6 @@ input.btn {width:100%;}
 }
 
 @media (min-width: 979px) {
-  body {padding-top:60px;}
   .navbar-static-top .container, .navbar-fixed-top .container, .navbar-fixed-bottom .container {width: auto;}
   .navbar-fixed-top .container {padding:0 22px;}
 }

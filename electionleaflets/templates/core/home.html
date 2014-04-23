@@ -5,56 +5,148 @@
 {% load content_tags %}
 
 {% block body %}
-    <!-- <div class="hero-unit">
 
-    </div>
- -->
-<div id="welcome" class="row-fluid">
-    <div class="span12 well">
+        <div id="divContent">
 
-            <h1>Electionleaflets.org</h1>
-            <p>
-                Politicians make promises, ElectionLeaflets.org helps you track if they keep them.
-            </p>
-            {% content_block "homepage" %}
-            {% if request.user.is_staff %}
-                <a class='staff_link' href='/admin/content/contentblock/1/'>Edit ContentBlock</a>
-            {% endif%}
-            <div>
+                        <div id="divWarning">
+                            </div>
+
+                        <div id="divMessages">
+                            </div>
+
+<div id="divContentFull">
 
 
-        </div>
-    </div>
-</div>
-
-<div class="row-fluid">
-    <div class="span12 leaflet_list">
-        {% for leaflet in leaflets %}
-            {% if forloop.counter0|divisibleby:3 %}
-                <div class="row-fluid">
-            {% endif %}
-                    <div class="span4">
-                        <a class="leaflet" href="{% url leaflet leaflet.id %}">
-                            <img src="{{ leaflet.get_first_image.get_large }}" data-src="holder.js/300x200" alt="">
-                        </a>
-                    </div>
-            {% if forloop.counter|divisibleby:3 or forloop.last %}
-                </div>
-            {% endif %}
-        {% endfor %}
-    </div>
-    <div class="span12 well">
-        <h2>Search leaflets</h2>
-        <form method="post" action="{% url constituencies %}">
-            <p>
+         <div id="divFrontLookup">
+             <form method="post" action="{% url constituencies %}">
                  <label for="id_search">Enter your postcode to see leaflets near you</label>
                  <input type="text" id="id_search" name="search" />
                  <label for='id_constituency'>or choose a constituency</label>
                  {{ form.constituency }}
-                 <input  class="btn" type="submit" value="GO" />
-            </p>
-         </form>
-    </div>
-</div>
+                 <input  class="button" type="submit" value="GO" />
+             </form>
+         </div>
+    <div id="divWelcome">
+<h2>Got Election leaflets? Photo them. Send them to us.</h2>
 
+<p>Even in the internet age, leaflets are a time honoured way for political parties to get their message across. We want to keep track of how politicians are trying to get your vote, and where they are campaigning.</p>
+
+<p>Sending us your leaflets is incredibly simple: take a high resolution colour photograph (or better yet, use a scanner if you have one) and submit it to us by clicking on the button below.</p>
+
+<p style="text-align: center;">
+    <a href="/leaflets/add" class="classname">Submit a leaflet</a>
+</p>
+
+
+    </div>
+
+     <div id="divAction">
+<div>
+    <h3>Taking a decent photo</h3>
+
+    <p>
+    We recommend putting the leaflet on a flat surface like a table in a well lit room and taking a photograph of it from directly above. You might want to turn off the flash.
+    </p>
+
+    <p>Don’t forget to take a photograph of all the sides of the leaflet (not just the front), and to ensure that the text is legible.
+    </p>
+</div>
+<div>
+<h3>I can’t take a photo or scan</h3>
+
+<p>No problem, just post the leaflet to Elections Leaflet, &#8453; Unlock Democracy, 37 Gray’s Inn Road, London WC1X 8PQ and don't forget to include your postcode.</p>
+</div>
+     </div>
+
+     <br class="clear"/>
+<div>
+<p style="font-size:small; color: #999;">Election Leaflets is run by a group of volunteers. It is currently being supported by <a href="http://unlockdemocracy.org.uk">Unlock Democracy</a>, the campaign for democracy, rights and freedoms. Both Election Leaflets and Unlock Democracy are independent and not affiliated to any political party</p>
+</div>
+     <br class="clear"/>
+     <div id="divRecentLeaflets">
+        <h2>Latest leaflets</h2>
+
+        {% leaflet_carousel %}
+
+        <p><a href="{% url leaflets %}">Browse leaflets by party or category &raquo;</a></p>
+    </div>
+    <br class="clear"/>
+
+    <div class="stats">
+    <a name='elections2014'></a>
+        <div>
+            <h2>Elections in 2014</h2>
+            Find out about who is standing<br/> and what the polls say<br/>
+            from Wikipedia</br>
+            </br>
+            <ul>
+                <li>
+<a href='http://en.wikipedia.org/wiki/United_Kingdom_local_elections,_2014' target='_blank'>UK Local Elections</a>
+                </li>
+                <!--
+                <li><br/>Try something different<br/><a  target='_blank' href='http://scraperwikiviews.com/run/alternative_simulation/' class='awesome blue'>Play our Alternative Vote Simulator</a></li>
+                -->
+            </ul>
+            <br/>
+        </div>
+
+        <div>
+            <h2>Top parties</h2>
+
+            <ol>
+            {% party_list_by_count %}
+            </ol>
+        </div>
+        <div class='last'>
+            <h2>Top constituencies</h2>
+
+            {% constituency_list_by_count %}
+        </div>
+
+    </div>
+<style type="text/css">
+.classname {
+    -moz-box-shadow:inset 0px 1px 4px 0px #c1ed9c;
+    -webkit-box-shadow:inset 0px 1px 4px 0px #c1ed9c;
+    box-shadow:inset 0px 1px 4px 0px #c1ed9c;
+    background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #9dce2c), color-stop(1, #8cb82b) );
+    background:-moz-linear-gradient( center top, #9dce2c 5%, #8cb82b 100% );
+    filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#9dce2c', endColorstr='#8cb82b');
+    background-color:#9dce2c;
+    -webkit-border-top-left-radius:20px;
+    -moz-border-radius-topleft:20px;
+    border-top-left-radius:20px;
+    -webkit-border-top-right-radius:20px;
+    -moz-border-radius-topright:20px;
+    border-top-right-radius:20px;
+    -webkit-border-bottom-right-radius:20px;
+    -moz-border-radius-bottomright:20px;
+    border-bottom-right-radius:20px;
+    -webkit-border-bottom-left-radius:20px;
+    -moz-border-radius-bottomleft:20px;
+    border-bottom-left-radius:20px;
+    text-indent:0;
+    border:1px solid #83c41a;
+    display:inline-block;
+    color:#ffffff;
+    font-family:Arial;
+    font-size:15px;
+    font-weight:bold;
+    font-style:normal;
+    height:42px;
+    line-height:42px;
+    width:144px;
+    text-decoration:none;
+    text-align:center;
+    text-shadow:1px 2px 0px #689324;
+}
+.classname:hover {
+    background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #8cb82b), color-stop(1, #9dce2c) );
+    background:-moz-linear-gradient( center top, #8cb82b 5%, #9dce2c 100% );
+    filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#8cb82b', endColorstr='#9dce2c');
+    background-color:#8cb82b;
+}.classname:active {
+    position:relative;
+    top:1px;
+}</style>
 {% endblock %}

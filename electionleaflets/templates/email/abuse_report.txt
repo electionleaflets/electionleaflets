@@ -1,0 +1,5 @@
+
+Leaflet link: {{ link }}
+Name: {{ name }}
+Email: {{ email }}
+Details: {{ details }}

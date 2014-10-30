@@ -1,0 +1,18 @@
+<div id="divScroller" style='height:200px;'>
+<a id="btnPrevious" href="#"><img src="{{ MEDIA_URL }}images/arrow_left.png" alt="Previous"/></a>
+<a id="btnNext" href="#"><img src="{{ MEDIA_URL }}images/arrow_right.png" alt="Next"/></a>            
+<ul class="results"  style='height:178px;'>
+	{% for leaflet in leaflets %}
+	<li>
+      <a class="leaflet" href="{% url leaflet leaflet.pk %}">
+		<img src="{{ leaflet.get_first_image.get_small }}">
+      </a>
+	</li>
+	{% endfor %}
+  </ul>
+</div>
+
+
+<script type="text/javascript" defer="defer">
+	$('#divScroller ul').jcarousel({wrap: 'last',initCallback: mycarousel_initCallback,buttonNextHTML: null,buttonPrevHTML: null});; 		
+</script>

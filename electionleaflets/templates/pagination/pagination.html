@@ -1,0 +1,23 @@
+{% if is_paginated %}
+
+<ul class="pagination">
+    {% for page in pages %}
+        {% if page %}
+            {% ifequal page page_obj.number %}
+				<li class="current">
+
+                    	{{ page }}
+				</li>
+            {% else %}
+				<li>
+                     <a href="?page={{ page }}{{ getvars }}{{ hashtag }}">
+                    	{{ page }}
+                    </a>
+				</li>
+            {% endifequal %}
+        {% else %}
+            ...
+        {% endif %}
+    {% endfor %}
+</ul>
+{% endif %}

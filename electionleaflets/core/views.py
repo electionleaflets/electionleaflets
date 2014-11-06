@@ -9,21 +9,13 @@ from django.contrib.sites.models import Site
 
 
 def home(request):
-    import math
     from constituencies.forms import ConstituencyLookupForm
-    from content.models import ContentBlock
-    from leaflets.models import Leaflet
 
     form = ConstituencyLookupForm(request.POST or None)
 
-    leaflets = Leaflet.objects.order_by('-id')[:10]
-
     return render_to_response('core/home.html',
-                            {
-                                'form': form,
-                                'leaflets': leaflets,
-                            },
-                            context_instance=RequestContext(request) )
+        {'form': form,},
+        context_instance=RequestContext(request) )
 
 
 def report_abuse(request, id):
@@ -37,7 +29,6 @@ def report_abuse(request, id):
         if form.is_valid():
 
             domain = Site.objects.get_current().domain
-
             ctx = {
                 'link': 'http://%s%s' % (domain, reverse('leaflet', kwargs={'object_id':leaflet.id}),),
                 'name': form.cleaned_data['name'],
@@ -56,9 +47,6 @@ def report_abuse(request, id):
 
             return HttpResponseRedirect( reverse('report_abuse_sent', kwargs={'id': id}))
 
-    return render_to_response('core/report_abuse.html',
-                            {
-                                'leaflet': leaflet,
-                                'form': form
-                            },
-                            context_instance=RequestContext(request) )
+    return render_to_response('core/report_abuse.html', {
+        'leaflet': leaflet, 'form': form },
+        context_instance=RequestContext(request) )

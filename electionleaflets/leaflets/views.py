@@ -34,16 +34,13 @@ def rotate_image(request, direction, image_key):
         u.resize_file( p, 'small', 120, 0 )
         u.resize_file( p, 'medium', 300, 0 )
         u.resize_file( p, 'large', 1024, 0 )
-    except:
-        pass
-
+    except Exception, e:
+       raise e
     return HttpResponseRedirect(referer)
-
 
 
 def add_leaflet_upload(request):
     from leaflets.forms import LeafletFileUploadForm
-    from leaflets.models import UploadSession
 
     form = LeafletFileUploadForm(request.POST, request.FILES)
     if request.method == 'POST':
@@ -59,15 +56,15 @@ def add_leaflet_upload(request):
 
             session.handle_file_uploads()
 
-            return HttpResponseRedirect( reverse('add_leaflet_info', kwargs={'upload_session_key':session.key}) )
-
+            return HttpResponseRedirect(
+                reverse('add_leaflet_info',
+                        kwargs={'upload_session_key':session.key}) )
+        raise Exception(form.errors)
     return render_to_response('leaflets/add.html',
                             {
                                 'form': form,
-                                'step': 1,
                             },
                             context_instance=RequestContext(request), )
-
 
 def add_leaflet_info(request, upload_session_key):
     from leaflets.models import UploadSession, LeafletConstituency, LeafletTag, LeafletCategory, LeafletPartyAttack, LeafletImage
@@ -130,7 +127,6 @@ def add_leaflet_info(request, upload_session_key):
             except:
                 logging.error( "Unexpected error:", sys.exc_info()[0])
 
-
             s = 1
             for name in session.names():
                 LeafletImage.objects.get_or_create(image_key=name,leaflet=leaflet,sequence=s)
@@ -141,7 +137,6 @@ def add_leaflet_info(request, upload_session_key):
     return render_to_response('leaflets/add_step2.html',
                             {
                                 'form': form,
-                                'step': 2,
                                 'session': session,
                                 's3keys': s3keys, # For the images
                                 'parties': parties,
@@ -160,7 +155,6 @@ def view_full_image(request, image_key):
     else:
         # Should not do this, we'll need to fix it - probably and upload artifact
         li = li.all()[0]
-
 
     return render_to_response('leaflets/full.html',
                             {
@@ -202,4 +196,3 @@ def latest_leaflets( request ):
                                 'totalPages': totalPages,
                             },
                             context_instance=RequestContext(request) )
-

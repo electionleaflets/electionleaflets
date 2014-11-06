@@ -2,18 +2,18 @@ from django.db import models
 
 
 class Country(models.Model):
-#    id = models.IntegerField(primary_key=True)
+    country_id = models.IntegerField(primary_key=True)
     iso = models.CharField(max_length=6)
     name = models.CharField(max_length=240)
     iso3 = models.CharField(max_length=9, blank=True)
-    
+
     def __unicode__(self):
         return self.name
-    
+
     class Meta:
         db_table = u'country'
         verbose_name_plural = u'Countries'
-        
+
 
 class EmailAlert(models.Model):
     email_alert_id = models.IntegerField(primary_key=True)

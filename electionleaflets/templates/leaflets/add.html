@@ -3,52 +3,64 @@
 {% block title %}Add a new leaflet{% endblock %}
 
 {% block body %}
-<div class="row-fluid">
-    <form id="frmUpload" method="post" action="{% url add_leaflet %}" enctype="multipart/form-data" onsubmit="uploadImages();">
-    {% include "leaflets/progress.html" %}
 
-        <p class="text-info">
-            Take a photo of a <strong>single leaflet</strong> and upload it below in JPG format. If the leaflet has more than one side you can upload multiple images. If your image files are large (more than about 1MB), please resize to help keep our server happy, very large files may not upload.
+<div id="divContentFull">
+    <form id="frmUpload" method="post" action="{% url add_leaflet %}" enctype="multipart/form-data" onsubmit="uploadImages();">
+        <fieldset>
+</fieldset>        
+        <h1>Add a leaflet (step 1 of 2)</h1>
+        <p>
+            Take a photo of a <strong>single leaflet</strong> and upload it below in JPG format. If the leaflet has more than one side you can upload multiple images. If the leaflet was sent by mail, please obscure your name and address with a marker pen. 
         </p>
-        <p class="text-important">
-            <span class="label label-important">Obscure your address!</span> If the leaflet was sent by mail, please obscure your name and address with a marker pen.
-        </p>
+<!--        <p>Alternatively you can email photographs to leaflets@electionleaflets.org and we will send you a link back to fill in the details.
+        </p> -->
+        <p>If your image files are large (more than about 1MB), please resize to help keep our server happy, very large files may not upload.</p>
         <fieldset>
             <input type="hidden" name="MAX_FILE_SIZE" value="10000000000">
 
-            <ul id="upload_photos">
+            <ul>
                 <li>
+                    <label for="image1">Image 1 *</label>
                     {{ form.image1 }}
                 </li>
                 <li>
+                    <label for="image2">Image 2</label>
                     {{ form.image2 }}
                 </li>
                 <li>
+                    <label for="image3">Image 3</label>
                     {{ form.image3 }}
                 </li>
                 <li>
+                    <label for="image4">Image 4</label>
                     {{ form.image4 }}
                 </li>
                 <li>
+                    <label for="image5">Image 5</label>
                     {{ form.image5 }}
                 </li>
                 <li>
+                    <label for="image6">Image 6</label>
                     {{ form.image6 }}
                 </li>
                 <li>
+                    <label for="image7">Image 7</label>
                     {{ form.image7 }}
                 </li>
                 <li>
+                    <label for="image8">Image 8</label>
                     {{ form.image8 }}
                 </li>
-                <li>
-                    <input type="submit" class="btn btn-primary btn-large"  value="Upload files"/>
-                </li>
-            </ul>
+
+            </ul> 
         </fieldset>
+        <div class="buttons">
+            <input type="submit"  value="Upload files &raquo;"/>
+        </div>
     </form>
-    <div id="uploading" class="hide">
+    <div id="divUploading">
         <h3>Uploading your images, please don't close this window, <strong>you will need to fill in a few extra details in a moment</strong></h3>
         <img src="{{ MEDIA_URL }}images/loading.gif"/>
-    </div>
-</div>                {% endblock %}
+    </div> 
+</div>
+{% endblock %}

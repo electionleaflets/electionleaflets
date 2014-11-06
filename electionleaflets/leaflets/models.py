@@ -48,28 +48,28 @@ class UploadSession(models.Model):
         parts = path.split('/')
         outpath = '/'.join(parts[:-1])
         outpath = os.path.join(outpath, name)
+
         outpath = os.path.join(outpath, parts[-1])
         outpath = outpath + '.jpg'
 
-        # try:
-        f = open( srcpath, 'rb' )
-        image = Image.open( f )
-        if image.mode not in ("L", "RGB"):
-            image = image.convert("RGB")
+        try:
+            f = open( srcpath, 'rb' )
+            image = Image.open( f )
+            if image.mode not in ("L", "RGB"):
+                image = image.convert("RGB")
 
-        img_ratio = float(image.size[0]) / image.size[1]
-        if x==0.0:
-            x = y * img_ratio
-        elif y==0.0:
-            y = x / img_ratio
-        resize_ratio = float(x) / y
-        x = int(x)
-        y = int(y)
+            img_ratio = float(image.size[0]) / image.size[1]
+            if x==0.0:
+                x = y * img_ratio
+            elif y==0.0:
+                y = x / img_ratio
+            x = int(x)
+            y = int(y)
 
-        img = image.resize( (x,y,), Image.ANTIALIAS )
-        img.save(outpath, "JPEG")
-        # except:
-        #     return None
+            img = image.resize( (x,y,), Image.ANTIALIAS )
+            img.save(outpath, "JPEG")
+        except:
+            return None
 
         return outpath
 
@@ -78,6 +78,7 @@ class UploadSession(models.Model):
         for x in range(1,9):
             img = getattr(self, 'image%s' % x)
             if img:
+
                 f = self.resize_file( img, 'thumbnail', 140, 0 )
                 self.send_to_s3( f, "thumbnail")
 
@@ -123,15 +124,12 @@ class UploadSession(models.Model):
         except:
             logging.error( "Unexpected error:", sys.exc_info()[0])
 
-
-
 class LeafletConstituency(models.Model):
     leaflet = models.ForeignKey('Leaflet')
     constituency = models.ForeignKey(Constituency)
 
     class Meta:
         db_table='leaflet_constituency'
-
 
 class Leaflet(models.Model):
     title = models.CharField(max_length=765)

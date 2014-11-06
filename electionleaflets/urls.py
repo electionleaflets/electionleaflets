@@ -15,6 +15,7 @@ handler500 # Pyflakes
 
 urlpatterns = patterns(
     '',
+
     url(r'^$',          home, name='home'),
     url(r'^leaflets',   include('leaflets.urls')),
     url(r'^parties',    include('parties.urls')),

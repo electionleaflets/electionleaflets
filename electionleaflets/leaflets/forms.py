@@ -10,16 +10,6 @@ class LeafletFileUploadForm( forms.ModelForm ):
         model = UploadSession
         exclude = ('key',)
 
-    image1 = forms.ImageField(widget=forms.FileInput(attrs={'title': 'Add page 1',  'capture':'camera', 'accept':'image/*;capture=camera'},), label = "Page 1")
-    image2 = forms.ImageField(widget=forms.FileInput(attrs={'title': 'Add page 2','accept':'image/*;capture=camera'},), label = "Page 2", required=False)
-    image3 = forms.ImageField(widget=forms.FileInput(attrs={'title': 'Add page 3','accept':'image/*;capture=camera'},), label = "Page 3", required=False)
-    image4 = forms.ImageField(widget=forms.FileInput(attrs={'title': 'Add page 4','accept':'image/*;capture=camera'},), label = "Page 4", required=False)
-    image5 = forms.ImageField(widget=forms.FileInput(attrs={'title': 'Add page 5','accept':'image/*;capture=camera'},), label = "Page 5", required=False)
-    image6 = forms.ImageField(widget=forms.FileInput(attrs={'title': 'Add page 6','accept':'image/*;capture=camera'},), label = "Page 6", required=False)
-    image7 = forms.ImageField(widget=forms.FileInput(attrs={'title': 'Add page 7','accept':'image/*;capture=camera'},), label = "Page 7", required=False)
-    image8 = forms.ImageField(widget=forms.FileInput(attrs={'title': 'Add page 8','accept':'image/*;capture=camera'},), label = "Page 8", required=False)
-
-
 DELIVERY_CHOICES =     [(0, 'Today'),
     (1, 'Yesterday'),
     (7, 'Last week'),
@@ -29,6 +19,7 @@ DELIVERY_CHOICES =     [(0, 'Today'),
     (90, 'Three months ago'),
 ]
 
+
 class LeafletInfoForm(forms.ModelForm):
     title = forms.CharField( max_length=128,error_messages = {'required': u'Please add a title for this leaflet'} )
     description = forms.CharField( max_length=512, widget=forms.Textarea, required=False)
@@ -36,10 +27,7 @@ class LeafletInfoForm(forms.ModelForm):
     publisher_party = forms.ModelChoiceField(queryset=Party.objects.filter(show_on_add_page=True).order_by('-force_top').all(), error_messages = {'required': u'Please specify the party responsible for this leaflet'})
     attacks = forms.ModelMultipleChoiceField( queryset=Party.objects.filter(show_on_add_page=True).order_by('-force_top').all(), widget=forms.CheckboxSelectMultiple, required=False )
     categories = forms.ModelMultipleChoiceField( queryset=Category.objects.order_by('name').all(), widget=forms.CheckboxSelectMultiple, required=False )
-
     date_delivered_text = forms.ChoiceField( choices=DELIVERY_CHOICES, widget=forms.Select() )
-
-
 
     tags = forms.CharField( max_length=512, required=False)
     name = forms.CharField( max_length=100, error_messages = {'required': u'Please add your name'})

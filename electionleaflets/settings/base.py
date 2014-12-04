@@ -1,15 +1,53 @@
+import sys
 import os
+from os.path import join, abspath, dirname
+
+# PATH vars
+here = lambda *x: join(abspath(dirname(__file__)), *x)
+PROJECT_ROOT = here("..")
+root = lambda *x: join(abspath(PROJECT_ROOT), *x)
+sys.path.insert(0, root('apps'))
+
+
+DEBUG = False
+template_DEBUG = DEBUG
 
 # DATABASES define in environment specific settings file
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'electionleaflets',
+        'USER': 'electionleaflets',
+    }
+}
+
 
 TIME_ZONE = 'Europe/London'
-
 LANGUAGE_CODE = 'en-GB'
 
-MEDIA_ROOT = os.path.join(os.path.dirname(__file__), 'media')
+ALLOWED_HOSTS = []
+
+MEDIA_ROOT = root('assets', 'uploads')
 MEDIA_URL = '/media/'
+STATIC_ROOT = root('static')
+STATIC_URL = '/static/'
+STATICFILES_DIRS = (
+    root('assets'),
+)
+
+STATICFILES_FINDERS = (
+    'django.contrib.staticfiles.finders.FileSystemFinder',
+    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+)
+
+TEMPLATE_LOADERS = (
+    'django.template.loaders.filesystem.Loader',
+    'django.template.loaders.app_directories.Loader',
+)
 
 SITE_ID=1
+USE_I18N = False
+USE_L10N = True
 
 # URL prefix for admin media -- CSS, JavaScript and images. Make sure to use a
 # trailing slash.
@@ -29,11 +67,11 @@ MIDDLEWARE_CLASSES = (
 )
 
 ROOT_URLCONF = 'electionleaflets.urls'
-
+WSGI_APPLICATION = 'electionleaflets.wsgi.application'
 
 LEAFLET_APPS = [
     'core',
-    'leaflets', 
+    'leaflets',
     'parties',
     'constituencies',
     'analysis',
@@ -49,7 +87,7 @@ INSTALLED_APPS = [
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
-    'django.contrib.sites',    
+    'django.contrib.sites',
     'django.contrib.admin',
     'south',
     'pagination',
@@ -64,13 +102,22 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     'core.context_processors.settings',
 )
 
-TEMPLATE_LOADERS = (
-    'django.template.loaders.filesystem.load_template_source',
-    'django.template.loaders.app_directories.load_template_source',
-)
 
 TEMPLATE_DIRS = (
     os.path.join(os.path.dirname(__file__), "templates"),
 )
 
 
+# .local.py overrides all the common settings.
+try:
+    from .local import *
+except ImportError:
+    pass
+
+
+# importing test settings file if necessary (TODO chould be done better)
+if len(sys.argv) > 1 and 'test' or 'harvest' in sys.argv[1]:
+    try:
+        from .testing import *
+    except ImportError:
+        pass

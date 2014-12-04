@@ -1,17 +1,14 @@
-
-from django.conf.urls.defaults import *
 from django.conf import settings
+from django.conf.urls import patterns, include, url
 from django.contrib import admin
 
-from django.views.generic.simple import direct_to_template
+from django.views.generic import TemplateView
 
 admin.autodiscover()
 
 from leaflets.feeds import *
 
 from core.views import home
-
-handler500 # Pyflakes
 
 urlpatterns = patterns(
     '',
@@ -36,7 +33,7 @@ urlpatterns = patterns(
 
     # Individual urls
     url(r'^about/$', direct_to_template, {'template': 'core/about.html'}, name='about'),
-    url(r'^report/(?P<id>\d+)/sent/$', direct_to_template, {'template': 'core/report_sent.html'}, name='report_abuse_sent'),
+    url(r'^report/(?P<id>\d+)/sent/$', TemplateView.as_view(tempalte='core/report_sent.html'), name='report_abuse_sent'),
     url(r'^report/(?P<id>\d+)/$', 'core.views.report_abuse', name='report_abuse'),
 
     # Administration URLS

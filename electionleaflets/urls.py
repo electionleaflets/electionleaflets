@@ -32,8 +32,8 @@ urlpatterns = patterns(
     url(r'^feeds/tag/(?P<tag_slug>[\w_\-\.]+)/$', TagFeed(), name='tag_feed'),
 
     # Individual urls
-    url(r'^about/$', direct_to_template, {'template': 'core/about.html'}, name='about'),
-    url(r'^report/(?P<id>\d+)/sent/$', TemplateView.as_view(tempalte='core/report_sent.html'), name='report_abuse_sent'),
+    url(r'^about/$', TemplateView.as_view(template_name='core/about.html'), name='about'),
+    url(r'^report/(?P<id>\d+)/sent/$', TemplateView.as_view(template_name='core/report_sent.html'), name='report_abuse_sent'),
     url(r'^report/(?P<id>\d+)/$', 'core.views.report_abuse', name='report_abuse'),
 
     # Administration URLS

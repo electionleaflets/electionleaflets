@@ -1,13 +1,17 @@
+import logging
+import uuid
+import sys, os
+
 from django.template  import RequestContext
 from django.shortcuts import render_to_response, get_object_or_404
 from django.http import HttpResponseRedirect, Http404
 from django.core.urlresolvers import reverse
 from django.conf import settings
 from django.contrib.admin.views.decorators import staff_member_required
+from django.views.generic import DetailView
 
-import logging
-import uuid
-import sys, os
+from .models import Leaflet
+
 
 
 @staff_member_required
@@ -196,3 +200,10 @@ def latest_leaflets( request ):
                                 'totalPages': totalPages,
                             },
                             context_instance=RequestContext(request) )
+
+
+class LeafletView(DetailView):
+    template_name='leaflets/leaflet.html'
+    queryset = Leaflet.objects.all(),
+
+    

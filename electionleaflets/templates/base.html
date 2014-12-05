@@ -21,7 +21,7 @@
 	<link rel="Shortcut Icon" href="{{MEDIA_URL}}favicon.ico" type="image/x-icon" />
 	{% endcomment %}	   
     <link rel="Shortcut Icon" href="http://www.electionleaflets.org/favicon.ico" type="image/x-icon" />
-	{% block extra_head %}{% endblock %}
+  {% block extra_head %}{% endblock %}
 </head>
 
 <body>
@@ -33,7 +33,7 @@
         <div id="divHeader">
 <a href="http://unlockdemocracy.org.uk/"><img src="/media/images/ud11.png" height="80px" style="float:right;margin: 20px;"></a>
 
-                            <p id="pLogo"><a href="{% url home %}"><span class="hide">ElectionLeaflets.org - Real-time election leaflet monitoring</span></a></p>
+                            <p id="pLogo"><a href="{% url "home" %}"><span class="hide">ElectionLeaflets.org - Real-time election leaflet monitoring</span></a></p>
                 <p class="hide">General Election 2010: Live election leaflet monitoring</p>
 
                     {% include "navigation.html" %}

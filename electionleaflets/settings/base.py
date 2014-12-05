@@ -27,7 +27,7 @@ LANGUAGE_CODE = 'en-GB'
 
 ALLOWED_HOSTS = []
 
-MEDIA_ROOT = root('assets', 'uploads')
+MEDIA_ROOT = root('media')
 MEDIA_URL = '/media/'
 STATIC_ROOT = root('static')
 STATIC_URL = '/static/'
@@ -94,17 +94,19 @@ INSTALLED_APPS = [
 ] + LEAFLET_APPS
 
 TEMPLATE_CONTEXT_PROCESSORS = (
-    'django.core.context_processors.auth',
-    'django.core.context_processors.media',
+    "django.core.context_processors.debug",
+    "django.core.context_processors.i18n",
+    "django.core.context_processors.media",
+    "django.core.context_processors.static",
     'django.core.context_processors.request',
-    'django.core.context_processors.i18n',
-    'django.core.context_processors.debug',
-    'core.context_processors.settings',
+    "django.core.context_processors.tz",
+    "django.contrib.messages.context_processors.messages",
+    "django.contrib.auth.context_processors.auth",
 )
 
 
 TEMPLATE_DIRS = (
-    os.path.join(os.path.dirname(__file__), "templates"),
+    root('templates'),
 )
 
 

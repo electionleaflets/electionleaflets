@@ -4,7 +4,7 @@ from boundaries import views
 
 ################################################################################
 urlpatterns = patterns('casestudies',
-    url(r'^boundry_json/$', views.boundry_json, name='boundry_json'),
+    # url(r'^boundry_json/$', views.boundry_json, name='boundry_json'),
     url(r'^tile/([^/]+)/$', views.tile, name="tile"),#This is just used for the reverse lookup of base name for tile urls
     url(r'^tile/([^/]+)/(\d+)/(\d+)/(\d+).png$', views.tile, name="tile"),
     url(r'^popup/([^/]+)$', views.popup, name="popup"),#This is just used for the reverse lookup of base name for popup urls

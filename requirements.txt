@@ -1,7 +1,7 @@
 psycopg2
 # PIL==1.1.7
 django-compressor==1.2
-django-extensions==1.0.3
+django-extensions==1.4.8
 django-filter==0.5.4
 django-pagination==1.0.7
 django-registration==0.8

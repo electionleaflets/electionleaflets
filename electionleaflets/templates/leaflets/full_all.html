@@ -3,15 +3,15 @@
 {% block body %}
 <div id="divContent">
     <div id="divFullImage" class="contentfull">
-        <a href="{% url leaflet leaflet.id%}">&larr; back to details of <em>{{ leaflet.title }}</em></a>
+        <a href="{% url 'leaflet' leaflet.id%}">&larr; back to details of <em>{{ leaflet.title }}</em></a>
         <ul>
 			{% for image in images %}
 <li id="{{ image.image_key }}"><img src="{{ image.get_large }}" /><br/><br/>
-</li>   
+</li>
 			{% endfor %}
                     </ul>
-        <a href="{% url leaflet leaflet.id%}">&larr; back to details of <em>{{ leaflet.title }}</em></a>
+        <a href="{% url 'leaflet' leaflet.id%}">&larr; back to details of <em>{{ leaflet.title }}</em></a>
     </div>
- 
+
 </div>
 {% endblock %}

@@ -5,12 +5,12 @@
 {% block body %}
 
 <div id="divContentFull">
-    <form id="frmUpload" method="post" action="{% url add_leaflet %}" enctype="multipart/form-data" onsubmit="uploadImages();">
+    <form id="frmUpload" method="post" action="{% url 'add_leaflet' %}" enctype="multipart/form-data" onsubmit="uploadImages();">
         <fieldset>
-</fieldset>        
+</fieldset>
         <h1>Add a leaflet (step 1 of 2)</h1>
         <p>
-            Take a photo of a <strong>single leaflet</strong> and upload it below in JPG format. If the leaflet has more than one side you can upload multiple images. If the leaflet was sent by mail, please obscure your name and address with a marker pen. 
+            Take a photo of a <strong>single leaflet</strong> and upload it below in JPG format. If the leaflet has more than one side you can upload multiple images. If the leaflet was sent by mail, please obscure your name and address with a marker pen.
         </p>
 <!--        <p>Alternatively you can email photographs to leaflets@electionleaflets.org and we will send you a link back to fill in the details.
         </p> -->
@@ -52,7 +52,7 @@
                     {{ form.image8 }}
                 </li>
 
-            </ul> 
+            </ul>
         </fieldset>
         <div class="buttons">
             <input type="submit"  value="Upload files &raquo;"/>
@@ -61,6 +61,6 @@
     <div id="divUploading">
         <h3>Uploading your images, please don't close this window, <strong>you will need to fill in a few extra details in a moment</strong></h3>
         <img src="{{ MEDIA_URL }}images/loading.gif"/>
-    </div> 
+    </div>
 </div>
 {% endblock %}

@@ -1,21 +1,22 @@
+
 <ul id="ulMenu">
   <li>
-      <a href="{% url home %}">
+      <a href="{% url 'home' %}">
           Home
       </a>
   </li>
   <li>
-      <a href="{% url add_leaflet %}">
+      <a href="{% url 'add_leaflet' %}">
           Add a leaflet
       </a>
   </li>
   <li>
-      <a href="{% url leaflets %}">
+      <a href="{% url 'leaflets' %}">
           Latest
       </a>
   </li>
   <li>
-      <a href="{% url view_map 'leaflets'%}">
+      <a href="{% url 'view_map' 'leaflets'%}">
           Map
       </a>
   </li>

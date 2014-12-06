@@ -5,7 +5,7 @@ template_DEBUG = DEBUG
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': '',
-        'USER': 'electionleaflets',
+        'NAME': 'DB NAME GOES HERE',
+        'USER': 'DB USER GOES HERE',
     }
 }

@@ -148,7 +148,7 @@ class Leaflet(models.Model):
     email = models.CharField(max_length=300)
     date_uploaded = models.DateTimeField()
     date_delivered = models.DateTimeField()
-    live = models.IntegerField(null=True, blank=True)
+    live = models.NullBooleanField(blank=True)
 
     def __unicode__(self):
         return self.title

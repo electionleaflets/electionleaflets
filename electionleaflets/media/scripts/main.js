@@ -1,17 +1,12 @@
 function upload(){
 
     //validation goes here
-<<<<<<< HEAD
-
-=======
     
->>>>>>> origin/current_live
     //hide form and show loading gif
     document.getElementById('frmLeaflet').style.display = "none";
     document.getElementById('divLoading').style.display = "block";
 
     //javascript post goes here
-<<<<<<< HEAD
 
 }
 
@@ -23,10 +18,6 @@ function uploadImages(){
  //   document.getElementById('uploading').style.display = "block";
 
    return true;
-}
-
-=======
-    
 }
 
 function showMap(sMapProvider, nLng, nLat){
@@ -91,7 +82,6 @@ function mycarousel_initCallback(carousel)
     });
 };
 
->>>>>>> origin/current_live
 function setupRate(){
 
     var aItems = $('#hidRateItems').val().split(',');
@@ -103,11 +93,7 @@ function setupRate(){
                             iRateId = $(this).parent().attr('id').split('_')[1];
                             $('#hidRateValue_' + iRateId).val($(this).slider('value'));
                         }
-<<<<<<< HEAD
-                    });
-=======
                     });        
->>>>>>> origin/current_live
         }
     };
 }
@@ -122,11 +108,7 @@ function setupUploader(){
         'height'         : 80,
         'scriptData'     : {
                                 '_is_postback'          : $('[name=_is_postback]').val(),
-<<<<<<< HEAD
-                                '_is_uploadify'          : 1,
-=======
                                 '_is_uploadify'          : 1,                                
->>>>>>> origin/current_live
                                 '_viewstate'            : $('[name=_viewstate]').val(),
                                 '_postback_command'     : $('[name=_postback_command]').val(),
                                 '_postback_argument'    : $('[name=_postback_argument]').val()
@@ -157,17 +139,9 @@ function setupUploader(){
                                             if (data.percentage==100){
                                                      $('#uploadify'+queueId+' > .percentage').text(' - Processing ...');
                                                      $('#uploadify'+queueId+'ProgressBar').css("width","100%");
-<<<<<<< HEAD
                                                      return false;
-=======
-                                                     return false;   
->>>>>>> origin/current_live
                                             }
                                             return true;
                                     }
     });
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> origin/current_live

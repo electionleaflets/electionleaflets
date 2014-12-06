@@ -204,6 +204,5 @@ def latest_leaflets( request ):
 
 class LeafletView(DetailView):
     template_name='leaflets/leaflet.html'
-    queryset = Leaflet.objects.all(),
+    queryset = Leaflet.objects.all()
 
-    

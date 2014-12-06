@@ -106,11 +106,11 @@
                             view larger image
                         </a>
 							{% if request.user.is_staff %}
-								<a class='staff_link' style='padding:0; background-image:0;' href='{% url "rotate_image" "left",image.image_key%}'>
+								<a class='staff_link' style='padding:0; background-image:0;' href='{% url "rotate_image" "left" image.image_key %}'>
 									<img src='{{MEDIA_URL}}images/rotate_left.png' border='0' width='20px' alt='rotate left'/></a>
 								</a>
 
-								<a class='staff_link' style='padding:0; background-image:0;' href='{% url "rotate_image" "right",image.image_key%}'>
+								<a class='staff_link' style='padding:0; background-image:0;' href='{% url "rotate_image" "right" image.image_key %}'>
 									<img src='{{MEDIA_URL}}images/rotate_right.png' border='0' width='20px' alt='rotate right'/></a>
 								</a>
 							{% endif%}

@@ -9,8 +9,8 @@ root = lambda *x: join(abspath(PROJECT_ROOT), *x)
 sys.path.insert(0, root('apps'))
 
 
-DEBUG = False
-template_DEBUG = DEBUG
+DEBUG = True
+TEMPLATE_DEBUG = DEBUG
 
 # DATABASES define in environment specific settings file
 DATABASES = {

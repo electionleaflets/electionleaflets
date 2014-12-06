@@ -8,3 +8,9 @@ Short version - until I can write something more useful
 > python bootstrap.py
 > bin/buildout
 > bin/django runserver
+
+
+also you may need:
+
+mkdir electionleaflets/media/uploads/thumbnail
+mkdir electionleaflets/media/uploads/small medium large

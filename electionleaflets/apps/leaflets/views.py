@@ -136,7 +136,7 @@ def add_leaflet_info(request, upload_session_key):
                 LeafletImage.objects.get_or_create(image_key=name,leaflet=leaflet,sequence=s)
                 s = s + 1
 
-            return HttpResponseRedirect( reverse('leaflet',kwargs={'object_id': leaflet.id}))
+            return HttpResponseRedirect( reverse('leaflet',kwargs={'pk': leaflet.id}))
 
     return render_to_response('leaflets/add_step2.html',
                             {

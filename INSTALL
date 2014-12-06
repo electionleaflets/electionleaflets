@@ -3,8 +3,11 @@ Installation Instructions
 
 Short version - until I can write something more useful
 
-> virtualenv . --no-site-packages
-> . bin/activate
-> python bootstrap.py
-> bin/buildout
-> bin/django runserver
+```
+virtualenv . --no-site-packages
+. bin/activate
+pip install -r requirements.txt
+cp electionleaflets/settings/local.py{.example,}
+# create a postgres db, and update settings in local.py
+python manage.py runserver
+```

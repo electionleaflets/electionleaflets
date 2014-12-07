@@ -100,7 +100,7 @@ def add_leaflet_info(request, upload_session_key):
 
             leaflet.date_uploaded = datetime.now()
             leaflet.date_delivered = datetime.now() - timedelta( int(form.cleaned_data['date_delivered_text']) )
-            leaflet.live = 1
+            leaflet.live = True
             leaflet.save()
 
             # Increment the count of leaflets
@@ -136,7 +136,7 @@ def add_leaflet_info(request, upload_session_key):
                 LeafletImage.objects.get_or_create(image_key=name,leaflet=leaflet,sequence=s)
                 s = s + 1
 
-            return HttpResponseRedirect( reverse('leaflet',kwargs={'object_id': leaflet.id}))
+            return HttpResponseRedirect( reverse('leaflet', kwargs={'pk': leaflet.id}))
 
     return render_to_response('leaflets/add_step2.html',
                             {
@@ -173,7 +173,7 @@ def view_all_full_images(request, leafletid):
     leaflet = get_object_or_404(Leaflet, pk=leafletid)
     images = LeafletImage.objects.filter(leaflet=leaflet)
 
-    return render_to_response('leaflets/full_all.html',
+    return render_to_response('leaflets/full_all_cropping.html',
                             {
                                 'images': images,
                                 'leaflet': leaflet,

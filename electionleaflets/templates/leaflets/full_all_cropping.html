@@ -1,0 +1,144 @@
+{% extends "base.html" %}
+
+{% block extra_head %}
+<script src="{{ MEDIA_URL }}scripts/jquery.Jcrop.js" type="text/javascript"></script>
+<link rel="stylesheet" media="all" type="text/css" href="{{MEDIA_URL}}css/jquery.Jcrop.min.css" />
+<style>
+#annotspanel li { cursor: pointer; }
+#annotspanel li:hover { background-color: #fee; }
+#annotspanel li.selected { background-color: #fbb; }
+.opclasses a { background-color: #ddd; cursor: pointer }
+.opclasses a:hover { background-color: #dbb; }
+</style>
+
+<script type="text/javascript">
+var jcrop_api; 
+var annotboxlist = [ ]; 
+var annotboxselectedindex = -1; 
+
+function selectannot(annotboxindex) {
+    $("#annotspanel li").removeClass("selected"); 
+    var ls = annotboxlist[annotboxindex]; 
+    jcrop_api.animateTo([ls.x, ls.y, ls.x2, ls.y2]); 
+    $("#annotspanel li#"+ls.annottextid).addClass("selected"); 
+    annotboxselectedindex = annotboxindex; 
+    $("#annotdesc").focus(); 
+}
+
+function removeselection() { 
+    $("#annotspanel li").removeClass("selected"); 
+    annotboxselectedindex = -1; 
+}; 
+
+function savebox(opsave) {
+    $("#opselect").val(opsave); 
+    var s = jcrop_api.tellSelect(); 
+    if ((s.w == 0) || (s.h == 0))
+        return; 
+    var annotboxindex = annotboxlist.length; // into annotboxlist
+    var annotboxid = 'annotbox'+annotboxindex; 
+    s.annotboxindex = annotboxindex; 
+    s.annotboxid = annotboxid; 
+    s.annottextid = 'annottext'+annotboxindex;
+    s.page = 1; 
+    $("#annots1").append('<div id="'+annotboxid+'" style="width:'+s.w+'px; height:'+s.h+'px; top:'+s.y+'px; left:'+s.x+'px; position:absolute; border: thin red solid; display:inline-block; z-index:700; cursor: pointer; background-color: rgba(0, 0, 255, .1)"></div>'); 
+    $("#annotspanel ul").append('<li id="'+s.annottextid+'">'+$("#opselect").val()+' '+annotboxid+'</li>'); 
+    
+    annotboxlist.push(s); 
+    $("#"+annotboxid).click(function() { selectannot(annotboxindex); }); 
+    $("#"+s.annottextid).click(function() { selectannot(annotboxindex); }); 
+    jcrop_api.release(); 
+    
+    selectannot(annotboxindex); 
+}
+
+function deletebox() {
+    if (annotboxselectedindex != -1) {
+        var ls = annotboxlist[annotboxselectedindex]; 
+        ls.bdeleted = true; 
+        $("#"+ls.annotboxid).remove(); 
+        $("#"+ls.annottextid).remove(); 
+    }
+    jcrop_api.release(); 
+}
+
+
+$(document).ready(function(){
+    $('#leafpage1').Jcrop({
+            bgColor:'black', 
+            bgOpacity: 0.8,
+            onSelect: removeselection, 
+            onRelease: removeselection, 
+            keySupport: true, 
+            onKeypress: function(e) { 
+                if (e.keyCode == 46)  deletebox(); 
+                if (e.keyCode == 80)  savebox("Party");     // p
+                if (e.keyCode == 67)  savebox("Candidate"); // c
+                if (e.keyCode == 69)  savebox("Election");  // e
+                if (e.keyCode == 68)  savebox("District");  // d
+                if (e.keyCode == 73)  savebox("Imprint");   // i
+                if (e.keyCode == 13)  savebox("Content");   // <return>
+            }
+        }, function() {
+            jcrop_api = this;
+            console.log(jcrop_api); 
+            jcrop_api.setClass("jcropholder1");   // set a class name on the cropper system so we can find it
+            
+            // make the annotation holder with the non-selected boxes
+            var compeleximgstyle = $($(".jcropholder1 img")[1]).attr("style"); 
+            $(".jcropholder1").append('<div id="annots1" style="'+compeleximgstyle+'"></div>'); 
+            $(".jcropholder1").keypress(function(event){  
+                console.log(event);   
+            });
+        }
+    ); 
+    
+    $(".opclasses a.opsave").click(function() { savebox($(this).attr("id").substr(2));  }); 
+    $("#opDelete").click(deletebox); 
+}); 
+
+</script>
+{% endblock %}
+
+
+{% block body %}
+<div id="annotspanel" style="position:fixed; right:0px; top:0px; width:400px; height: 400px; border: thin blue solid; background: white; z-index:800">
+    <div class="opclasses">
+        <a class="opsave" id="opParty">Party</a>
+        <a class="opsave" id="opCandidate">Candidate</a>
+        <a class="opsave" id="opElection">Election</a>
+        <a class="opsave" id="opDistrict">District</a>
+        <a class="opsave" id="opImprint">Imprint</a>
+        <a class="opsave" id="opContent">Content</a>
+        <a id="opDelete" style="font-weight: bold; font-style: italic">Delete</a>
+    </div>
+    <ul style="height:190px; overflow: auto">
+    </ul>
+    <div style="height:180px">
+        <span>Type:</span>
+        <select id="opselect">
+            <option>Party</option>
+            <option>Candidate</option>
+            <option>Election</option>
+            <option>District</option>
+            <option>Imprint</option>
+            <option>Content</option>
+        </select>
+        <textarea id="annotdesc" style="width:390px; height:160px"></textarea>
+    </div>
+</div>
+
+<div id="divContent">
+    <div id="divFullImage" class="contentfull">
+        <a href="{% url 'leaflet' leaflet.id%}">&larr; back to details of <em>{{ leaflet.title }}</em></a>
+        <ul>
+          {% for image in images %}
+            <li id="{{ image.image_key }}"><img id="leafpage{{forloop.counter}}" class="theimg" src="{{ image.get_large }}" /><br/><br/>
+            </li>
+          {% endfor %}
+        </ul>
+        <a href="{% url 'leaflet' leaflet.id%}">&larr; back to details of <em>{{ leaflet.title }}</em></a>
+    </div>
+
+</div>
+{% endblock %}

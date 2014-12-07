@@ -69,12 +69,13 @@ class UploadSession(models.Model):
             img = image.resize( (x,y,), Image.ANTIALIAS )
             img.save(outpath, "JPEG")
         except:
-            return None
+            raise
 
         return outpath
 
 
     def handle_file_uploads( self ):
+        print "handle_file_uploads", dir(self)
         for x in range(1,9):
             img = getattr(self, 'image%s' % x)
             if img:
@@ -97,14 +98,14 @@ class UploadSession(models.Model):
         the named folder.
         """
         from django.conf import settings
+        if not settings.S3_ENABLED:
+            return
         from third_party import S3
 
         import mimetypes
         import os.path
         import sys
 
-        if not settings.S3_ENABLED:
-            return
 
         if filename is None:
             # TODO: We need to log the error (and alert an admin)
@@ -148,7 +149,7 @@ class Leaflet(models.Model):
     email = models.CharField(max_length=300)
     date_uploaded = models.DateTimeField()
     date_delivered = models.DateTimeField()
-    live = models.IntegerField(null=True, blank=True)
+    live = models.NullBooleanField(null=True, blank=True)
 
     def __unicode__(self):
         return self.title

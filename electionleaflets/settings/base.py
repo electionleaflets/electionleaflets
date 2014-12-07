@@ -2,11 +2,14 @@ import sys
 import os
 from os.path import join, abspath, dirname
 
+S3_ENABLED = False
+
 # PATH vars
 here = lambda *x: join(abspath(dirname(__file__)), *x)
 PROJECT_ROOT = here("..")
 root = lambda *x: join(abspath(PROJECT_ROOT), *x)
 sys.path.insert(0, root('apps'))
+sys.path.append(root('.'))
 
 
 DEBUG = True
@@ -64,6 +67,7 @@ MIDDLEWARE_CLASSES = (
     'leaflets.middleware.SourceTagMiddleware',
     'django.middleware.doc.XViewMiddleware',
     'pagination.middleware.PaginationMiddleware',
+    'django.contrib.messages.middleware.MessageMiddleware',
 )
 
 ROOT_URLCONF = 'electionleaflets.urls'
@@ -89,8 +93,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.sites',
     'django.contrib.admin',
-    'django.contrib.staticfiles',
     'pagination',
+    'django.contrib.staticfiles',
 ] + LEAFLET_APPS
 
 TEMPLATE_CONTEXT_PROCESSORS = (

@@ -3,6 +3,7 @@ TEMPLATE_DEBUG = DEBUG
 
 
 THEYWORKFORYOU_API_KEY = 'THEYWORKFORYOU API KEY'
+S3_ENABLED = False
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',

@@ -124,6 +124,7 @@ $(document).ready(function(){
             <option>Imprint</option>
             <option>Content</option>
         </select>
+        <a class='staff_link' href='/admin/leaflets/leaflet/{{ leaflet.id }}/'>Admin</a>
         <textarea id="annotdesc" style="width:390px; height:160px"></textarea>
     </div>
 </div>
@@ -133,7 +134,8 @@ $(document).ready(function(){
         <a href="{% url 'leaflet' leaflet.id%}">&larr; back to details of <em>{{ leaflet.title }}</em></a>
         <ul>
           {% for image in images %}
-            <li id="{{ image.image_key }}"><img id="leafpage{{forloop.counter}}" class="theimg" src="{{ image.get_large }}" /><br/><br/>
+            <li id="{{ image.image_key }}"><img id="leafpage{{forloop.counter}}" class="theimg" src="{{ image.get_large }}" />
+            <br/><hr/>
             </li>
           {% endfor %}
         </ul>

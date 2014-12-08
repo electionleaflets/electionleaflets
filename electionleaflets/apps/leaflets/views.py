@@ -13,7 +13,7 @@ from django.views.generic import DetailView
 from .models import Leaflet
 
 
-
+# this will become the general cropping system
 @staff_member_required
 def rotate_image(request, direction, image_key):
     from PIL import Image
@@ -173,13 +173,27 @@ def view_all_full_images(request, leafletid):
     leaflet = get_object_or_404(Leaflet, pk=leafletid)
     images = LeafletImage.objects.filter(leaflet=leaflet)
 
-    return render_to_response('leaflets/full_all_cropping.html',
+    return render_to_response('leaflets/full_all.html',
                             {
                                 'images': images,
                                 'leaflet': leaflet,
                             },
                             context_instance=RequestContext(request), )
 
+@staff_member_required
+def view_all_edit_images(request, leafletid):
+    from leaflets.models import Leaflet, LeafletImage
+
+    leaflet = get_object_or_404(Leaflet, pk=leafletid)
+    images = LeafletImage.objects.filter(leaflet=leaflet)
+
+    return render_to_response('leaflets/full_all_editing.html',
+                            {
+                                'images': images,
+                                'leaflet': leaflet,
+                            },
+                            context_instance=RequestContext(request), )
+                            
 
 def latest_leaflets( request ):
     import math

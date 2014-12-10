@@ -182,17 +182,57 @@ def view_all_full_images(request, leafletid):
 
 @staff_member_required
 def view_all_edit_images(request, leafletid):
-    from leaflets.models import Leaflet, LeafletImage
+    from leaflets.models import Leaflet, LeafletTag, LeafletCategory, LeafletPartyAttack, LeafletImage
+    from leaflets.forms  import LeafletInfoForm
+    from parties.models import Party
+    from tags.models import Tag
+    from datetime import datetime, timedelta
 
     leaflet = get_object_or_404(Leaflet, pk=leafletid)
     images = LeafletImage.objects.filter(leaflet=leaflet)
 
+    print(request.POST)
+    if request.POST:
+        form = LeafletInfoForm(request.POST)
+        print(form)
+        if form.is_valid():
+            fleaflet = form.save(commit=False)
+            
+            leaflet.description = fleaflet.description
+            leaflet.imprint = fleaflet.imprint
+            leaflet.name = fleaflet.name
+            leaflet.email = fleaflet.email
+            leaflet.publisher_party = fleaflet.publisher_party
+            
+            # first clear clear these elements off the leaflet before reloading them
+            for t in form.cleaned_data['tags'].split(','):
+                obj, created = Tag.objects.get_or_create(tag=t,tag_clean=t)
+                lt, created = LeafletTag.objects.get_or_create(leaflet=leaflet, tag=obj)
+            for c in form.cleaned_data['categories']:
+                LeafletCategory.objects.get_or_create(leaflet=leaflet, category=c)
+            for a in form.cleaned_data['attacks']:
+                LeafletPartyAttack.objects.get_or_create(leaflet=leaflet, party=a)
+
+            #leaflet.staff_member_editor = "staff who was logged in"
+            leaflet.live = True  # should be an option in the form
+            leaflet.save()
+
+            return HttpResponseRedirect( reverse('leaflet', kwargs={'pk': leaflet.id}))
+    else:
+        form = LeafletInfoForm(instance=leaflet)
+    
     return render_to_response('leaflets/full_all_editing.html',
                             {
                                 'images': images,
                                 'leaflet': leaflet,
+                                'form': form
                             },
                             context_instance=RequestContext(request), )
+
+
+
+
+
                             
 
 def latest_leaflets( request ):

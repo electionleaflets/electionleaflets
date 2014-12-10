@@ -108,6 +108,9 @@ $(document).ready(function(){
 			<a href="{% url 'full_images' object.id %}">
         		view all images
         	</a>
+            {% if request.user.is_staff %}
+                |  <a href="{% url 'edit_leaflet' object.id %}"><em>Edit leaflet</em></a>
+            {% endif%}
 		</small>
 
         <ul>

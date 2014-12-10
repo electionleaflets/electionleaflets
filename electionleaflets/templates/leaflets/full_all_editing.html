@@ -14,7 +14,10 @@ div#formpanel { display: none; position:fixed; left:0px; top:0px; width:400px; h
 </style>
 
 <script type="text/javascript">
-var jcrop_api; 
+var currentpage = -1; 
+var jcrop_apilist = { }; // one per page
+var npages = {{images|length}}; 
+
 var annotboxlist = [ ]; 
 var annotboxselectedindex = -1; 
 
@@ -31,7 +34,7 @@ function selectannot(annotboxindex) {
             $('html,body').animate({scrollTop:atop - (window.innerHeight || document.documentElement.clientHeight) + aheight + 15}, 200);
         } 
     }
-    jcrop_api.animateTo(boxposbox(annotbox, jcrop_api.getBounds())); 
+    jcrop_apilist[annotbox.page].animateTo(boxposbox(annotbox, jcrop_apilist[annotbox.page].getBounds())); 
     $("#annotspanel li#"+annotbox.annottextid).addClass("selected"); 
     annotboxselectedindex = annotboxindex; 
     $("textarea#annotdesc").val(annotbox.description); 
@@ -69,7 +72,7 @@ function commitbox(annotbox, sb) {
     annotbox.annotboxindex = annotboxindex; 
     annotbox.annotboxid = annotboxid; 
     annotbox.annottextid = annottextid;
-    $("#annots1").append('<div id="'+annotboxid+'" style="'+boxposstyle(annotbox, sb)+'; position:absolute; border: thin red solid; display:inline-block; z-index:700; cursor: pointer; background-color: rgba(0, 0, 255, .1)"></div>'); 
+    $("#annots"+annotbox.page).append('<div id="'+annotboxid+'" style="'+boxposstyle(annotbox, sb)+'; position:absolute; border: thin red solid; display:inline-block; z-index:700; cursor: pointer; background-color: rgba(0, 0, 255, .1)"></div>'); 
     var annottext  = annotbox.optype+' p'+annotbox.page+':'+encodeURIComponent(annotbox.description).substr(0, 20).replace(/%20/g, " "); 
     $("#annotspanel ul").append('<li id="'+annottextid+'">'+annottext+'</li>'); 
     $("#"+annotboxid).click(function() { selectannot(annotboxindex); }); 
@@ -89,26 +92,30 @@ function convertboxlist() {
 }
 
 function savebox() {
+    if (currentpage == -1)  
+        return;
     var annotbox; 
     if (annotboxselectedindex == -1) { 
-        var s = jcrop_api.tellSelect(); 
+        var s = jcrop_apilist[currentpage].tellSelect(); 
         if ((s.w == 0) || (s.h == 0))
             return; 
-        var sb = jcrop_api.getBounds(); 
-        annotbox = { px:parseInt(s.x*1000/sb[0]), px2:parseInt(s.x2*1000/sb[0]), py:parseInt(s.y*1000/sb[1]), py2:parseInt(s.y2*1000/sb[1]), page:1 }; 
+        var sb = jcrop_apilist[currentpage].getBounds(); 
+        annotbox = { px:parseInt(s.x*1000/sb[0]), px2:parseInt(s.x2*1000/sb[0]), py:parseInt(s.y*1000/sb[1]), py2:parseInt(s.y2*1000/sb[1]), page:currentpage }; 
         annotbox.description = $("textarea#annotdesc").val(); 
         annotbox.optype = $("#opselect").val(); 
         commitbox(annotbox, sb); 
     } else {
         annotbox = annotboxlist[annotboxselectedindex]; 
+        if (currentpage != annotbox.page)
+            return; 
         annotbox.description = $("textarea#annotdesc").val(); 
         annotbox.optype = $("#opselect").val(); 
-        var annottext  = annotbox.optype+' p'+annotbox.page+':'+encodeURIComponent(annotbox.description).substr(0, 20).replace(/%20/g, " "); 
+        var annottext = annotbox.optype+' p'+annotbox.page+':'+encodeURIComponent(annotbox.description).substr(0, 20).replace(/%20/g, " "); 
         $("#"+annotbox.annottextid).text(annottext); 
     }
 
-    jcrop_api.release(); 
-    jcrop_api.focus(); 
+    jcrop_apilist[currentpage].release(); 
+    jcrop_apilist[currentpage].focus(); 
     
     $("#annotspanel li#"+annotbox.annottextid).addClass("added"); 
     convertboxlist(); 
@@ -122,7 +129,8 @@ function deletebox() {
         $("#"+ls.annottextid).remove(); 
         convertboxlist(); 
     }
-    jcrop_api.release(); 
+    if (currentpage != -1)
+        jcrop_apilist[currentpage].release(); 
 }
 
 function populateannots() {
@@ -136,37 +144,59 @@ function populateannots() {
         }
     }
     for (var i = 0; i < lannotboxlist.length; i++)
-        commitbox(lannotboxlist[i], jcrop_api.getBounds()); 
+        commitbox(lannotboxlist[i], jcrop_apilist[lannotboxlist[i].page].getBounds()); 
 }
 
+var prevscrolltop = 0; 
 $(document).ready(function(){
-    $('#leafpage1').Jcrop({
-            bgColor:'black', 
-            bgOpacity: 0.8,
-            onSelect: removeselection, 
-            onRelease: removeselection, 
-            keySupport: true, 
-            onKeypress: function(e) { 
-                if (e.keyCode == 46)  deletebox(); 
-                if (e.keyCode == 80)  focussavebox("Party");     // p
-                if (e.keyCode == 67)  focussavebox("Candidate"); // c
-                if (e.keyCode == 69)  focussavebox("Election");  // e
-                if (e.keyCode == 68)  focussavebox("District");  // d
-                if (e.keyCode == 73)  focussavebox("Imprint");   // i
-                if (e.keyCode == 13)  focussavebox("Content");   // <return>
+    var npagesnotcropmasked = npages; 
+    for (var pagenumber = 1; pagenumber <= npages; pagenumber++) {
+        $('#leafpage'+pagenumber).Jcrop({
+                bgColor:'black', 
+                bgOpacity: 0.9,
+                onSelect: removeselection, 
+                onRelease: removeselection, 
+                keySupport: true, 
+                onChange: function(e) {
+                    currentpage = this.pagenumber; 
+                    if ((annotboxselectedindex != -1) && (annotboxlist[annotboxselectedindex].page != currentpage)) 
+                        removeselection(); 
+                },
+                onKeypress: function(e) { 
+                    if (e.keyCode == 46)  deletebox(); 
+                    if (e.keyCode == 80)  focussavebox("Party");     // p
+                    if (e.keyCode == 67)  focussavebox("Candidate"); // c
+                    if (e.keyCode == 69)  focussavebox("Election");  // e
+                    if (e.keyCode == 68)  focussavebox("District");  // d
+                    if (e.keyCode == 73)  focussavebox("Imprint");   // i
+                    if (e.keyCode == 13)  focussavebox("Content");   // <return>
+                    if (e.keyCode == 33)  $('html,body').animate({scrollTop:$(window).scrollTop() - 500}, 200);  // pageup
+                    if (e.keyCode == 34)  $('html,body').animate({scrollTop:$(window).scrollTop() + 500}, 200);  // pagedown
+                }
+            }, function() {
+                jcrop_apilist[pagenumber] = this; 
+                jcrop_apilist[pagenumber].pagenumber = pagenumber; 
+                var jcropholderclass = "jcropholder"+pagenumber; 
+                jcrop_apilist[pagenumber].setClass(jcropholderclass);   // set a class name on the cropper system so we can find it
+                
+                // make the annotation holder with the non-selected boxes
+                var compeleximgstyle = $($("."+jcropholderclass+" img")[1]).attr("style"); 
+                $("."+jcropholderclass).append('<div id="annots'+pagenumber+'" style="'+compeleximgstyle+'"></div>'); 
+                
+                npagesnotcropmasked--; 
+                if (npagesnotcropmasked == 0)
+                    populateannots();  
             }
-        }, function() {
-            jcrop_api = this;
-            jcrop_api.setClass("jcropholder1");   // set a class name on the cropper system so we can find it
-            
-            // make the annotation holder with the non-selected boxes
-            var compeleximgstyle = $($(".jcropholder1 img")[1]).attr("style"); 
-            $(".jcropholder1").append('<div id="annots1" style="'+compeleximgstyle+'"></div>'); 
-            
-            populateannots();  // call this when all pages are ready
-        }
-    ); 
-        
+        ); 
+    }
+    
+    // suppress bottom scrolling bad behaviour on Chrome browser when you touch the second page
+    $(window).scroll(function(e) { 
+        if ($(window).scrollTop() + (window.innerHeight || document.documentElement.clientHeight) >= $(document).height())
+            $(window).scrollTop(prevscrolltop); 
+        else
+            prevscrolltop = $(window).scrollTop(); 
+    }); 
     
     $("#opsave").click(function() { savebox();  }); 
     $("#opdelete").click(deletebox); 

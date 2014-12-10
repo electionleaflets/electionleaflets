@@ -77,6 +77,17 @@ function commitbox(annotbox, sb) {
     annotboxlist.push(annotbox); 
 }
 
+function convertboxlist() {
+    var lannotboxlist = [ ]; 
+    for (var i = 0; i < annotboxlist.length; i++) {
+        var annotbox = annotboxlist[i]; 
+        if (!(annotbox.bdeleted === true)) {
+            lannotboxlist.push({optype:annotbox.optype, description:annotbox.description, page:annotbox.page, px:annotbox.px, px2:annotbox.px2, py:annotbox.py, py2:annotbox.py2 }); 
+        }
+    }
+    $("div#formpanel #id_description").val($.toJSON(lannotboxlist)); 
+}
+
 function savebox() {
     var annotbox; 
     if (annotboxselectedindex == -1) { 
@@ -99,8 +110,8 @@ function savebox() {
     jcrop_api.release(); 
     jcrop_api.focus(); 
     
-    $("div#formpanel #id_description").val($.toJSON(annotboxlist)); 
     $("#annotspanel li#"+annotbox.annottextid).addClass("added"); 
+    convertboxlist(); 
 }
 
 function deletebox() {
@@ -109,6 +120,7 @@ function deletebox() {
         ls.bdeleted = true; 
         $("#"+ls.annotboxid).remove(); 
         $("#"+ls.annottextid).remove(); 
+        convertboxlist(); 
     }
     jcrop_api.release(); 
 }

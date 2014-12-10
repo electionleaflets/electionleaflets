@@ -13,7 +13,6 @@ from django.views.generic import DetailView
 from .models import Leaflet
 
 
-# this will become the general cropping system
 @staff_member_required
 def rotate_image(request, direction, image_key):
     from PIL import Image
@@ -39,7 +38,39 @@ def rotate_image(request, direction, image_key):
         u.resize_file( p, 'medium', 300, 0 )
         u.resize_file( p, 'large', 1024, 0 )
     except Exception, e:
-       raise e
+       raise
+    return HttpResponseRedirect(referer)
+
+@staff_member_required
+def crop_image(request, x, y, x2, y2, image_key):
+    from PIL import Image
+    from leaflets.models import UploadSession
+
+    referer = request.META.get('HTTP_REFERER')
+    if not referer:
+        raise Http404()
+
+    angle = {'left': 90, 'right': -90}
+    p = os.path.join(settings.MEDIA_ROOT, 'uploads')
+    p = os.path.join(p, image_key) + '.jpg'
+
+    try:
+        img = Image.open(p)
+        sx = int(int(x)*img.size[0]/1000)
+        sy = int(int(y)*img.size[1]/1000)
+        sx2 = int(int(x2)*img.size[0]/1000)
+        sy2 = int(int(y2)*img.size[1]/1000)
+        img = img.crop((sx, sy, sx2, sy2))
+        img.save(p, "JPEG")
+
+        # HACKY
+        u = UploadSession()
+        u.resize_file( p, 'thumbnail', 140, 0 )
+        u.resize_file( p, 'small', 120, 0 )
+        u.resize_file( p, 'medium', 300, 0 )
+        u.resize_file( p, 'large', 1024, 0 )
+    except Exception, e:
+       raise
     return HttpResponseRedirect(referer)
 
 

@@ -4,7 +4,7 @@ from django.conf import settings
 from leaflets.models import Leaflet
 
 from leaflets.views import (view_full_image, latest_leaflets,
-    add_leaflet_upload, add_leaflet_info, rotate_image, view_all_full_images, view_all_edit_images, 
+    add_leaflet_upload, add_leaflet_info, rotate_image, view_all_full_images, view_all_edit_images, crop_image, 
     LeafletView)
 
 
@@ -16,6 +16,7 @@ urlpatterns = patterns(
     url(r'^/add/$',  add_leaflet_upload, name='add_leaflet'),
 
     url(r'^/rotate/(?P<direction>(left|right))/(?P<image_key>.+)/$',  rotate_image, name='rotate_image'),
+    url(r'^/crop/(?P<x>\d+),(?P<y>\d+)_(?P<x2>\d+),(?P<y2>\d+)/(?P<image_key>.+)/$',  crop_image, name='crop_image'),
 
     url(r'^/edit/(?P<leafletid>\d+)/$',  view_all_edit_images, name='edit_leaflet'),
     url(r'^/full/(?P<leafletid>\d+)/$',  view_all_full_images, name='full_images'),

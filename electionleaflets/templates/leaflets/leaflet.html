@@ -4,7 +4,14 @@
 <script src="{{ MEDIA_URL }}scripts/mapstraction.js" type="text/javascript"></script>
 <script src="http://maps.google.com/maps?file=api&v=2&key={{ GOOGLE_MAPS_KEY}}" type="text/javascript"></script>
 <script src="{{ MEDIA_URL }}scripts/json-min.js" type="text/javascript"></script>
+
+{% if request.user.is_staff %}
+<script src="{{ MEDIA_URL }}scripts/jquery.Jcrop.js" type="text/javascript"></script>
+<link rel="stylesheet" media="all" type="text/css" href="{{MEDIA_URL}}css/jquery.Jcrop.min.css" />
+{% endif%}
+
 <script type="text/javascript">
+var jcrop_apilist = { }; // one per page
 $(document).ready(function(){
     // mark up the json description if it's there.  (We could also put highlight boxes onto the leaflet images if we felt like it)
     var jdesctext = $("div#id_description").text().trim(); 
@@ -22,7 +29,31 @@ $(document).ready(function(){
         }
         $("div#id_description").html(drows.join("\n")); 
     }
-    
+   
+    {% if request.user.is_staff %}
+        $(".enablecropper").click(function() {
+            var pagenumber = $(this).attr("id").substr(7); // "encrop_n"
+            if (jcrop_apilist[pagenumber] == undefined) {
+                var imagekey = $(this).find("span").text(); 
+                var aapplylink = $(this); 
+                var sb = undefined; 
+                $("#apage_"+pagenumber).removeAttr("href"); 
+                $('#imgpage_'+pagenumber).Jcrop({
+                    bgColor:'black', 
+                    bgOpacity: 0.8,
+                    onChange: function(e) {
+                        aapplylink.attr("href", "/leaflets/crop/"+parseInt(e.x*1000/sb[0])+","+parseInt(e.y*1000/sb[1])+"_"+parseInt(e.x2*1000/sb[0])+","+parseInt(e.y2*1000/sb[1])+"/"+imagekey+"/"); 
+                    }
+                }, function() {
+                    jcrop_apilist[pagenumber] = this; 
+                    jcrop_apilist[pagenumber].imagekey = imagekey; 
+                    sb = jcrop_apilist[pagenumber].getBounds(); 
+                }); 
+                $(this).text("ApplyCrop"); 
+            }
+        }); 
+    {% endif%}
+
     showMap('{{ MAP_PROVIDER }}', {{ object.lng }}, {{ object.lat }});
 });
 
@@ -116,8 +147,8 @@ $(document).ready(function(){
         <ul>
 			{% for image in object.images.all %}
 				<li>
-					<a href="{% url 'full_image' image.image_key %}">
-						<img src="{{ image.get_medium }}" class='shadowed' />
+					<a href="{% url 'full_image' image.image_key %}" id="apage_{{forloop.counter}}">
+						<img src="{{ image.get_medium }}" id="imgpage_{{forloop.counter}}" class='shadowed' />
 					</a>
 
 					<br/>
@@ -134,6 +165,8 @@ $(document).ready(function(){
 								<a class='staff_link' style='padding:0; background-image:0;' href='{% url "rotate_image" "right" image.image_key %}'>
 									<img src='{{MEDIA_URL}}images/rotate_right.png' border='0' width='20px' alt='rotate right'/></a>
 								</a>
+                                
+								<a class='staff_link enablecropper' id="encrop_{{forloop.counter}}" style="cursor:pointer">Enable cropper <span style="display:none">{{image.image_key}}</span></a>
 							{% endif%}
 
 <br/><br/>

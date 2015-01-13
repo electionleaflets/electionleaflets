@@ -28,13 +28,15 @@ LANGUAGE_CODE = 'en-GB'
 
 ALLOWED_HOSTS = []
 
-MEDIA_ROOT = root('media')
+MEDIA_ROOT = root('media', )
 MEDIA_URL = '/media/'
 STATIC_ROOT = root('static')
 STATIC_URL = '/static/'
 STATICFILES_DIRS = (
-    root('assets'),
+    root('media'),
 )
+
+S3_ENABLED = True
 
 STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.FileSystemFinder',
@@ -65,6 +67,7 @@ MIDDLEWARE_CLASSES = (
     'leaflets.middleware.SourceTagMiddleware',
     'django.middleware.doc.XViewMiddleware',
     'pagination.middleware.PaginationMiddleware',
+    'django.contrib.messages.middleware.MessageMiddleware',
 )
 
 ROOT_URLCONF = 'electionleaflets.urls'

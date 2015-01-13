@@ -153,7 +153,7 @@ def add_leaflet_info(request, upload_session_key):
 def view_full_image(request, image_key):
     from leaflets.models import LeafletImage
 
-    li = LeafletImage.objects.filter(image_key=image_key)
+    li = LeafletImage.objects.filter(pk=image_key)
     if li.count() == 1:
         li = get_object_or_404(LeafletImage, image_key=image_key)
     else:

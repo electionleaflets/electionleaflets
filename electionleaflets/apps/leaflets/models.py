@@ -124,53 +124,50 @@ class UploadSession(models.Model):
             filedata = open(filename, 'rb').read()
             content_type = 'image/jpeg'
 
-            newname = '%s/%s' % (folder,os.path.basename(filename),)
+            newname = '%s/%s' % (folder, os.path.basename(filename),)
             #logging( "Uploading %s as %s" % (filename,newname,)
 
             conn.put(settings.S3_BUCKET, newname, S3.S3Object(filedata),
                 {'x-amz-acl': 'public-read', 'Content-Type': content_type})
             del conn
         except:
-            logging.error( "Unexpected error:", sys.exc_info()[0])
+            logging.error("Unexpected error:", sys.exc_info()[0])
 
 
 class Leaflet(models.Model):
-    title = models.CharField(max_length=765)
+    title = models.CharField(blank=True, max_length=765)
     description = models.TextField(blank=True)
-    publisher_party = models.ForeignKey(Party)
-    constituencies = models.ManyToManyField( Constituency, through='LeafletConstituency' )
+    publisher_party = models.ForeignKey(Party, blank=True, null=True)
+    constituency = models.ForeignKey(Constituency, blank=True, null=True)
 
-    attacks = models.ManyToManyField( Party, through='LeafletPartyAttack', related_name='attacks')
-    tags = models.ManyToManyField( Tag, through='LeafletTag' )
-    categories = models.ManyToManyField( Category, through='LeafletCategory' )
-    imprint = models.TextField( blank=True, null=True)
+    attacks = models.ManyToManyField(Party, related_name='attacks',
+        null=True, blank=True)
+    tags = models.ManyToManyField(Tag, through='LeafletTag')
+    categories = models.ManyToManyField(Category, through='LeafletCategory')
+    imprint = models.TextField(blank=True, null=True)
     postcode = models.CharField(max_length=150, blank=True)
-    lng = models.FloatField()
-    lat = models.FloatField()
-    name = models.CharField(max_length=300)
-    email = models.CharField(max_length=300)
-    date_uploaded = models.DateTimeField()
-    date_delivered = models.DateTimeField()
-    live = models.IntegerField(null=True, blank=True)
+    lng = models.FloatField(blank=True, null=True)
+    lat = models.FloatField(blank=True, null=True)
+    name = models.CharField(blank=True, max_length=300)
+    email = models.CharField(blank=True, max_length=300)
+    date_uploaded = models.DateTimeField(auto_now_add=True)
+    date_delivered = models.DateTimeField(blank=True, null=True)
+    status = models.CharField(choices=constants.LEAFLET_STATUSES,
+        null=True, blank=True, max_length=255)
 
     def __unicode__(self):
         return self.title
 
     def get_absolute_url(self):
         from django.contrib.sites.models import Site
-        return 'http://%s/leaflets/%s/' % (Site.objects.get_current().domain,self.id)
+        return 'http://%s/leaflets/%s/' % (Site.objects.get_current().domain,
+            self.id)
 
     def get_first_image(self):
         try:
             return self.images.all()[0]
         except IndexError:
             # TODO: Set image_key to value for 'empty' image
-            return { 'image_key': ''}
-
-    def get_first_constituency(self):
-        if self.constituencies.count():
-            return self.constituencies.all()[0]
-        else:
             return None
 
     def get_title(self):
@@ -182,39 +179,43 @@ class Leaflet(models.Model):
 
 class LeafletImage(models.Model):
     leaflet = models.ForeignKey(Leaflet, related_name='images')
-    image_key = models.CharField(max_length=765)
-    sequence = models.PositiveIntegerField()
+    image = ImageField(upload_to="leaflets")
+    image_type =  models.CharField(choices=constants.IMAGE_TYPES,
+        null=True, blank=True, max_length=255)
+
 
     #thestraightchoice.s3
-    def get_medium(self):
-        return self.get_image('medium')
-
-    def get_large(self):
-        return self.get_image('large')
-
-    def get_small(self):
-        return self.get_image('small')
-
-    def get_thumb(self):
-        return self.get_image('thumbnail')
-
-    def get_original(self):
-        return self.get_image('')
-
-    def get_image(self, size):
-        import os
-        from django.conf import settings
-
-        if settings.S3_ENABLED:
-            if size:
-                url = "http://%s.s3.amazonaws.com/%s/%s.jpg" % (settings.S3_BUCKET, size, self.image_key,)
-            else:
-                url = "http://%s.s3.amazonaws.com/%s.jpg" % (settings.S3_BUCKET, self.image_key,)
-        else:
-            p = os.path.join(settings.MEDIA_URL, 'uploads')
-            p = os.path.join(p, size)
-            url = os.path.join(p, self.image_key) + '.jpg'
-        return url
+    # def get_medium(self):
+    #     return self.get_image('medium')
+    #
+    # def get_large(self):
+    #     return self.get_image('large')
+    #
+    # def get_small(self):
+    #     return self.get_image('small')
+    #
+    # def get_thumb(self):
+    #     return self.get_image('thumbnail')
+    #
+    # def get_original(self):
+    #     return self.get_image('')
+    #
+    # def get_image(self, size):
+    #     import os
+    #     from django.conf import settings
+    #
+    #     if settings.S3_ENABLED:
+    #         if size:
+    #             url = "http://%s.s3.amazonaws.com/%s/%s.jpg" % (
+    #                 settings.S3_BUCKET, size, self.image_key,)
+    #         else:
+    #             url = "http://%s.s3.amazonaws.com/%s.jpg" % (
+    #                 settings.S3_BUCKET, self.image_key,)
+    #     else:
+    #         p = os.path.join(settings.MEDIA_URL, 'uploads')
+    #         p = os.path.join(p, size)
+    #         url = os.path.join(p, self.image.file.name) + '.jpg'
+    #     return url
 
     class Meta:
         ordering = ['image_type']

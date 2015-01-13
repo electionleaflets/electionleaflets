@@ -1,17 +1,21 @@
 {% extends "base.html" %}
+{% load thumbnail %}
 
 {% block body %}
 <div id="divContent">
     <div id="divFullImage" class="contentfull">
         <a href="{% url leaflet leaflet.id%}">&larr; back to details of <em>{{ leaflet.title }}</em></a>
         <ul>
-			{% for image in images %}
-<li id="{{ image.image_key }}"><img src="{{ image.get_large }}" /><br/><br/>
-</li>   
-			{% endfor %}
-                    </ul>
-        <a href="{% url leaflet leaflet.id%}">&larr; back to details of <em>{{ leaflet.title }}</em></a>
+        {% for image in images %}
+            <li id="image-{{ image.pk }}">
+                {% thumbnail image.image "1000" crop="noop" upscale=False as im %}
+                <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}" class='shadowed'>
+                {# <img src="{{MEDIA_URL}}{{ image.image }}" /> #}
+                {% endthumbnail %}
+            </li>
+        {% endfor %}
+        </ul>
+        <a href="{% url "leaflet" leaflet.id%}">&larr; back to details of <em>{{ leaflet.title }}</em></a>
     </div>
- 
 </div>
 {% endblock %}

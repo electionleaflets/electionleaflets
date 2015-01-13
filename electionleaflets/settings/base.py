@@ -84,12 +84,13 @@ LEAFLET_APPS = [
 ]
 
 INSTALLED_APPS = [
+    'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.sites',
-    'django.contrib.admin',
     'pagination',
+    'sorl.thumbnail',
 ] + LEAFLET_APPS
 
 TEMPLATE_CONTEXT_PROCESSORS = (

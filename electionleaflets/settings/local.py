@@ -1,6 +1,7 @@
 DEBUG = True
 template_DEBUG = DEBUG
 
+THUMBNAIL_DEBUG = True
 
 DATABASES = {
     'default': {

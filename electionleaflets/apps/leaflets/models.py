@@ -133,12 +133,6 @@ class UploadSession(models.Model):
         except:
             logging.error( "Unexpected error:", sys.exc_info()[0])
 
-class LeafletConstituency(models.Model):
-    leaflet = models.ForeignKey('Leaflet')
-    constituency = models.ForeignKey(Constituency)
-
-    class Meta:
-        db_table='leaflet_constituency'
 
 class Leaflet(models.Model):
     title = models.CharField(max_length=765)
@@ -180,14 +174,13 @@ class Leaflet(models.Model):
             return None
 
     def get_title(self):
-        return self.title if self.title and len(self.title) else ('%s leaflet' % self.party.name)
-
-    class Meta:
-        db_table = u'leaflet'
+        if self.title and len(self.title):
+            return self.title
+        else:
+            return '%s leaflet' % self.party.name
 
 
 class LeafletImage(models.Model):
-    id = models.AutoField(primary_key=True)
     leaflet = models.ForeignKey(Leaflet, related_name='images')
     image_key = models.CharField(max_length=765)
     sequence = models.PositiveIntegerField()
@@ -224,33 +217,17 @@ class LeafletImage(models.Model):
         return url
 
     class Meta:
-        db_table = u'leaflet_image'
-        ordering = ['sequence']
-
+        ordering = ['image_type']
 
 
 class LeafletCategory(models.Model):
     leaflet = models.ForeignKey(Leaflet)
     category = models.ForeignKey(Category)
-    class Meta:
-        db_table = u'leaflet_category'
-
-
-class LeafletPartyAttack(models.Model):
-    leaflet = models.ForeignKey(Leaflet)
-    party = models.ForeignKey(Party)
-    class Meta:
-        db_table = u'leaflet_party_attack'
-
-    def __unicode__(self):
-        return u'attacking %s' % (self.party.name,)
 
 
 class LeafletTag(models.Model):
     leaflet = models.ForeignKey(Leaflet)
     tag = models.ForeignKey(Tag)
-    class Meta:
-        db_table = u'leaflet_tag'
 
     def __unicode__(self):
         return u'tagged %s' % (self.tag.tag,)
@@ -260,8 +237,7 @@ class Promise(models.Model):
     promise_id = models.IntegerField(primary_key=True)
     leaflet_id = models.IntegerField()
     detail = models.TextField()
-    class Meta:
-        db_table = u'promise'
+
 
 class RateInteresting(models.Model):
     rate_interesting_id = models.IntegerField(primary_key=True)
@@ -269,20 +245,17 @@ class RateInteresting(models.Model):
     description = models.TextField()
     user_name = models.CharField(max_length=765)
     user_email = models.CharField(max_length=765)
-    class Meta:
-        db_table = u'rate_interesting'
+
 
 class RateInterestingSeq(models.Model):
     sequence = models.IntegerField(primary_key=True)
-    class Meta:
-        db_table = u'rate_interesting_seq'
+
 
 class RateType(models.Model):
     rate_type_id = models.IntegerField(primary_key=True)
     left_label = models.CharField(max_length=150)
     right_label = models.CharField(max_length=150, blank=True)
-    class Meta:
-        db_table = u'rate_type'
+
 
 class RateValue(models.Model):
     rate_value_id = models.IntegerField(primary_key=True)
@@ -291,11 +264,7 @@ class RateValue(models.Model):
     user_email = models.CharField(max_length=300)
     rate_type_id = models.IntegerField()
     value = models.IntegerField()
-    class Meta:
-        db_table = u'rate_value'
+
 
 class RateValueSeq(models.Model):
     sequence = models.IntegerField(primary_key=True)
-    class Meta:
-        db_table = u'rate_value_seq'
-

@@ -1,133 +1,137 @@
 {% extends "base.html" %}
+{% load thumbnail %}
 
 {% block extra_head %}
  <script src="{{ MEDIA_URL }}scripts/mapstraction.js" type="text/javascript"></script>
 <script src="http://maps.google.com/maps?file=api&v=2&key={{ GOOGLE_MAPS_KEY}}" type="text/javascript"></script>
 <script type="text/javascript">
-	$(document).ready(function(){
-    	showMap('{{ MAP_PROVIDER }}', {{ object.lng }}, {{ object.lat }});	
-	});
+    $(document).ready(function(){
+        showMap('{{ MAP_PROVIDER }}', {{ object.lng }}, {{ object.lat }});  
+    });
 
 </script>
 {% endblock %}
 
 {% block body %}
         <div id="divContent">
-			<div id="divWarning">
-	        </div>
-			
-			<div id="divMessages">
-	        </div>
+            <div id="divWarning">
+            </div>
+            
+            <div id="divMessages">
+            </div>
             
     <div class="contentleft">
-	
-		{% if request.user.is_staff %}
-			<a class='staff_link' href='/admin/leaflets/leaflet/{{ object.id }}/'>Edit leaflet</a>
-		{% endif%}
+    
+        {% if request.user.is_staff %}
+            <a class='staff_link' href='/admin/leaflets/leaflet/{{ object.id }}/'>Edit leaflet</a>
+        {% endif%}
 
         <h1>{{ object.get_title }}</h1>
         <div>
-        	{% if object.description %}
-				{{ object.description|linebreaks }}
-			{% endif %}
+            {% if object.description %}
+                {{ object.description|linebreaks }}
+            {% endif %}
         </div>
         {% if object.publisher_party and object.publisher_party.slug %}
-        <p>Published by <a href="{% url party object.publisher_party.slug%}">{{object.publisher_party.name}}</a></p>
-	{% endif %}
+        <p>Published by <a href="{% url "party" object.publisher_party.slug%}">{{object.publisher_party.name}}</a></p>
+    {% endif %}
         <p>
-            Delivered in {% if object.get_first_constituency %}<a href="{% url constituency object.get_first_constituency.slug %}">{{ object.get_first_constituency.name }}</a>{% else %}unknown location{% endif %} on {{ object.date_delivered|date:"l, d M, Y" }} (approximate). Uploaded on {{ object.date_uploaded|date:"l, d M, Y" }} at {{ object.date_uploaded|date:"H:i" }}.
+            Delivered in {% if object.constituency %}<a href="{% url "constituency"  object.constituency.slug %}">{{ object.constituency.name }}</a>{% else %}unknown location{% endif %} on {{ object.date_delivered|date:"l, d M, Y" }} (approximate). Uploaded on {{ object.date_uploaded|date:"l, d M, Y" }} at {{ object.date_uploaded|date:"H:i" }}.
 
         </p>
 
-		{% if object.imprint %}
-		<h4>Promoter and Publisher details</h4>
-		<ul>
-			<li>
-			<small>
-				{{ object.imprint }}
-			</small>
-			</li>			
-		</ul>
-		{% endif %}
+        {% if object.imprint %}
+        <h4>Promoter and Publisher details</h4>
+        <ul>
+            <li>
+            <small>
+                {{ object.imprint }}
+            </small>
+            </li>
+        </ul>
+        {% endif %}
 
-		{% if object.categories.count %}
+        {% if object.categories.count %}
         <h4>Categories</h4>
         <ul>
-			{% for category in object.categories.all %}
- 				<li><a href="{% url category category.slug %}">{{ category.name }}</a></li>										
-			{% endfor %}
+            {% for category in object.categories.all %}
+                <li><a href="{% url "category"  category.slug %}">{{ category.name }}</a></li>
+            {% endfor %}
         </ul>
-		{% endif %}
-		
+        {% endif %}
+        
         <h4>Tags</h4>
         <ul>
-			{% for t in object.tags.all %}
-				{% if t.slug %}
-					<li><a href="{% url tag t.slug %}">{{t.tag}}</a></li>							
-				{% endif %}
-			{% endfor %}
-		</ul>
+            {% for t in object.tags.all %}
+                {% if t.slug %}
+                    <li><a href="{% url "tag"  t.slug %}">{{t.tag}}</a></li>
+                {% endif %}
+            {% endfor %}
+        </ul>
 
-		{% if object.attacks.count %}
+        {% if object.attacks.count %}
         <h4>Parties attacked in this leaflet</h4>
         <ul>
-			{% for attack in object.attacks.all %}
- 				<li><a href="{% url attacking_party attack.slug %}">{{ attack.name }}</a></li>										
-			{% endfor %}
+            {% for attack in object.attacks.all %}
+                <li><a href="{% url "attacking_party"  attack.slug %}">{{ attack.name }}</a></li>
+            {% endfor %}
         </ul>
-		{% endif %}
+        {% endif %}
 
 
         <h4>Location (approximate)</h4>
         <div id="divSpotMap">
-        	
+            
         </div>
 
     </div>
 
     <div class="contentright">
-		<small>
-			<a href="{% url full_images object.id %}">
-        		view all images
-        	</a>
-		</small>
-		
+        <small>
+            <a href="{% url "full_images"  object.id %}">
+                view all images
+            </a>
+        </small>
+        
         <ul>
-			{% for image in object.images.all %}
-				<li>
-					<a href="{% url full_image image.image_key %}">
-						<img src="{{ image.get_medium }}" class='shadowed' />						
-					</a>
+            
+            {% for image in object.images.all %}
+                <li>
+                    <a href="{% url "full_image"  image.id %}">
+                        {% thumbnail image.image "100x100" crop="center" as im %}
+                        <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}" class='shadowed'>
+                        {% endthumbnail %}
+                    </a>
 
-					<br/>
+                    <br/>
                     <small>
-					
-                    	<a href="{% url full_image image.image_key %}">
-                            view larger image 		
+                    
+                        <a href="{% url "full_image"  image.pk %}">
+                            view larger image       
                         </a>
-							{% if request.user.is_staff %}
-								<a class='staff_link' style='padding:0; background-image:0;' href='{% url rotate_image "left",image.image_key%}'>
-									<img src='{{MEDIA_URL}}images/rotate_left.png' border='0' width='20px' alt='rotate left'/></a>            
-								</a>
-								
-								<a class='staff_link' style='padding:0; background-image:0;' href='{% url rotate_image "right",image.image_key%}'>
-									<img src='{{MEDIA_URL}}images/rotate_right.png' border='0' width='20px' alt='rotate right'/></a>            
-								</a>								
-							{% endif%}
+                            {% if request.user.is_staff %}
+                                <a class='staff_link' style='padding:0; background-image:0;' href='{% url "rotate_image" 'left' image %}'>
+                                    <img src='{{MEDIA_URL}}images/rotate_left.png' border='0' width='20px' alt='rotate left'/></a>            
+                                </a>
+                                
+                                <a class='staff_link' style='padding:0; background-image:0;' href='{% url "rotate_image" 'right' image %}'>
+                                    <img src='{{MEDIA_URL}}images/rotate_right.png' border='0' width='20px' alt='rotate right'/></a>            
+                                </a>                                
+                            {% endif%}
 
 <br/><br/>
                     </small>
-				</li>					
+                </li>                   
 
-			{% endfor%}
-		</ul>
+            {% endfor%}
+        </ul>
     </div>
     <br class="clear"/>
     <div id="divReportAbuse" class="contentfull bordertop">
 >>>>>>> origin/current_live
         <h3>Something wrong with this page?</h3>
         <p>
-            If someone has uploaded something other than an election leaflet <a href="{% url report_abuse object.id %}"> please report it here</a>.
+            If someone has uploaded something other than an election leaflet <a href="{% url "report_abuse"  object.id %}"> please report it here</a>.
         </p>
 
         <hr/>
@@ -145,7 +149,4 @@
 </script>
 
 
-=======
-    </div>
->>>>>>> origin/current_live
 {% endblock %}

@@ -16,8 +16,8 @@
              <form method="post" action="{% url "constituencies" %}">
                  <label for="id_search">Enter your postcode to see leaflets near you</label>
                  <input type="text" id="id_search" name="search" />
-				 <label for='id_constituency'>or choose a constituency</label>
-         {{ form.constituency }}
+                 <label for='id_constituency'>or choose a constituency</label>
+                 {{ form.constituency }}
                  <input  class="button" type="submit" value="GO" />                    
              </form>
          </div>

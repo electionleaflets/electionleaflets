@@ -51,7 +51,7 @@ def getDBzoom(z):
     else:
         return int(z)
 
-def view_key(request, mapname, n, x, y):
+def view_key(request, mapname=None, n=None, x=None, y=None):
     image = Image.new("RGBA", (int(x), int(y)), maps[mapname]["colour"](int(n)))
     response = HttpResponse(mimetype="image/png")
     image.save(response, "PNG")

@@ -7,6 +7,7 @@ here = lambda *x: join(abspath(dirname(__file__)), *x)
 PROJECT_ROOT = here("..")
 root = lambda *x: join(abspath(PROJECT_ROOT), *x)
 sys.path.insert(0, root('apps'))
+sys.path.insert(0, '../django-uk-political-parties/')
 
 
 DEBUG = False
@@ -89,7 +90,12 @@ INSTALLED_APPS = [
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.sites',
+    'django.contrib.staticfiles',
     'pagination',
+    'lettuce.django',
+    'uk_political_parties',
+    'rest_framework',
+    'storages',
     'sorl.thumbnail',
 ] + LEAFLET_APPS
 

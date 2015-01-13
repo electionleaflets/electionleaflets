@@ -1,6 +1,7 @@
 DEBUG = True
 template_DEBUG = DEBUG
 
+S3_ENABLED = False
 THUMBNAIL_DEBUG = True
 
 DATABASES = {

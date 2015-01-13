@@ -1,41 +1,53 @@
 from django.db import models
-from parties.models import Party
+from uk_political_parties.models import Party
 from constituencies.models import Constituency
 from categories.models import Category
 from tags.models import Tag
 import logging
 
+from sorl.thumbnail import ImageField
+
+import constants
+
 def update_filename(instance, filename):
-    import uuid, os
+    import uuid
+    import os
 
     path = "uploads/"
-    _,ext = os.path.splitext( filename )
-
-    return os.path.join(path, str(uuid.uuid4()) + ext )
+    _, ext = os.path.splitext(filename)
+    return os.path.join(path, str(uuid.uuid4()) + ext)
 
 
 class UploadSession(models.Model):
-    key = models.CharField( max_length=64, null=True, blank=True )
-    image1 = models.ImageField( upload_to=update_filename, max_length=255,null=True, blank=True )
-    image2 = models.ImageField( upload_to=update_filename, max_length=255,null=True, blank=True )
-    image3 = models.ImageField( upload_to=update_filename, max_length=255,null=True, blank=True )
-    image4 = models.ImageField( upload_to=update_filename, max_length=255,null=True, blank=True )
-    image5 = models.ImageField( upload_to=update_filename, max_length=255,null=True, blank=True )
-    image6 = models.ImageField( upload_to=update_filename, max_length=255,null=True, blank=True )
-    image7 = models.ImageField( upload_to=update_filename, max_length=255,null=True, blank=True )
-    image8 = models.ImageField( upload_to=update_filename, max_length=255,null=True, blank=True )
+    key = models.CharField(max_length=64, null=True, blank=True)
+    image1 = models.ImageField(upload_to=update_filename, max_length=255,
+                                null=True, blank=True)
+    image2 = models.ImageField(upload_to=update_filename, max_length=255,
+                                null=True, blank=True)
+    image3 = models.ImageField(upload_to=update_filename, max_length=255,
+                                null=True, blank=True)
+    image4 = models.ImageField(upload_to=update_filename, max_length=255,
+                                null=True, blank=True)
+    image5 = models.ImageField(upload_to=update_filename, max_length=255,
+                                null=True, blank=True)
+    image6 = models.ImageField(upload_to=update_filename, max_length=255,
+                                null=True, blank=True)
+    image7 = models.ImageField(upload_to=update_filename, max_length=255,
+                                null=True, blank=True)
+    image8 = models.ImageField(upload_to=update_filename, max_length=255,
+                                null=True, blank=True)
     s3keys = models.TextField(null=True, blank=True)
 
     def names(self):
         vals = []
-        for x in range(1,9):
+        for x in range(1, 9):
             img = getattr(self, 'image%s' % x)
             if img:
                 name = str(img).split('/')[-1]
-                vals.append( name.split('.')[0] )
+                vals.append(name.split('.')[0])
         return vals
 
-    def resize_file( self, fl, name, w, h):
+    def resize_file(self, fl, name, w, h):
         from PIL import Image
         from django.conf import settings
         import os
@@ -43,8 +55,8 @@ class UploadSession(models.Model):
         x = w
         y = h
 
-        srcpath = os.path.join( settings.MEDIA_ROOT, str(fl))
-        path,ext = os.path.splitext( srcpath )
+        srcpath = os.path.join(settings.MEDIA_ROOT, str(fl))
+        path, ext = os.path.splitext(srcpath)
         parts = path.split('/')
         outpath = '/'.join(parts[:-1])
         outpath = os.path.join(outpath, name)
@@ -53,45 +65,43 @@ class UploadSession(models.Model):
         outpath = outpath + '.jpg'
 
         try:
-            f = open( srcpath, 'rb' )
-            image = Image.open( f )
+            f = open(srcpath, 'rb')
+            image = Image.open(f)
             if image.mode not in ("L", "RGB"):
                 image = image.convert("RGB")
 
             img_ratio = float(image.size[0]) / image.size[1]
-            if x==0.0:
+            if x == 0.0:
                 x = y * img_ratio
-            elif y==0.0:
+            elif y == 0.0:
                 y = x / img_ratio
             x = int(x)
             y = int(y)
 
-            img = image.resize( (x,y,), Image.ANTIALIAS )
+            img = image.resize((x, y,), Image.ANTIALIAS)
             img.save(outpath, "JPEG")
         except:
             return None
 
         return outpath
 
-
-    def handle_file_uploads( self ):
-        for x in range(1,9):
+    def handle_file_uploads(self):
+        for x in range(1, 9):
             img = getattr(self, 'image%s' % x)
             if img:
+                f = self.resize_file(img, 'thumbnail', 140, 0)
+                self.send_to_s3(f, "thumbnail")
 
-                f = self.resize_file( img, 'thumbnail', 140, 0 )
-                self.send_to_s3( f, "thumbnail")
+                f = self.resize_file(img, 'small', 120, 0)
+                self.send_to_s3(f, "small")
 
-                f = self.resize_file( img, 'small', 120, 0 )
-                self.send_to_s3( f, "small")
+                f = self.resize_file(img, 'medium', 300, 0)
+                self.send_to_s3(f, "medium")
 
-                f = self.resize_file( img, 'medium', 300, 0 )
-                self.send_to_s3( f, "medium")
+                f = self.resize_file(img, 'large', 1024, 0)
+                self.send_to_s3(f, "large")
 
-                f = self.resize_file( img, 'large', 1024, 0 )
-                self.send_to_s3( f, "large")
-
-    def send_to_s3(self,filename, folder):
+    def send_to_s3(self, filename, folder):
         """
         Send the source file, filename, to S3 (if enabled) and store it in
         the named folder.
@@ -99,7 +109,6 @@ class UploadSession(models.Model):
         from django.conf import settings
         from third_party import S3
 
-        import mimetypes
         import os.path
         import sys
 

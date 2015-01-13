@@ -29,12 +29,12 @@ def truncatesmart(value, limit=80):
         limit = int(limit)
     except ValueError:
         return value
-    
+
     value = unicode(value)
-    
+
     if len(value) <= limit:
         return value
-    
+
     value = value[:limit]
     words = value.split(' ')[:-1]
     return ' '.join(words) + '...'

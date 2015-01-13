@@ -16,6 +16,7 @@ eggs
 log
 parts
 electionleaflets/media/uploads/
+electionleaflets/media/leaflets/
 media/uploads
 tmp
 .DS_Store

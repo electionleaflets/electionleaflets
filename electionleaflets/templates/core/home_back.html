@@ -17,7 +17,7 @@
 	
 	
          <div id="divFrontLookup">
-             <form method="post" action="{% url constituencies %}">
+             <form method="post" action="{% url "constituencies"  %}">
                  <label for="id_search">Enter your postcode to see leaflets near you</label>
                  <input type="text" id="id_search" name="search" />
 				 <label for='id_constituency'>or choose a constituency</label>
@@ -48,7 +48,7 @@
         <div>
             <h3>2) Send them to us</h3>
             <p>
-            <!-- Email them to <a href="mailto:leaflets@electionleaflets.org">leaflets@electionleaflets.org</a> and follow the instructions we send you, or just --><a href="{% url add_leaflet %}">Upload them directly</a>.
+            <!-- Email them to <a href="mailto:leaflets@electionleaflets.org">leaflets@electionleaflets.org</a> and follow the instructions we send you, or just --><a href="{% url "add_leaflet"  %}">Upload them directly</a>.
             <br/><strong>(One leaflet at a time please).</strong>
             </p>
         </div>
@@ -59,7 +59,7 @@
 
 		{% leaflet_carousel %}
 
-        <p><a href="{% url leaflets %}">Browse leaflets by party or category &raquo;</a></p>                        
+        <p><a href="{% url "leaflets" %}">Browse leaflets by party or category &raquo;</a></p>                        
     </div>
     <br class="clear"/>
     

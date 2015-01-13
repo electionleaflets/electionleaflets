@@ -5,7 +5,7 @@
 {% block body %}
 
 <div id="divContentFull">
-    <form id="frmUpload" method="post" action="{% url add_leaflet %}" enctype="multipart/form-data" onsubmit="uploadImages();">
+    <form id="frmUpload" method="post" action="{% url "add_leaflet"  %}" enctype="multipart/form-data" onsubmit="uploadImages();">
         <fieldset>
 </fieldset>        
         <h1>Add a leaflet (step 1 of 2)</h1>

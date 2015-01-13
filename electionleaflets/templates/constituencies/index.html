@@ -12,7 +12,7 @@
 <h1>Constituencies</h1>
 <p>Select a constituency from the list below, or enter your postcode</p>
 
-	<form method="post" action="{% url constituencies %}">
+	<form method="post" action="{% url "constituencies"  %}">
     	<label for="search">Postcode</label>
         <input type="text" id="id_search" name="search" />
         <input  type="submit" value="GO" />
@@ -22,7 +22,7 @@
             <ul>
 				{% for c in constituencies %}
                                     <li>
-                        <a href="{% url constituency c.slug %}">{{ c.name }}</a>
+                        <a href="{% url "constituency"  c.slug %}">{{ c.name }}</a>
                     </li>
 				{% endfor %}
 			</ul>

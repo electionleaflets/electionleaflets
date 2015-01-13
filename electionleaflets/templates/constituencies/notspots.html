@@ -11,7 +11,7 @@
         <hr/>
         <ul>
 		{% for c in constituencies %}
-		<li><a href="{% url constituency c.slug %}">{{ c.name }}</a></li>
+		<li><a href="{% url "constituency"  c.slug %}">{{ c.name }}</a></li>
 		{% endfor %}
         </ul>
 

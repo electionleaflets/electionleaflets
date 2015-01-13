@@ -118,6 +118,15 @@ TEMPLATE_DIRS = (
     root('templates'),
 )
 
+TEST_RUNNER = 'django.test.runner.DiscoverRunner'
+
+REST_FRAMEWORK = {
+    # Use Django's standard `django.contrib.auth` permissions,
+    # or allow read-only access for unauthenticated users.
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.AllowAny'
+    ]
+}
 
 # .local.py overrides all the common settings.
 try:
@@ -127,7 +136,7 @@ except ImportError:
 
 
 # importing test settings file if necessary (TODO chould be done better)
-if len(sys.argv) > 1 and 'test' or 'harvest' in sys.argv[1]:
+if len(sys.argv) > 1 and sys.argv[1] in ['test', 'harvest']:
     try:
         from .testing import *
     except ImportError:

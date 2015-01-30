@@ -1,11 +1,17 @@
-from django.db import models
-from uk_political_parties.models import Party
-from constituencies.models import Constituency
-from categories.models import Category
-from tags.models import Tag
 import logging
+import os
 
 from sorl.thumbnail import ImageField
+import pytesser
+from PIL import Image
+from PIL import ImageEnhance
+
+from django.db import models
+
+from tags.models import Tag
+from categories.models import Category
+from constituencies.models import Constituency
+from uk_political_parties.models import Party
 
 import constants
 
@@ -136,7 +142,7 @@ class UploadSession(models.Model):
 
 class Leaflet(models.Model):
     title = models.CharField(blank=True, max_length=765)
-    description = models.TextField(blank=True)
+    description = models.TextField(blank=True, null=True)
     publisher_party = models.ForeignKey(Party, blank=True, null=True)
     constituency = models.ForeignKey(Constituency, blank=True, null=True)
 
@@ -180,45 +186,40 @@ class Leaflet(models.Model):
 class LeafletImage(models.Model):
     leaflet = models.ForeignKey(Leaflet, related_name='images')
     image = ImageField(upload_to="leaflets")
+    legacy_image_key = models.CharField(max_length=255)
     image_type =  models.CharField(choices=constants.IMAGE_TYPES,
         null=True, blank=True, max_length=255)
-
-
-    #thestraightchoice.s3
-    # def get_medium(self):
-    #     return self.get_image('medium')
-    #
-    # def get_large(self):
-    #     return self.get_image('large')
-    #
-    # def get_small(self):
-    #     return self.get_image('small')
-    #
-    # def get_thumb(self):
-    #     return self.get_image('thumbnail')
-    #
-    # def get_original(self):
-    #     return self.get_image('')
-    #
-    # def get_image(self, size):
-    #     import os
-    #     from django.conf import settings
-    #
-    #     if settings.S3_ENABLED:
-    #         if size:
-    #             url = "http://%s.s3.amazonaws.com/%s/%s.jpg" % (
-    #                 settings.S3_BUCKET, size, self.image_key,)
-    #         else:
-    #             url = "http://%s.s3.amazonaws.com/%s.jpg" % (
-    #                 settings.S3_BUCKET, self.image_key,)
-    #     else:
-    #         p = os.path.join(settings.MEDIA_URL, 'uploads')
-    #         p = os.path.join(p, size)
-    #         url = os.path.join(p, self.image.file.name) + '.jpg'
-    #     return url
+    image_text = models.TextField(blank=True)
 
     class Meta:
         ordering = ['image_type']
+
+    def ocr(self):
+        if not self.image:
+            return ""
+
+        from PIL import ImageFilter
+
+        image_path = self.image.path
+        tmp_image_path = "/tmp/leaflet_image-%s.jpg" % self.legacy_image_key
+        # image_file = Image.open(image_path) # open colour image
+        # image_file = image_file.filter(ImageFilter.EDGE_ENHANCE)
+        # image_file = image_file.filter(ImageFilter.SMOOTH_MORE)
+        # image_file = image_file.filter(ImageFilter.FIND_EDGES)
+        # image_file = image_file.filter(ImageFilter.DETAIL)
+        # image_file = image_file.filter(ImageFilter.MinFilter(3))
+        # image_file = image_file.convert('L') # convert image to black and white
+        # image_file = ImageEnhance.Contrast(image_file)
+        # image_file = image_file.enhance(1.5)
+
+        # image_file.save(tmp_image_path, dpi=(300,300))
+
+        text = pytesser.image_to_string(image_path)
+        text = os.linesep.join([s for s in text.splitlines() if s])
+        self.image_text = text
+        self.save()
+        os.remove(image_path)
+        return text
 
 
 class LeafletCategory(models.Model):

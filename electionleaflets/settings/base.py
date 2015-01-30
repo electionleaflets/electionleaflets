@@ -6,6 +6,7 @@ from os.path import join, abspath, dirname
 here = lambda *x: join(abspath(dirname(__file__)), *x)
 PROJECT_ROOT = here("..")
 root = lambda *x: join(abspath(PROJECT_ROOT), *x)
+sys.path.insert(0, root('third_party'))
 sys.path.insert(0, root('apps'))
 sys.path.insert(0, '../django-uk-political-parties/')
 
@@ -100,6 +101,8 @@ INSTALLED_APPS = [
     'rest_framework',
     'storages',
     'sorl.thumbnail',
+    'celery',
+    'kombu.transport.django',
 ] + LEAFLET_APPS
 
 TEMPLATE_CONTEXT_PROCESSORS = (

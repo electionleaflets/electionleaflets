@@ -25,3 +25,6 @@ electionleaflets.db
 .Python
 readline-6.2.2-py2.7-macosx-10.7-intel.egg/
 local_settings.py
+node_modules
+.sass-cache
+gulptmp

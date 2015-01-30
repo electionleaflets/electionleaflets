@@ -1,7 +1,10 @@
-<div id="divFooter" >
+{% load staticfiles %}
+<footer>
+    <p>Election Leaflets is run by a group of volunteers. It is currently being supported by <a href="http://unlockdemocracy.org.uk">Unlock Democracy</a>, the campaign for democracy, rights and freedoms. Both Election Leaflets and Unlock Democracy are independent and not affiliated to any political party</p>
     <ul class="inline">
         <li><a href="{% url "home"  %}">Home</a></li>
         <li><a href="{% url "about"  %}">About</a></li>                
         <li><a href="{% url "about"  %}#contact">Contact</a></li>                
     </ul>
-</div>
+    <a href="http://unlockdemocracy.org.uk/"><img src="{% static "images/ud11.png" %}" height="80px"></a>
+</footer>

@@ -19,6 +19,7 @@ class LeafletImageInline(AdminImageMixin, admin.TabularInline):
 class LeafletOptions(admin.ModelAdmin):
     list_display = ['id', 'title', 'publisher_party', 'postcode',
                     'name', 'email', 'get_description', 'status']
+    list_filter = ['status', ]
     search_fields = ['title', 'postcode']
     ordering = ['title']
     inlines = [LeafletCategoryInline, LeafletImageInline]
@@ -31,7 +32,8 @@ class LeafletOptions(admin.ModelAdmin):
 
 
 class LeafletImageOptions(AdminImageMixin, admin.ModelAdmin):
-    list_display = ['id', 'get_leaflet_title', 'thumbnail']
+    list_display = ['id', 'get_leaflet_title', 'thumbnail', 'image_text']
+    ordering = ['-id', ]
     raw_id_fields = ['leaflet']
 
     def get_leaflet_title(self, obj):

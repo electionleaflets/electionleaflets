@@ -29,3 +29,5 @@ node_modules
 .sass-cache
 gulptmp
 electionleaflets/settings/local.py
+electionleaflets/static
+

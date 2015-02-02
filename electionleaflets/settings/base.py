@@ -94,6 +94,10 @@ INSTALLED_APPS = [
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.sites',
+<<<<<<< HEAD
+=======
+    'django.contrib.admin',
+>>>>>>> f6c10e122766f2096d13b9de5c64f95beb16cf82
     'django.contrib.staticfiles',
     'pagination',
     'lettuce.django',

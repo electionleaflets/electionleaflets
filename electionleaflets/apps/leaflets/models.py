@@ -179,8 +179,10 @@ class Leaflet(models.Model):
     def get_title(self):
         if self.title and len(self.title):
             return self.title
-        else:
+        elif self.publisher_party:
             return '%s leaflet' % self.party.name
+        else:
+            "Untitled leaflet"
 
 
 class LeafletImage(models.Model):

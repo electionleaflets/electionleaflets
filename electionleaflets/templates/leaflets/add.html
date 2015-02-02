@@ -1,11 +1,20 @@
 {% extends "base.html" %}
 
 {% block title %}Add a new leaflet{% endblock %}
-{% block body_class %}class="leaflet_app"{% endblock %}
+{# Disabled until ember is active #}
+{# {% block body_class %}class="leaflet_app"{% endblock %} #}
 
 {% block body %}
 
-
-<div id="LeafletUploader"></div>
+{# <div id="LeafletUploader"></div> #}
+<form>
+    <div class="file_input_button">
+        Upload <i>leaflet</i> front
+        <div class="file_input_preview">
+            <i class="fa fa-file-text-o"></i>
+        </div>
+        <input type="file" accept="image/*;capture=camera">
+    </div>
+</form>
 
 {% endblock %}

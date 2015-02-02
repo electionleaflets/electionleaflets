@@ -1,6 +1,8 @@
 @import "vars";
-//@import "normalize/index.scss";
+@import "normalize/index.scss";
 @import "typeplate/scss/typeplate";
+@import "typeplate/scss/typeplate";
+@import "Font-Awesome/scss/font-awesome";
 @import "fonts";
 
 body {
@@ -13,7 +15,7 @@ body {
 }
 
 
-header {
+body > header {
     background-image:url('../images/clouds.png');
     margin:0 auto;
     text-align:right;
@@ -118,24 +120,53 @@ body.leaflet_app {
     overflow:hidden;
 }
 
-#LeafletUploader {
-    position:absolute;
-    background-color:#FFF;
-    top:50px;
-    bottom:0;
-    left:0;
-    right:0;
-    padding:0.5em;
-    
-    footer {
-        position:absolute;
-        bottom:0;
-        left:0;
-        right:0;
-        background-color:#353B38;
-        padding:0.5em;
-        button {
-            
+//#LeafletUploader {
+//    position:absolute;
+//    background-color:#FFF;
+//    top:50px;
+//    bottom:0;
+//    left:0;
+//    right:0;
+//    padding:0.5em;
+//
+//    footer {
+//        position:absolute;
+//        bottom:0;
+//        left:0;
+//        right:0;
+//        background-color:#353B38;
+//        padding:0.5em;
+//        button {
+//
+//        }
+//    }
+//}
+
+.file_input_button {
+    position: relative;
+    overflow: hidden;
+    text-align:center;
+    text-decoration:underline;
+
+    input[type=file] {
+        position: absolute;
+        top: 0;
+        right: 0;
+        min-width: 100%;
+        min-height: 100%;
+        font-size: 100px;
+        text-align: right;
+        filter: alpha(opacity=0);
+        opacity: 0;
+        outline: none;
+        background: white;
+        cursor: inherit;
+        display: block;
+    }
+    .file_input_preview {
+        font-size:4em;
+        img {
+            width:100%;
         }
     }
 }

@@ -20,26 +20,28 @@
   // images
   paths.images.push(paths.src + 'images/**/*');
   
-  paths.fonts.push(paths.src + 'fonts/*.{eot,svg,ttf,woff}');
-  paths.fonts.push(paths.tmp + 'fonts/*.{eot,svg,ttf,woff}');
+  paths.fonts.push(paths.src + 'fonts/*.{otf,eot,svg,ttf,woff,woff2}');
+  paths.fonts.push(paths.tmp + 'fonts/*.{otf,eot,svg,ttf,woff,woff2}');
+  paths.fonts.push(paths.src + 'vendor/**/*.{otf,eot,svg,ttf,woff,woff2}');
+  paths.fonts.push(paths.tmp + 'vendor/**/*.{otf,eot,svg,ttf,woff,woff2}');
   
   // scripts
   paths.scripts = {
     vendor: [
       paths.src + 'vendor/jquery/jquery.js',
-      paths.src + 'vendor/handlebars/handlebars.js',
-      paths.src + 'vendor/ember/ember.js',
-      paths.src + 'vendor/ember-data/ember-data.js',
+      // paths.src + 'vendor/handlebars/handlebars.js',
+      // paths.src + 'vendor/ember/ember.js',
+      // paths.src + 'vendor/ember-data/ember-data.js',
     ],
     app: [
         paths.src + 'javascript/app/app.js',
-        paths.src + 'javascript/app/routes.js',
-        paths.src + 'javascript/app/helpers/**/*.js',
-        paths.src + 'javascript/app/models/*.js',
-        paths.src + 'javascript/app/components/**/*.js',
-        paths.src + 'javascript/app/controllers/**/*.js',
-        paths.src + 'javascript/app/views/**/*.js',
-        paths.tmp + 'javascript/templates.js',
+        // paths.src + 'javascript/app/routes.js',
+        // paths.src + 'javascript/app/helpers/**/*.js',
+        // paths.src + 'javascript/app/models/*.js',
+        // paths.src + 'javascript/app/components/**/*.js',
+        // paths.src + 'javascript/app/controllers/**/*.js',
+        // paths.src + 'javascript/app/views/**/*.js',
+        // paths.tmp + 'javascript/templates.js',
     ]
   };
   
@@ -123,7 +125,6 @@
   //     .pipe(gulp.dest(paths.tmp + 'javascript/'));
   // });
   gulp.task('templates', function () {
-    console.log('MAKING TEMPLATES');
     gulp.src(paths.src + 'javascript/app/templates/**/*.hbs')
       .pipe(templateCompiler())
       .pipe(concat('templates.js'))
@@ -137,7 +138,6 @@
   });
   
   gulp.task('scripts', ['source_maps', 'templates'], function() {
-    console.log('MAKING SCRIPTS');
     var all_scripts = paths.scripts.vendor.concat(paths.scripts.app);
     console.log(all_scripts);
     

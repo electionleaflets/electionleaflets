@@ -6,6 +6,7 @@
     "normalize": "https://raw.githubusercontent.com/kristerkari/normalize.scss/master/_normalize.scss",
     "handlebars": "~2.0.0",
     "ember": "1.9.1",
-    "ember-data": "1.0.0-beta.12"
+    "ember-data": "1.0.0-beta.12",
+    "Font-Awesome": "v4.3.0"
   }
 }

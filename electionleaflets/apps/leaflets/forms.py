@@ -1,6 +1,8 @@
 from django import forms
 from leaflets.models import UploadSession
 
+from localflavor.gb.forms import GBPostcodeField
+
 from parties.models import Party
 from categories.models import Category
 from leaflets.models import Leaflet
@@ -43,7 +45,21 @@ class LeafletInfoForm(forms.ModelForm):
         exclude = ('date_uploaded', 'date_delivered','constituencies',)
 
 
+class ImageForm(forms.Form):
+    image = forms.ImageField(widget=forms.FileInput(
+        attrs={'accept': "image/*;capture=camera"}))
 
+class FrontPageImageForm(ImageForm):
+    pass
+
+class BackPageImageForm(ImageForm):
+    pass
+
+class InsidePageImageForm(ImageForm):
+    pass
+
+class PostcodeForm(forms.Form):
+    postcode = GBPostcodeField()
 
 
 

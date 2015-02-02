@@ -89,24 +89,20 @@ LEAFLET_APPS = [
 ]
 
 INSTALLED_APPS = [
+    'celery',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.sites',
-<<<<<<< HEAD
-=======
-    'django.contrib.admin',
->>>>>>> f6c10e122766f2096d13b9de5c64f95beb16cf82
     'django.contrib.staticfiles',
-    'pagination',
-    'lettuce.django',
-    'uk_political_parties',
-    'rest_framework',
-    'storages',
-    'sorl.thumbnail',
-    'celery',
     'kombu.transport.django',
+    'lettuce.django',
+    'pagination',
+    'rest_framework',
+    'sorl.thumbnail',
+    'storages',
+    'uk_political_parties',
 ] + LEAFLET_APPS
 
 TEMPLATE_CONTEXT_PROCESSORS = (

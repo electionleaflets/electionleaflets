@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block title %}Add a new leaflet{% endblock %}
+{# Disabled until ember is active #}
+{# {% block body_class %}class="leaflet_app"{% endblock %} #}
+
+{% block body %}
+
+<section class="upload_form">
+    <header>
+        <form action="" method="post" enctype="multipart/form-data"></form>
+    </header>
+    <form action="" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ wizard.management_form }}
+        {% block form %}
+        {% endblock form %}
+        <input type="submit" value="submit"/>
+    </form>
+</section>
+{% endblock %}

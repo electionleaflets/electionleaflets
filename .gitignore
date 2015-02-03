@@ -30,4 +30,4 @@ node_modules
 gulptmp
 electionleaflets/settings/local.py
 electionleaflets/static
-
+electionleaflets/media/images/leaflets_tmp/

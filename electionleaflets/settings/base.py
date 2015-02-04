@@ -16,7 +16,7 @@ template_DEBUG = DEBUG
 # DATABASES define in environment specific settings file
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'ENGINE': 'django.contrib.gis.db.backends.postgis',
         'NAME': 'electionleaflets',
         'USER': 'electionleaflets',
     }
@@ -92,6 +92,7 @@ INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
+    'django.contrib.gis',
     'django.contrib.sessions',
     'django.contrib.sites',
     'django.contrib.staticfiles',

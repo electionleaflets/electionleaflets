@@ -29,6 +29,7 @@
   paths.scripts = {
     vendor: [
       paths.src + 'vendor/jquery/jquery.js',
+      paths.src + 'vendor/masonry/index.js',
       // paths.src + 'vendor/handlebars/handlebars.js',
       // paths.src + 'vendor/ember/ember.js',
       // paths.src + 'vendor/ember-data/ember-data.js',

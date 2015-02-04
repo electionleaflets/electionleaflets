@@ -1,56 +1,70 @@
 {% extends "base.html" %}
-{% load pagination_tags category_tags party_tags %}
+{% load pagination_tags %}
+{% load category_tags %}
+{% load party_tags %}
+{% load thumbnail %}
+
 
 {% block title %}Latest leaflets{% endblock %}
 
 {% block body %}
 
-<div id="divContent">
-<div class="contentfull">
 <h1>Latest leaflets</h1>
-	<p class="page_count">
-		{% autopaginate qs 12 %}	
-		<strong>{{ total }}</strong> leaflets found, page <strong>{{ currentPage }}</strong> of <strong>{{ totalPages }}</strong>
-	</p>
-</div>
 
-<div id="divResults"  class="contentcolleft">    
-<ul class="results">
-	{% for leaflet in qs %}
-		<li>
-			<a class="leaflet" href="{% url "leaflet" leaflet.id %}">
-				<img src="{{ leaflet.get_first_image.get_thumb }}">
-            </a>
-            <a href="{% url "leaflet" leaflet.id %}">{{ leaflet.title|truncatewords:"3" }}</a>
-		</li>
-	{% endfor %}
-
-</ul>
-	{% paginate %}
-</div>
-
-            <div class="contentcolright">
-                                                <div class="infobox">
-                <a href="{% url "latest_feed"  %}">
-                    <img src="{{MEDIA_URL}}images/rss.png" alt="rss" title="Subscribe to RSS feed for 'Election leaflets tagged  Mark Walker'"/>
+<ul class="leaflet_list">
+    {% for leaflet in leaflet_list %}
+        <li>
+            <figure>
+                <a href="{% url "leaflet"  leaflet.id %}">
+                    {% thumbnail leaflet.get_first_image.image "150" as im %}
+                    <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}">
+                    {% endthumbnail %}
                 </a>
-                                    <a href="{% url "latest_feed"  %}">Subscribe to an RSS feed of the latest leaflets</a>
-                            </div>
-        
-                                    <div class="infobox">  
-                <h3>Parties</h3>
+                <figcaption>
+                    <a href="{% url "leaflet" leaflet.id %}">{{ leaflet.title }}</a>
+                </figcaption>
+            </figure>
+            
 
-                <ul class="parties">
-			{% party_list_by_count %}
-				</ul>
-            </div>
+            
+        </li>
+    {% endfor %}
+</ul>
 
-            <div class="infobox">
-                <h3>Categories</h3>
-                <ul>
-					{% category_list %}
-                </ul>
-            </div>
-        </div>    
+{% if is_paginated %}
+<span class="page-current">
+    Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+</span>
+<nav role="menu" aria-label="Pagination">
+   <ul class="pagination">
+    {% if page_obj.has_previous %}
+        <li><a href="{% url "leaflets" %}?page={{ page_obj.previous_page_number }}">previous</a></li>
+    {% endif %}
+    {% if page_obj.has_next %}
+        <li><a href="{% url "leaflets" %}?page={{ page_obj.next_page_number }}">next</a></li>
+    {% endif %}
+   </ul>
+</nav>
+{% endif %}
+
+<a href="{% url "latest_feed"  %}">
+<i class="fa fa-rss"></i> RSS
+</a>
+
+<aside>    
+    <div class="infobox">  
+        <h3>Parties</h3>
+        <ul class="parties">
+            {% party_list_by_count %}
+        </ul>
+    </div>
+
+    <div class="infobox">
+        <h3>Categories</h3>
+        <ul>
+            {% category_list %}
+        </ul>
+    </div>
+</aside>        
 
 {% endblock %}

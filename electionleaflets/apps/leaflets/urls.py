@@ -1,6 +1,6 @@
 from django.conf.urls import patterns, url
 
-from leaflets.views import (view_full_image, latest_leaflets,
+from leaflets.views import (view_full_image, LatestLeaflets,
     view_all_full_images, LeafletView, LeafletUploadWizzard)
 
 from .forms import  (FrontPageImageForm, BackPageImageForm,
@@ -18,13 +18,13 @@ upload_form_wizzard = LeafletUploadWizzard.as_view(named_form_list,
 
 urlpatterns = patterns(
     '',
-    url(r'^/$',      latest_leaflets, name='leaflets'),
-
-    # url(r'^/add/(?P<upload_session_key>.+)/$',  add_leaflet_info, name='add_leaflet_info'),
 
     url(r'/add/(?P<step>.+)/$', upload_form_wizzard, name='upload_step'),
     url(r'/add/', upload_form_wizzard, name='upload_leaflet'),
 
+    url(r'^/$',      LatestLeaflets.as_view(), name='leaflets'),
+
+    # url(r'^/add/(?P<upload_session_key>.+)/$',  add_leaflet_info, name='add_leaflet_info'),
     # url(
     #     r'^/add/$',
     #     LeafletUploadWizzard.as_view(),

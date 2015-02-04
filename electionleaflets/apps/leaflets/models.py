@@ -164,6 +164,9 @@ class Leaflet(models.Model):
     def __unicode__(self):
         return self.title
 
+    class Meta:
+        ordering = ('date_uploaded',)
+
     def get_absolute_url(self):
         from django.contrib.sites.models import Site
         return 'http://%s/leaflets/%s/' % (Site.objects.get_current().domain,

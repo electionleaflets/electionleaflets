@@ -60,11 +60,12 @@ class LeafletView(DetailView):
 
 
 class LeafletUploadWizzard(NamedUrlSessionWizardView):
-    TEMPLATES = {"front": "leaflets/upload_form/image_form.html",
-                 "postcode": "leaflets/upload_form/postcode.html",
-                 "cc": "checkout/creditcard.html",
-                 "confirmation": "checkout/confirmation.html"}
-
+    TEMPLATES = {
+        "front": "leaflets/upload_form/image_form.html",
+        "postcode": "leaflets/upload_form/postcode.html",
+        "cc": "checkout/creditcard.html",
+        "confirmation": "checkout/confirmation.html",
+    }
 
     # template_name = "leaflets/upload_form/image_form.html"
     file_storage = FileSystemStorage(location=os.path.join(

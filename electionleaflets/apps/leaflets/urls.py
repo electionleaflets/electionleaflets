@@ -1,6 +1,6 @@
 from django.conf.urls import patterns, url
 
-from leaflets.views import (view_full_image, LatestLeaflets,
+from leaflets.views import (ImageView, LatestLeaflets,
     view_all_full_images, LeafletView, LeafletUploadWizzard)
 
 from .forms import  (FrontPageImageForm, BackPageImageForm,
@@ -22,6 +22,10 @@ urlpatterns = patterns(
     url(r'/add/(?P<step>.+)/$', upload_form_wizzard, name='upload_step'),
     url(r'/add/', upload_form_wizzard, name='upload_leaflet'),
 
+    url(r'^/full/(?P<image_key>.+)/$',  ImageView.as_view(), name='full_image'),
+    url(r'^/full/(?P<leafletid>\d+)/$',  ImageView.as_view(), name='full_images'),
+
+    url(r'^/(?P<pk>\d+)/$', LeafletView.as_view(), name='leaflet'),
     url(r'^/$',      LatestLeaflets.as_view(), name='leaflets'),
 
     # url(r'^/add/(?P<upload_session_key>.+)/$',  add_leaflet_info, name='add_leaflet_info'),
@@ -32,9 +36,5 @@ urlpatterns = patterns(
 
     # url(r'^/rotate/(?P<direction>(left|right))/(?P<image_key>.+)/$',  rotate_image, name='rotate_image'),
 
-    url(r'^/full/(?P<leafletid>\d+)/$',  view_all_full_images, name='full_images'),
-    url(r'^/full/(?P<image_key>.+)/$',  view_full_image, name='full_image'),
-
-    url(r'^/(?P<pk>\d+)/$', LeafletView.as_view(), name='leaflet'),
 )
 

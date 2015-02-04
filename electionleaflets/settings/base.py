@@ -103,6 +103,7 @@ INSTALLED_APPS = [
     'sorl.thumbnail',
     'storages',
     'uk_political_parties',
+    'markdown_deux',
 ] + LEAFLET_APPS
 
 TEMPLATE_CONTEXT_PROCESSORS = (

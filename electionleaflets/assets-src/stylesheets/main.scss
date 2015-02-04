@@ -4,6 +4,7 @@
 @import "typeplate/scss/typeplate";
 @import "Font-Awesome/scss/font-awesome";
 @import "fonts";
+@import "leaflet_css";
 
 body {
     font-family: 'ptsans';
@@ -22,7 +23,7 @@ body > header {
     
     padding-top:0.5em;
     height:60px;
-    @media screen and (min-width: 30em) {
+    @media screen and (min-width: $mobile-break) {
         text-align:center;
         height:100%;
     }
@@ -31,7 +32,7 @@ body > header {
         position:relative;
         left:-270px;
         top:-50px;
-        @media screen and (min-width: 30em) {
+        @media screen and (min-width: $mobile-break) {
             float: none;
             position: inherit;
             max-width:95%;
@@ -47,7 +48,7 @@ body > header {
         margin:0;
         padding:0;
         font-size:130%;
-        @media screen and (min-width: 30em) {
+        @media screen and (min-width: $mobile-break) {
             float: none;
             position:relative;
             top:-0.6em;
@@ -56,7 +57,7 @@ body > header {
     }
     h2 {
         display:none;
-        @media screen and (min-width: 30em) {
+        @media screen and (min-width: $mobile-break) {
             display:block;
         }
     }
@@ -67,10 +68,9 @@ nav {
     position:relative;
     top:-33px;
     background-color:#353B38;
-    @media screen and (min-width: 30em) {
+    @media screen and (min-width: $mobile-break) {
         position:inherit;
         top:0;
-        
       }
 }
 
@@ -167,6 +167,87 @@ body.leaflet_app {
         font-size:4em;
         img {
             width:100%;
+        }
+    }
+}
+
+
+ul.leaflet_list {
+    padding:0;
+    margin:0;
+    clear:both;
+    overflow:auto;
+    li {
+        margin-bottom:1em;
+        figure {
+            margin:0;
+            padding:0;
+            border:1px solid #EEE;
+            figcaption {
+                font-size:0.8em;
+                text-align:center;
+                padding:0.2em;
+            }
+        }
+        width:150px;
+//        float:left;
+        list-style-type:none;
+    }
+}
+
+#leaflet_map {
+    width: 100%;
+    height: 300px;
+}
+
+.leaflet_location_icon {
+    background-color:black;
+    border-radius: 50%;
+    height:2px;
+    width:2px;
+}
+
+.leaflet_page {
+    main {
+        &:after {
+            content:"";
+            display:block;
+            clear:both;
+        };
+        article {
+            @media screen and (min-width: $mobile-break) {
+                max-width:600px;
+                float:left;
+              }
+            
+            text-align:justify;
+            figure {
+                img {
+                    width:100%;
+                }
+            }
+        }
+    
+        aside {
+            @media screen and (min-width: $mobile-break+9) {
+                float:right;
+                width:28%;
+              }
+            
+            > section {
+                background-color:#fdf2d5;
+                border-radius:2px;
+                padding:1em;
+                margin:1.5em 0;
+                &.party {
+                    background-color:#FFF;
+                    text-align:center;
+                    img {
+                        max-width:95%;
+                    }
+                }
+            }
+            
         }
     }
 }

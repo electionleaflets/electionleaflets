@@ -40,6 +40,6 @@
         {# //     } catch(err) {} #}
         {# // </script> #}
         <script src="{% static "javascript/electionleaflets.main.min.js" %}"></script>
-        
+        {% block extra_scripts %}{% endblock %}
     </body>
 </html>

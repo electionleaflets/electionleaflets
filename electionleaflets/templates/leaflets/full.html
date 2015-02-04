@@ -1,13 +1,12 @@
 {% extends "base.html" %}
 
 {% block body %}
-<div id="divContent">
-    <div id="divFullImage" class="contentfull">
-        <a href="{% url "leaflet" leaflet.id %}">&larr; back to details of <em>{{ leaflet.title }}</em></a>
-        <ul>
-            <li id="{{ image }}"><img src="{{ image.image.url }}" /></li>   
-        </ul>
-        <a href="{% url "leaflet" leaflet.id %}">&larr; back to details of <em>{{ leaflet.title }}</em></a>
-    </div>
-</div>
+    <a href="{% url "leaflet" object.leaflet.pk %}">&larr; back to details of <em>{{ object.leaflet.get_title }}</em></a>
+    <figure>
+        <img src="{{ object.image.url }}" />
+        <figcaption>
+            {{ object.leaflet.get_title }}
+        </figcaption>
+    </figure>
+    {# <a href="{% url "leaflet" leaflet.id %}">&larr; back to details of <em>{{ leaflet.title }}</em></a> #}
 {% endblock %}

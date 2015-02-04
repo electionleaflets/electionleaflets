@@ -7,8 +7,9 @@ django-compressor==1.2
 django-extensions==1.4.8
 django-localflavor==1.1
 django-pagination==1.0.7
+django-markdown-deux==1.0.5
 django-registration==0.8
-django-storages==1.1.8
+git+https://github.com/jschneier/django-storages.git
 django-tagging==0.3.1
 djangorestframework==3.0.3
 extras==0.0.3
@@ -27,3 +28,4 @@ requests==2.5.1
 six==1.8.0
 sorl-thumbnail==12.2
 sure==1.2.9
+boto

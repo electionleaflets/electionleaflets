@@ -36,7 +36,8 @@ STATICFILES_DIRS = (
     root('media'),
 )
 
-S3_ENABLED = True
+DEFAULT_FILE_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
+# STATICFILES_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
 
 STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.FileSystemFinder',

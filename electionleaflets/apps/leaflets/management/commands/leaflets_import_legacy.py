@@ -99,10 +99,8 @@ class Command(BaseCommand):
                             constituency=con
                             ))
 
-                    # for legacy_image in legacy_leaflet.images.all():
-                    #     new_image, created = LeafletImage.objects.update_or_create(
-                    #     leaflet=new_leaflet,
-                    #     legacy_image_key=legacy_image.image_key,
-                    #     defaults=self.clean_legacy_leaflet_image(legacy_image))
-                    #
-                    #
+                    for legacy_image in legacy_leaflet.images.all():
+                        new_image, created = LeafletImage.objects.update_or_create(
+                        leaflet=new_leaflet,
+                        legacy_image_key=legacy_image.image_key,
+                        defaults=self.clean_legacy_leaflet_image(legacy_image))

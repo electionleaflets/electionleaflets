@@ -1,5 +1,4 @@
 import sys
-import os
 from os.path import join, abspath, dirname
 
 # PATH vars

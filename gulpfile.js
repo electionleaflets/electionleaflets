@@ -134,12 +134,12 @@
   });
 
 
-  gulp.task('source_maps', function() {
-    gulp.src([paths.src + '/**/*.js.map'])
-      .pipe(gulp.dest(paths.dest + 'javascript/'));
-  });
+  // gulp.task('source_maps', function() {
+  //   gulp.src([paths.src + '/**/*.js.map'])
+  //     .pipe(gulp.dest(paths.dest + 'javascript/'));
+  // });
   
-  gulp.task('scripts', ['source_maps', 'templates'], function() {
+  gulp.task('scripts', ['templates',], function() {
     var all_scripts = paths.scripts.vendor.concat(paths.scripts.app);
     console.log(all_scripts);
     
